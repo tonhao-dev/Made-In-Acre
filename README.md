@@ -5,14 +5,14 @@
 3. Crie um arquivo chamado stdin, sem extensão
 4. Agora, para executar o seu programa siga os seguintes passos:
 
-#### C++
+##### C++
 
     $ cd 1242
     $ g++ -std=c++17 -O2 -lm -o ./main ./main.cpp
     $ ./main < stdin > stdout
     
     
-### Python
+##### Python
 
     $ cd 1242
     $ python3 < stdin > stdout
