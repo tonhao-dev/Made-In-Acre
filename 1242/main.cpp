@@ -5,34 +5,36 @@
 #include <iostream>
 
 using namespace std;
+
+bool fazLigacao(char baseASerDobrada, char baseAtual)
+{
+  if (baseASerDobrada == 'C')
+    return baseAtual == 'F';
+  if (baseASerDobrada == 'F')
+    return baseAtual == 'C';
+
+  if (baseASerDobrada == 'B')
+    return baseAtual == 'S';
+  if (baseASerDobrada == 'S')
+    return baseAtual == 'B';
+}
+
 int main()
 {
   string fita;
 
   while (cin >> fita)
   {
-    string resp;
 
     int cont = 0;
     stack<char> pilha;
 
-    for (int i = 0; i < fita.size(); i++)
-    {
-      if (fita[i] == 'S')
-        resp += 'B';
-      else if (fita[i] == 'B')
-        resp += 'S';
-      else if (fita[i] == 'C')
-        resp += 'F';
-      else if (fita[i] == 'F')
-        resp += 'C';
-    }
     // cout << resp << endl;
     for (int i = 0; i < fita.size(); i++)
     { // puts("entrou F");
       // A duvida esta nessa verificação
       // pilha.top() != resp[i]
-      if (pilha.empty() || pilha.top() != resp[i])
+      if (pilha.empty() || !fazLigacao(pilha.top(), fita[i]))
       {
         pilha.push(fita[i]);
       } // puts("colocou");}
@@ -44,11 +46,12 @@ int main()
 
           if (pilha.empty())
           {
+            // Aqui eu decremento o i para que quando o for incrementar siga o fluxo normalmente
+            // Se eu não decrementar ele acaba pulando dois, porque no elseif ele já deu i++
             i--; // puts("saiu");
             break;
           }
-
-          else if (resp[i] == pilha.top())
+          else if (fazLigacao(pilha.top(), fita[i]))
           {
             cont++; // puts("tirou");
             pilha.pop();
@@ -56,14 +59,14 @@ int main()
             // puts("AQUI!!");
           }
 
-          else
+          if (!pilha.empty() && !fazLigacao(pilha.top(), fita[i]))
           {
 
             i--; // puts("saiu");
             break;
           }
 
-          if (i >= resp.size())
+          if (i >= fita.size())
           {
             i--; // puts("saiu I");
             break;
