@@ -44,7 +44,7 @@ int main() {
     }
 
     long long int cartas_elegiveis_alice=0, cartas_elegiveis_bia=0;
-    for(long long int i=0;i<maior_carta; ++i) {
+    for(long long int i=0;i<=maior_carta; ++i) {
       if(cartas_alice[i] == true && cartas_beatriz[i] == false) {
         debug("cartas_alice[i]", cartas_alice[i]);
         debug("cartas_beatriz", cartas_beatriz[i]);
