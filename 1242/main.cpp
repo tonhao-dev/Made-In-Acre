@@ -38,7 +38,6 @@ int main()
       {
         pilha.push(fita[i]);
       } // puts("colocou");}
-
       else
       {
         while (true)
@@ -59,6 +58,10 @@ int main()
             // puts("AQUI!!");
           }
 
+          // F B B S C C
+          // Esse caso da 1 ligacao
+          // B e S se ligam, mas como B e C nao, F e C da ponta
+          // Nao conseguem se ligar
           if (!pilha.empty() && !fazLigacao(pilha.top(), fita[i]))
           {
 
