@@ -1,3 +1,9 @@
+## Repositório
+
+Esse repositório tem por objetivo armazenar os problemas utilizados na fase de preparação da equipe Last Dance, a qual representará o IFAC na maratona de programação da SBC no ano de 2022.
+
+<hr>
+
 ### Como executar o código
 
 1. Crie uma pasta com o numero do problema
@@ -10,18 +16,18 @@
     $ cd 1242
     $ g++ -std=c++17 -O2 -lm -o ./main ./main.cpp
     $ ./main < stdin > stdout
-    
-    
+
+
 ##### Python
 
     $ cd 1242
     $ python3 < stdin > stdout
-    
+
 
 ### Pós-Accepted
 
 Agora, você deve commitar as suas alterações e subir para o repositório
-    
+
     git add .
     git commit -m "sua mensagem"
     git push
