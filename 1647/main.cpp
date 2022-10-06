@@ -1,3 +1,5 @@
+// https://www.beecrowd.com.br/judge/pt/problems/view/1467
+// ad-hoc
 #include <iostream>
 #include <vector>
 

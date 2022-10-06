@@ -1,3 +1,6 @@
+// https://www.beecrowd.com.br/judge/pt/problems/view/1683
+// pesquisa linear usando pilha
+
 #include <iostream>
 #include <vector>
 #include <algorithm>

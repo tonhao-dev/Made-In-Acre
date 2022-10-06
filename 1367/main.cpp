@@ -1,3 +1,6 @@
+// https://www.beecrowd.com.br/judge/pt/problems/view/1367
+// string / estruturas
+
 #include <iostream>
 #include <vector>
 #include <string>

@@ -1,3 +1,6 @@
+// https://www.beecrowd.com.br/judge/pt/search?q=1486&for=problems
+// matriz
+
 #include <iostream>
 #define debug(message, x) 
 
