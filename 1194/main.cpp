@@ -1,3 +1,7 @@
+// https://www.beecrowd.com.br/judge/pt/problems/view/1194
+// Arvores binárias, percursos em arvore, pre ordem, em ordem, pos ordem
+// Noções intuitivas de arvore
+
 #include <iostream>
 #include <vector>
 #include <string>

@@ -1,3 +1,6 @@
+// https://www.beecrowd.com.br/judge/pt/problems/view/1258
+// Ordenação de objetos, leitura de string, char e numero
+
 #include <iostream>
 #include <vector>
 #include <map>
@@ -19,37 +22,36 @@ public:
 bool compara(Pessoa pessoaA, Pessoa pessoaB)
 {
     if (pessoaA.cor == "branco" && pessoaB.cor == "vermelho")
-        return -1;
+        return true;
     if (pessoaA.cor == "vermelho" && pessoaB.cor == "branco")
-        return 1;
+        return false;
 
     if (pessoaA.tamanho == "P" && (pessoaB.tamanho == "M" || pessoaB.tamanho == "G"))
-        return -1;
+        return true;
     if (pessoaB.tamanho == "P" && (pessoaA.tamanho == "M" || pessoaA.tamanho == "G"))
-        return 1;
+        return false;
     if (pessoaA.tamanho == "M" && pessoaB.tamanho == "G")
-        return -1;
+        return true;
     if (pessoaA.tamanho == "G" && pessoaB.tamanho == "M")
-        return 1;
+        return false;
 
-    if (pessoaA.nome < pessoaB.nome)
-        return -1;
-    if (pessoaA.nome > pessoaB.nome)
-        return 1;
-
-    return 0;
+    return pessoaA.nome < pessoaB.nome;
 }
 
 int main(int argc, char **argv)
 {
     int casos;
+    int num_caso = 1;
 
     while (cin >> casos)
     {
-        cout << casos << endl;
         if (casos == 0)
             break;
 
+        if (num_caso != 1)
+            cout << endl;
+
+        num_caso++;
         vector<Pessoa> pessoas(casos);
         for (int i = 0; i < casos; i++)
         {
@@ -70,8 +72,6 @@ int main(int argc, char **argv)
         {
             cout << pessoa.cor << " " << pessoa.tamanho << " " << pessoa.nome << endl;
         }
-
-        cout << endl;
     }
 
     return 0;

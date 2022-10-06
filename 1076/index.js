@@ -1,3 +1,6 @@
+// https://www.beecrowd.com.br/judge/pt/problems/view/1076
+// Grafo, caminho sobre todos os nos, quantidade de movimentos
+
 var input = require('fs').readFileSync('stdin', 'utf8');
 var lines = input.split('\n');
 
