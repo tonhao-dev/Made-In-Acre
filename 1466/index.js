@@ -1,3 +1,6 @@
+// https://www.beecrowd.com.br/judge/pt/problems/view/1466
+// Arvore binaria de busca
+
 class Node {
   constructor(data) {
     this.data = data;

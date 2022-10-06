@@ -1,4 +1,5 @@
-// g++ -std=c++17 -O2 -lm -o ./main ./main.cpp
+// https://www.beecrowd.com.br/judge/pt/problems/view/1152
+// Grafos, Kruskal, Arvore geradora minima
 #include <iostream>
 #include <vector>
 #include <utility>
