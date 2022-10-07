@@ -1,5 +1,6 @@
 // Implementação do algoritmo de Dijkstra
 // Teste: http://br.spoj.com/problems/ENGARRAF/
+// Grafos, menor caminho, algoritmo do A*
 
 #include <iostream>
 #include <list>
