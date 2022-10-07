@@ -1,5 +1,6 @@
 // https://www.beecrowd.com.br/judge/pt/questions/view/1487/9929
 // Problema da mochila, permite repetição de itens, PD
+// Na linha 180 uma função com o problema da mochila classico
 #include <iostream>
 #include <vector>
 
