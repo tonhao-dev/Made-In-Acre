@@ -25,7 +25,7 @@ lld min_quantidade_moedas(lld valores[], lld qtd_itens, lld troco)
 
     // Aqui acontece uma otimização, é verificado
     // se é possível completar o valor que falta para o troco
-    // apenas com a moeda atual
+    // apenas com a moeda de maior valor
     if (troco % valores[qtd_itens - 1] == 0)
         return troco / valores[qtd_itens - 1];
 
