@@ -7,15 +7,10 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-
-
-  int casos, comandoEntrada, valorEntrada, contador = 0, maior = -1;
+  int casos, comandoEntrada, valorEntrada, maior = -1;
   string resultado;
 
-  while(cin >> casos){
-    if(casos == 2){
-      cout << "impossible" << endl;
-    }
+  while(cin >> casos) {
     vector<int> comando(casos), valor(casos);
     for(int i=0; i<casos; i++){
       cin >> comandoEntrada >> valorEntrada;
@@ -26,49 +21,39 @@ int main(int argc, char **argv)
       valor[i] = valorEntrada;
     }
 
-    for(int i=0; i<casos; i++){
-      if(comando[i] == 2){
-        if(valor[i] == valor[i-1]){
+    if(casos == 2){
+      cout << "impossible" << endl;
+      continue;
+    }
+
+    for(int i=0; i<casos; i++) {
+      int contador = 0;
+      if(comando[i] == 2) {
+        cout << " maior = " << maior;
+        if(valor[i] == valor[i-1]) {
           contador++;
           resultado = "stack";
         }
-        if(valor[i] == valor[0]){
+        if(valor[i] == valor[0]) {
           contador++;
           resultado = "queue";
         }
-        if(valor[i] == maior){
+        if(valor[i] == maior) {
           contador++;
           resultado = "priority queue";
         }
-        if(contador > 1){
+        if(contador > 1) {
           resultado = "not sure";
-        } else if(contador == 0){
+        } else if(contador == 0) {
           resultado = "impossible";
         }
-        continue;
+        break;
       }
     }
 
+    comando.clear();
+    valor.clear();
     cout << resultado << endl;
   }
-
   return 0;
 }
-
-// stack
-// o indice que sai é o ultimo que entrou
-
-// queue
-
-// o indice que sai e o primeiro que entrou
-
-// priority queue
-
-// o indice que sai é o maior de todos
-
-// impossible
-
-// nenhuma condicao
-
-// not sure
-// atendeu a mais de uma condicao
