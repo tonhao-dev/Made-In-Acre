@@ -16,19 +16,13 @@ int main(int argc, char **argv)
     for (auto caracter : expressao)
     {
         if (caracter == '(')
-        {
             pilha.push(caracter);
-        }
 
         if (isalpha(caracter))
-        {
             fila.push(caracter);
-        }
 
         if (caracter == '+' || caracter == '-' || caracter == '/' || caracter == '*')
-        {
             pilha.push(caracter);
-        }
 
         if (caracter == ')')
         {
@@ -38,7 +32,12 @@ int main(int argc, char **argv)
                 fila.pop();
             }
 
-            cout << pilha.top();
+            while (pilha.top() != '(')
+            {
+                cout << pilha.top();
+                pilha.pop();
+            }
+
             pilha.pop();
         }
     }
