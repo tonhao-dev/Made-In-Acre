@@ -31,3 +31,25 @@ Agora, você deve commitar as suas alterações e subir para o repositório
     git add .
     git commit -m "sua mensagem"
     git push
+
+<hr>
+
+
+### Visual Studio Code
+
+Link para o formatter do c++, caso queira editar as configurações de code-format style do seu editor
+[Clang-Format Style Options](https://clang.llvm.org/docs/ClangFormatStyleOptions.html)
+
+Exemplo
+```cpp
+if (condition == true)
+{
+  DoStuff();
+}
+```
+
+```cpp
+if (condition == true) {
+  DoStuff();
+}
+```
