@@ -1,26 +1,21 @@
-// https://www.beecrowd.com.br/judge/pt/problems/view/1258
-// Ordenação de objetos, leitura de string, char e numero
-
+#include <algorithm>
 #include <iostream>
-#include <vector>
 #include <map>
 #include <string>
-#include <algorithm>
+#include <vector>
 
 #define debug(message, x) cout << message << x << endl
 
 using namespace std;
 
-class Pessoa
-{
-public:
+class Pessoa {
+   public:
     string nome;
     string cor;
     string tamanho;
 };
 
-bool compara(Pessoa pessoaA, Pessoa pessoaB)
-{
+bool compara(Pessoa pessoaA, Pessoa pessoaB) {
     if (pessoaA.cor == "branco" && pessoaB.cor == "vermelho")
         return true;
     if (pessoaA.cor == "vermelho" && pessoaB.cor == "branco")
@@ -38,13 +33,11 @@ bool compara(Pessoa pessoaA, Pessoa pessoaB)
     return pessoaA.nome < pessoaB.nome;
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     int casos;
     int num_caso = 1;
 
-    while (cin >> casos)
-    {
+    while (cin >> casos) {
         if (casos == 0)
             break;
 
@@ -53,8 +46,7 @@ int main(int argc, char **argv)
 
         num_caso++;
         vector<Pessoa> pessoas(casos);
-        for (int i = 0; i < casos; i++)
-        {
+        for (int i = 0; i < casos; i++) {
             string nome, entrada, cor, tamanho;
 
             cin.ignore();
@@ -68,8 +60,7 @@ int main(int argc, char **argv)
 
         sort(pessoas.begin(), pessoas.end(), compara);
 
-        for (auto pessoa : pessoas)
-        {
+        for (auto pessoa : pessoas) {
             cout << pessoa.cor << " " << pessoa.tamanho << " " << pessoa.nome << endl;
         }
     }
