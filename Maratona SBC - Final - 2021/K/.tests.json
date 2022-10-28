@@ -1,0 +1,18 @@
+[
+  {
+    "input": "3\nOF\nBOB\nBEWARE",
+    "output": "Y"
+  },
+  {
+    "input": "3\nWHO\nMADE\nWHO",
+    "output": "N"
+  },
+  {
+    "input": "5\nJUST\nUSE\nWORD\nXX\nTWICE",
+    "output": "Y"
+  },
+  {
+    "input": "1\nYYYYYYYYYYY",
+    "output": "Y"
+  }
+]
