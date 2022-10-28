@@ -16,7 +16,7 @@ using namespace std;
 
 class Node {
    public:
-    set<int> neighbors;
+    vector<int> neighbors;
     char owner;
     bool visited;
 
@@ -37,8 +37,8 @@ class Graph {
     }
 
     void add_edge(int from, int to) {
-        this->children[from].neighbors.insert(to);
-        this->children[to].neighbors.insert(from);
+        this->children[from].neighbors.push_back(to);
+        this->children[to].neighbors.push_back(from);
     }
 
     void deep_first_search(int root_node, bool (*is_node_allowed)(Node), void (*mark_as_visited)(Node*)) {
