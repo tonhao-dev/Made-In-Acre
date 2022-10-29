@@ -1,3 +1,6 @@
+// 2021-2022 ACM-ICPC Latin American Regional Programming Contest
+// https://codeforces.com/gym/103640/problem/I
+// I. Invested Money
 #include <iostream>
 #include <string>
 #include <utility>
