@@ -24,21 +24,19 @@ class Item {
     ll valor;
 };
 
-vector<ll> memo(100005, NAO_CALCULADO);
+vector<vector<ll>> memo(100, vector<ll>(100005, NAO_CALCULADO));
 
 ll valor_maximo(int item_atual, int capacidade_disponivel, vector<Item>& itens) {
     if (capacidade_disponivel < 0) return -LONG_MAX / 2;
     if (capacidade_disponivel == 0 || item_atual == itens.size()) return 0;
 
-    if (memo[capacidade_disponivel] != NAO_CALCULADO) return memo[capacidade_disponivel];
+    if (memo[item_atual][capacidade_disponivel] != NAO_CALCULADO) return memo[item_atual][capacidade_disponivel];
 
-    memo[capacidade_disponivel] = max(
-        // Caso a capacidade se torne negativa o retorno será -LONG_MAX, dessa forma assumimos que o valor
-        // retornado é tão pequeno que será desconsiderado pelo MAX()
-        itens[item_atual].valor + valor_maximo(item_atual + 1, capacidade_disponivel - itens[item_atual].peso, itens),
-        valor_maximo(item_atual + 1, capacidade_disponivel, itens));
-
-    return memo[capacidade_disponivel];
+    return memo[item_atual][capacidade_disponivel] = max(
+               // Caso a capacidade se torne negativa o retorno será -LONG_MAX, dessa forma assumimos que o valor
+               // retornado é tão pequeno que será desconsiderado pelo MAX()
+               itens[item_atual].valor + valor_maximo(item_atual + 1, capacidade_disponivel - itens[item_atual].peso, itens),
+               valor_maximo(item_atual + 1, capacidade_disponivel, itens));
 }
 
 int main() {
