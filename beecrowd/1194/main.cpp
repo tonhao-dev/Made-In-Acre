@@ -87,6 +87,42 @@ public:
 
     void pre_ordem(No *no_corrente)
     {
+        if (no_corrente == null)
+        {
+            return;
+        }
+
+        cout << no_corrente->valor;
+        pre_ordem(no_corrente->esquerda);
+        pre_ordem(no_corrente->direita);
+    }
+
+    void em_ordem(No *no_corrente)
+    {
+        if (no_corrente == null)
+        {
+            return;
+        }
+
+        pre_ordem(no_corrente->esquerda);
+        cout << no_corrente->valor;
+        pre_ordem(no_corrente->direita);
+    }
+
+    void pos_ordem(No *no_corrente)
+    {
+        if (no_corrente == null)
+        {
+            return;
+        }
+
+        pre_ordem(no_corrente->esquerda);
+        pre_ordem(no_corrente->direita);
+        cout << no_corrente->valor;
+    }
+
+    void pre_ordem(No *no_corrente)
+    {
         if (no_corrente->visitado == false)
         {
             no_corrente->visitado = true;
