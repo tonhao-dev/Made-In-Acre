@@ -2,11 +2,11 @@
 // Teste: http://br.spoj.com/problems/ENGARRAF/
 // Grafos, menor caminho, algoritmo do A*
 
+#include <algorithm>
 #include <iostream>
+#include <iterator>
 #include <list>
 #include <queue>
-#include <algorithm>
-#include <iterator>
 
 #define INFINITO 10000000
 #define debug(message, x) cout << message << ": " << x << endl
@@ -17,21 +17,18 @@
 
 using namespace std;
 
-class Grafo
-{
-private:
-    int V; // número de vértices
+class Grafo {
+   private:
+    int V;  // número de vértices
 
     // ponteiro para um array contendo as listas de adjacências
     list<pair<int, int>> *adj;
-    vector<vector<bool>> memo;
 
-public:
+   public:
     // construtor
-    Grafo(int V)
-    {
-        this->V = V;                                                  // atribui o número de vértices
-        this->memo = vector<vector<bool>>(V, vector<bool>(V, false)); //
+    Grafo(int V) {
+        this->V = V;  // atribui o número de vértices
+
         /*
             cria as listas onde cada lista é uma lista de pairs
             onde cada pair é formado pelo vértice destino e o custo
@@ -40,22 +37,13 @@ public:
     }
 
     // adiciona uma aresta ao grafo de v1 à v2
-    void addAresta(int v1, int v2, int custo)
-    {
+    void addAresta(int v1, int v2, int custo) {
         adj[v1].push_back(make_pair(v2, custo));
-        memo[v1][v2] = true;
+        adj[v2].push_back(make_pair(v1, custo));
     }
 
     // algoritmo de Dijkstra
-    int dijkstra(int orig, int dest)
-    {
-        debug("destino", dest);
-        for(int i = 0; i <adj.size(); i++){
-            debug("i", i);
-            for(auto j : adj[i]){
-                debug("adj", j.first);
-            }
-        }
+    int dijkstra(int orig, int dest) {
         // vetor de distâncias
         int dist[V];
 
@@ -71,27 +59,24 @@ public:
             pq;
 
         // inicia o vetor de distâncias e visitados
-        for (int i = 0; i < V; i++)
-        {
+        for (int i = 0; i < V; i++) {
             dist[i] = INFINITO;
             visitados[i] = false;
         }
 
         // a distância de orig para orig é 0
         dist[orig] = 0;
-        // debug("dist[orig]", dist[orig]);
 
         // insere na fila
         pq.push(make_pair(dist[orig], orig));
 
         // loop do algoritmo
-        while (!pq.empty())
-        {
-            pair<int, int> p = pq.top(); // extrai o pair do topo
-            int verticeAtual = p.second;            // obtém o vértice do pair
+        while (!pq.empty()) {
+            pair<int, int> p = pq.top();  // extrai o pair do topo
+            int verticeAtual = p.second;  // obtém o vértice do pair
 
-            pq.pop(); // remove da fila
-    
+            pq.pop();  // remove da fila
+
             if (visitados[verticeAtual] == true)
                 continue;
 
@@ -99,24 +84,18 @@ public:
             visitados[verticeAtual] = true;
 
             // percorre os vértices "verticeAdjacente" adjacentes de "verticeAtual"
-            for (auto it : adj[verticeAtual])
-            {
+            for (auto it : adj[verticeAtual]) {
                 // obtém o vértice adjacente e o custo da aresta
                 int verticeAdjacente = it.first;
                 int custo_aresta = it.second;
+
                 // se eu faco parte da rota eu so posso expandir para o proximo vertice
                 // que faz parte da rota
-                debug("vertice atual  <=", verticeAtual);
-                debug("destino", dest);
-                debug("vertice adjacente ", verticeAdjacente);
-
-                if(verticeAtual <= dest && verticeAdjacente != verticeAtual + 1)
+                if (verticeAtual <= dest && verticeAdjacente != verticeAtual + 1)
                     continue;
+
                 // relaxamento (verticeAtual, verticeAdjacente)
-                if (dist[verticeAdjacente] > (dist[verticeAtual] + custo_aresta))
-                {
-                    debug("vertice atual", verticeAtual);
-                    debug("vertice adjacente expandido", verticeAdjacente);
+                if (dist[verticeAdjacente] > (dist[verticeAtual] + custo_aresta)) {
                     // atualiza a distância de "verticeAdjacente" e insere na fila
                     dist[verticeAdjacente] = dist[verticeAtual] + custo_aresta;
                     pq.push(make_pair(dist[verticeAdjacente], verticeAdjacente));
@@ -129,20 +108,16 @@ public:
     }
 };
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     int num_cidades, num_arestas, num_rota, num_conserto;
-    
-    while (cin >> num_cidades >> num_arestas >> num_rota >> num_conserto)
-    {
+
+    while (cin >> num_cidades >> num_arestas >> num_rota >> num_conserto) {
         if (num_cidades == 0 && num_arestas == 0)
             return 0;
 
         Grafo grafo(num_cidades);
 
-        for (int i = 0; i < num_arestas; i++)
-        {
-
+        for (int i = 0; i < num_arestas; i++) {
             int origem, destino, pedagio;
             cin >> origem >> destino >> pedagio;
 
