@@ -23,31 +23,31 @@ typedef struct List
   Pair *data;
 } List;
 
-typedef struct Grafo
+typedef struct g
 {
   int V;
-  List *adj;
-} Grafo;
+  List *adjacente;
+} g;
 
-void grafo_add_aresta(Grafo *grafo, int v1, int v2, int custo)
+void addAresta(g *g, int v1, int v2, int custo)
 {
-  List *l1 = &grafo->adj[v1];
+  List *l1 = &g->adjacente[v1];
   l1->data = (Pair *)realloc(l1->data, ++l1->size * sizeof(Pair));
   l1->data[l1->size - 1] = (Pair){v2, custo};
 
-  List *l2 = &grafo->adj[v2];
+  List *l2 = &g->adjacente[v2];
   l2->data = (Pair *)realloc(l2->data, ++l2->size * sizeof(Pair));
   l2->data[l2->size - 1] = (Pair){v1, custo};
 }
 
-int grafo_dijkstra(Grafo *grafo, int orig, int dest)
+int dijkstra(g *g, int orig, int dest)
 {
-  int dist[grafo->V];
-  int visitados[grafo->V];
-  Pair *pq = (Pair *)malloc(grafo->V * sizeof(Pair));
+  int dist[g->V];
+  int visitados[g->V];
+  Pair *pq = (Pair *)malloc(g->V * sizeof(Pair));
   int pq_size = 0;
 
-  for (int i = 0; i < grafo->V; i++)
+  for (int i = 0; i < g->V; i++)
   {
     dist[i] = INFINITO;
     visitados[i] = 0;
@@ -66,19 +66,19 @@ int grafo_dijkstra(Grafo *grafo, int orig, int dest)
       continue;
     visitados[verticeAtual] = 1;
 
-    for (int i = 0; i < grafo->adj[verticeAtual].size; i++)
+    for (int i = 0; i < g->adjacente[verticeAtual].size; i++)
     {
-      Pair it = grafo->adj[verticeAtual].data[i];
-      int verticeAdjacente = it.first;
+      Pair it = g->adjacente[verticeAtual].data[i];
+      int verticeAdjacenteacente = it.first;
       int custo_aresta = it.second;
 
-      if (verticeAtual <= dest && verticeAdjacente != verticeAtual + 1)
+      if (verticeAtual <= dest && verticeAdjacenteacente != verticeAtual + 1)
         continue;
 
-      if (dist[verticeAdjacente] > dist[verticeAtual] + custo_aresta)
+      if (dist[verticeAdjacenteacente] > dist[verticeAtual] + custo_aresta)
       {
-        dist[verticeAdjacente] = dist[verticeAtual] + custo_aresta;
-        pq[pq_size++] = (Pair){dist[verticeAdjacente], verticeAdjacente};
+        dist[verticeAdjacenteacente] = dist[verticeAtual] + custo_aresta;
+        pq[pq_size++] = (Pair){dist[verticeAdjacenteacente], verticeAdjacenteacente};
       }
     }
   }
@@ -87,27 +87,27 @@ int grafo_dijkstra(Grafo *grafo, int orig, int dest)
 
 int main()
 {
-  int num_cidades, num_arestas, num_rota, num_conserto;
+  int N, M, C, K, aux = 1;
 
-  while (1)
+  while (aux = 1)
   {
-    scanf("%d %d %d %d", &num_cidades, &num_arestas, &num_rota, &num_conserto);
-    if (num_cidades == 0 && num_arestas == 0 && num_rota == 0)
+    scanf("%d %d %d %d", &N, &M, &C, &K);
+    if (N == 0 && M == 0)
       break;
 
-    Grafo grafo;
-    grafo.V = num_cidades;
-    grafo.adj = (List *)calloc(num_cidades, sizeof(List));
+    g g;
+    g.V = N;
+    g.adjacente = (List *)calloc(N, sizeof(List));
 
-    for (int i = 0; i < num_arestas; i++)
+    for (int i = 0; i < M; i++)
     {
       int origem, destino, pedagio;
       scanf("%d %d %d", &origem, &destino, &pedagio);
 
-      grafo_add_aresta(&grafo, origem, destino, pedagio);
+      addAresta(&g, origem, destino, pedagio);
     }
 
-    printf("%d\n", grafo_dijkstra(&grafo, num_conserto, num_rota - 1));
+    printf("%d\n", dijkstra(&g, K, C - 1));
   }
 
   return 0;

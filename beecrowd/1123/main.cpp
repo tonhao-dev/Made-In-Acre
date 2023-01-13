@@ -96,6 +96,7 @@ class Grafo {
 
                 // relaxamento (verticeAtual, verticeAdjacente)
                 if (dist[verticeAdjacente] > (dist[verticeAtual] + custo_aresta)) {
+                    debug("verticeAdjacente", dist[verticeAdjacente]);
                     // atualiza a distância de "verticeAdjacente" e insere na fila
                     dist[verticeAdjacente] = dist[verticeAtual] + custo_aresta;
                     pq.push(make_pair(dist[verticeAdjacente], verticeAdjacente));
