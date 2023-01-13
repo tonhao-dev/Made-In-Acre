@@ -16,7 +16,7 @@ Esse repositório tem por objetivo armazenar os problemas utilizados na fase de 
     $ cd 1242
     $ g++ -std=c++17 -O2 -lm -o ./main ./main.cpp
     $ (linux/mac) ./main < stdin > stdout
-    $ (windows) type stdin | ./main
+    $ (windows) type stdin | ./main > stdout
 
 
 ##### Python
