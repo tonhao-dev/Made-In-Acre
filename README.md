@@ -60,3 +60,9 @@ _Uma estilização rápida para que as chaves não quebrem a linha é a seguinte
 Settings (JSON)
 "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 2, ColumnLimit: 0}"
 ```
+
+<hr>
+
+## Repositórios de problemas
+- [cses](https://cses.fi/problemset/)
+- [atcoder](https://atcoder.jp/)
