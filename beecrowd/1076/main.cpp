@@ -24,6 +24,7 @@ int main(int argc, char **argv) {
         int resposta = 0;
         for (auto linha : desenho)
             for (auto valor : linha)
+                // Como em cpp bool é igual a 1, eu posso fazer isso
                 resposta += valor;
 
         cout << resposta << endl;
