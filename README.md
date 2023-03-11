@@ -58,5 +58,11 @@ if (condition == true) {
 _Uma estilização rápida para que as chaves não quebrem a linha é a seguinte_
 ```json
 Settings (JSON)
-"C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}"
+"C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 2, ColumnLimit: 0}"
 ```
+
+<hr>
+
+## Repositórios de problemas
+- [cses](https://cses.fi/problemset/)
+- [atcoder](https://atcoder.jp/)
