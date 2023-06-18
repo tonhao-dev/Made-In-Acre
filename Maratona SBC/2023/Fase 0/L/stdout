@@ -1,0 +1,15 @@
+x: 2
+y: 3
+r: 3
+min(x + r + 1, n + 1): 6
+max(x - r, 1LL): 1
+min(y + r + 1, m + 1): 7
+max(y - r, 1LL): 1
+x: 7
+y: 8
+r: 2
+min(x + r + 1, n + 1): 10
+max(x - r, 1LL): 5
+min(y + r + 1, m + 1): 11
+max(y - r, 1LL): 6
+0
