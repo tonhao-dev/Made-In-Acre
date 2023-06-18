@@ -23,7 +23,8 @@ Esse repositório tem por objetivo armazenar os problemas utilizados na fase de 
 ##### Python
 
     $ cd 1242
-    $ python3 < stdin > stdout
+    $ (linux/mac) python3 main.py < stdin > stdout
+    $ (windows) type stdin | py main.py > stdout
 
 
 ### Pós-Accepted
