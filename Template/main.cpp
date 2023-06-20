@@ -6,13 +6,22 @@ using namespace std;
     for (auto x : vector) \
         cout << x << " "; \
     cout << endl
-#define rep(i, a, b) for (int i = a; i < (b); ++i)
+#define cm(map)                             \
+    for (auto e : map)                      \
+        cout << e.first << " " << e.second; \
+    cout << endl
+#define rep(i, a, b) for (ll i = a; i < (b); ++i)
 #define all(x) begin(x), end(x)
-#define sz(x) (int)(x).size()
+#define sz(x) (ll)(x).size()
+#define pb push_back
+#define pf push_front
+#define endl "\n"
+#define f first
+#define s second
 
 typedef long long ll;
-typedef pair<int, int> pii;
-typedef vector<int> vi;
+typedef pair<ll, ll> pll;
+typedef vector<ll> vll;
 
 int main(int argc, char **argv) {
     cin.tie(0)->sync_with_stdio(0);
