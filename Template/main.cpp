@@ -1,4 +1,12 @@
+/**
+ * [Nome da questão]
+ * beecrowd | [Número]
+ * [Link]
+ * [Assuntos]
+ */
+
 #include <bits/stdc++.h>
+
 using namespace std;
 
 #define db(message, x) cout << message << ": " << x << endl
@@ -11,6 +19,8 @@ using namespace std;
         cout << e.first << " " << e.second; \
     cout << endl
 #define rep(i, a, b) for (ll i = a; i < (b); ++i)
+#define rep(i, n) rep(i, 0, n)
+#define Rep(i, a, b) for (ll i = a; i >= (b); i--)
 #define all(x) begin(x), end(x)
 #define sz(x) (ll)(x).size()
 #define pb push_back
