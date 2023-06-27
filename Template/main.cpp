@@ -9,7 +9,7 @@
 
 using namespace std;
 
-#define db(message, x) cout << message << ": " << x << endl
+#define db(x) cout << #x << ": " << x << endl
 #define cv(vector)        \
     for (auto x : vector) \
         cout << x << " "; \
