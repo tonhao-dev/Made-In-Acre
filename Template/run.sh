@@ -9,5 +9,6 @@ for stdin in $STDINS; do
         printf "Test Case $TEST_NUMBER are correct.\n"
     else
         printf "Test Case $TEST_NUMBER are **INCORRECT**.\n"
+        echo "$PROGRAM_OUTPUT" | tee "out$TEST_NUMBER"
     fi
 done
