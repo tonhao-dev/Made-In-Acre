@@ -9,7 +9,7 @@
 
 using namespace std;
 
-#define db(message, x) cout << message << ": " << x << endl
+#define db(x) cout << #x << ": " << x << endl
 #define cv(vector)        \
     for (auto x : vector) \
         cout << x << " "; \
@@ -18,8 +18,9 @@ using namespace std;
     for (auto e : map)                      \
         cout << e.first << " " << e.second; \
     cout << endl
-#define rep(i, a, b) for (ll i = a; i < (b); ++i)
-#define rep(i, n) rep(i, 0, n)
+#define FOR(i, a, b) for (ll i = a; i < (b); ++i)
+#define foreach(a, b) for (auto &(a) : (b))
+#define rep(i, n) FOR(i, 0, n)
 #define Rep(i, a, b) for (ll i = a; i >= (b); i--)
 #define all(x) begin(x), end(x)
 #define sz(x) (ll)(x).size()
