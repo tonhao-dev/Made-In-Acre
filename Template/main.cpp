@@ -9,6 +9,7 @@
 
 using namespace std;
 
+#define SPEED cin.tie(0)->sync_with_stdio(0);
 #define db(x) cout << #x << ": " << x << endl
 #define cv(vector)        \
     for (auto x : vector) \
@@ -35,7 +36,7 @@ typedef pair<ll, ll> pll;
 typedef vector<ll> vll;
 
 int main(int argc, char **argv) {
-    cin.tie(0)->sync_with_stdio(0);
+    SPEED;
 
     return 0;
 }
