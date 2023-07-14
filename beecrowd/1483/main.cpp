@@ -1,6 +1,6 @@
 /**
- * [Link]
- * [Assuntos]
+ * https://www.beecrowd.com.br/judge/pt/problems/view/1483
+ * Ad hoc
  */
 
 #include <bits/stdc++.h>
