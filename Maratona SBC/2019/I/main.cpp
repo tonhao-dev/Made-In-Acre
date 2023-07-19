@@ -18,7 +18,7 @@ using namespace std;
 class Node {
    public:
     vector<lld> lista_emails;
-    vector<lld> vizinhos;
+    vector<lld> filhos;
 };
 
 class Graph {
@@ -32,7 +32,7 @@ class Graph {
     }
 
     void add_edge(lld from, lld to) {
-        this->children[from].vizinhos.push_back(to);
+        this->children[from].filhos.push_back(to);
     }
 
     void add_email(lld node_index, lld email) {
@@ -42,7 +42,7 @@ class Graph {
     void deep_first_search(lld root_node, bool (*is_node_allowed)(Node), void (*mark_as_visited)(Node *)) {
         mark_as_visited(&this->children[root_node]);
 
-        for (auto next_node_index : this->children[root_node].vizinhos) {
+        for (auto next_node_index : this->children[root_node].filhos) {
             if (!is_node_allowed(this->children[next_node_index])) continue;
             deep_first_search(next_node_index, is_node_allowed, mark_as_visited);
         }
