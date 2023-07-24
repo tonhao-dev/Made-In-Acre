@@ -29,6 +29,7 @@ using namespace std;
 #define endl "\n"
 #define f first
 #define s second
+#define MOD 1e9+7
 
 typedef long long ll;
 typedef pair<ll, ll> pll;
