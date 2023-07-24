@@ -1,6 +1,6 @@
 /**
- * [Link]
- * [Assuntos]
+ * https://www.beecrowd.com.br/judge/pt/problems/view/1245
+ * Ad hoc, map
  */
 
 #include <bits/stdc++.h>
@@ -38,6 +38,27 @@ typedef vector<ll> vll;
 
 int main(int argc, char **argv) {
     SPEED;
+    ll num_botas;
+    while(cin >> num_botas) {
+        unordered_map<ll, pll> pares;
+
+        rep(i, num_botas) {
+            ll numero; char lado;
+
+            cin >> numero >> lado;
+
+            if(lado == 'E') pares[numero].f++;
+            else pares[numero].s++;
+        }
+
+
+        ll resp = 0;
+        foreach(par, pares) {
+            resp += min(par.s.f, par.s.s);
+        }
+
+        log(resp);
+    }
 
     return 0;
 }
