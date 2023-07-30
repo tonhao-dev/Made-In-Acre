@@ -68,3 +68,6 @@ Settings (JSON)
 ## Repositórios de problemas
 - [cses](https://cses.fi/problemset/)
 - [atcoder](https://atcoder.jp/)
+- [UNESP LPC](https://github.com/pedropaiola/unesp-progcomp)
+- [beecrowd](https://www.beecrowd.com.br/judge/pt)
+- [codeforces](https://codeforces.com/)
