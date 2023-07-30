@@ -1,15 +1,15 @@
 /**
- * [Nome da questão]
- * beecrowd | [Número]
- * [Link]
- * [Assuntos]
+ * https://codeforces.com/gym/103960/problem/F
+ * Map, string, max
  */
 
 #include <bits/stdc++.h>
 
 using namespace std;
 
+#define SPEED cin.tie(0)->sync_with_stdio(0);
 #define db(x) cout << #x << ": " << x << endl
+#define db_pair(x) cout << #x << ": " << x.f << ", " << x.s << endl
 #define cv(vector)        \
     for (auto x : vector) \
         cout << x << " "; \
@@ -34,36 +34,34 @@ typedef long long ll;
 typedef pair<ll, ll> pll;
 typedef vector<ll> vll;
 
-vector<char> alfabeto{'a', 'b', 'c','d', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's','t','u', 'v', 'w', 'x', 'y', 'z'};
-
 int main(int argc, char **argv) {
-    cin.tie(0)->sync_with_stdio(0);
-    ll m, n;
-    string ans;
+    SPEED;
 
-    cin >> m >> n;
+    ll n, c;
+    cin >> n >> c;
+    map<string, ll> dict;
+    pair<string, ll> resp;
 
-    map<string, ll> mapa;
-    cin.ignore();
-    rep(i, m){
-        string palavra;
-        int pos;
-        getline(cin, palavra);
+    rep(i, n) {
+        string word;
+        cin >> word;
 
-        for(auto letra: alfabeto) {
-            string copia = palavra;
+        for(char letra = 'a'; letra <= 'z'; letra++) {
+            string copia = word;
             replace(all(copia), '*', letra);
-            mapa[copia]++;
+            dict[copia]++;
         }
     }
 
-    int bigger = -1;
-    for(auto item : mapa) {
-        if(item.second > bigger) {
-            ans = item.first;
-            bigger = item.second;
+    ll max = -INT_MAX;
+    foreach(value, dict) {
+        if(value.s > max) {
+            resp = value;
+            max = value.s;
         }
     }
-    cout << ans << " " << bigger <<endl;
+
+    cout << resp.f << " " << resp.s << endl;
+
     return 0;
 }

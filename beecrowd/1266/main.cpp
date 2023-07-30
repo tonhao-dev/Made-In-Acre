@@ -1,8 +1,8 @@
 /**
- * [Nome da questão]
- * beecrowd | [Número]
- * [Link]
- * [Assuntos]
+ * Tornado
+ * beecrowd | 1266
+ * https://www.beecrowd.com.br/judge/pt/problems/view/1266
+ * Ad hoc
  */
 
 #include <bits/stdc++.h>
@@ -42,22 +42,38 @@ int main(int argc, char **argv) {
     while (cin >> N) {
         if (N == 0) break;
 
-        vll postes(N + 1);
-        ll resp = 0, postes_quebrados = 0;
+        vll postes(N);
+        ll index_primeiro_poste = -1;
 
         rep(i, N) {
             cin >> postes[i];
+            if (postes[i] == 1) index_primeiro_poste = i;
         }
 
-        rep(i, N - 2) {
-            if (postes[i] == 0)
-                postes_quebrados++;
-            else
-                postes_quebrados = 0;
-            if (postes_quebrados < 2) continue;
+        if (index_primeiro_poste == -1) {
+            cout << ceil(N / 2.0) << endl;
+            continue;
+        }
 
-            postes_quebrados = 0;
-            resp++;
+        ll num_passos = N, i = index_primeiro_poste, quebrados = 0;
+        ll resp = 0;
+        while (num_passos > 0) {
+            if (postes[i] == 0) {
+                quebrados++;
+            } else {
+                quebrados = 0;
+            }
+
+            if (quebrados == 2) {
+                postes[i] = 1;
+                resp++;
+                quebrados = 0;
+            }
+
+            i++;
+            num_passos--;
+
+            if (i == sz(postes)) i = 0;
         }
 
         cout << resp << endl;

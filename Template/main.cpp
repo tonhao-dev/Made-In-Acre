@@ -1,6 +1,4 @@
 /**
- * [Nome da questão]
- * beecrowd | [Número]
  * [Link]
  * [Assuntos]
  */
@@ -9,7 +7,9 @@
 
 using namespace std;
 
+#define SPEED cin.tie(0)->sync_with_stdio(0);
 #define db(x) cout << #x << ": " << x << endl
+#define db_pair(x) cout << #x << ": " << x.f << ", " << x.s << endl
 #define cv(vector)        \
     for (auto x : vector) \
         cout << x << " "; \
@@ -29,13 +29,15 @@ using namespace std;
 #define endl "\n"
 #define f first
 #define s second
+#define MOD 1e9+7
+#define log(x) cout << x << endl
 
 typedef long long ll;
 typedef pair<ll, ll> pll;
 typedef vector<ll> vll;
 
 int main(int argc, char **argv) {
-    cin.tie(0)->sync_with_stdio(0);
+    SPEED;
 
     return 0;
 }
