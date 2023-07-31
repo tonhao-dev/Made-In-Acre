@@ -50,5 +50,12 @@ void read(T& first, Args&... args) {
 int main(int argc, char** argv) {
     SPEED;
 
+    ll test_cases;
+    read(test_cases);
+
+    rep(test_case, test_cases) {
+        
+    }
+
     return 0;
 }
