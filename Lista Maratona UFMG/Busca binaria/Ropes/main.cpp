@@ -60,16 +60,16 @@ ll pieces(vll& ropes, ld try_length) {
     return count_pieces;
 }
 
-ld binary_search(vll& ropes, ll k_pieces, double max_n) {
-    ld l = 1, r = max_n;
-    ld m, resp;
+double binary_search(vll& ropes, ll k_pieces, double max_n) {
+    double l = 0, r = max_n;
+    double m, resp;
 
     /**
      * Faça um loop ate 100 para nao ter que pensar muito sobre o erro absoluto
      * ou relativo
      */
     rep(i, 100) {
-        m = (ld)(l + (ld)r) / (ld)2.0;
+        m = (l + r) / 2.0;
 
         if (k_pieces <= pieces(ropes, m)) {
             l = m;
