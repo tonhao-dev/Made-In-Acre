@@ -51,7 +51,7 @@ void read(T& first, Args&... args) {
 
 // FIM DOS MACROS
 
-ll pieces(vll& ropes, double try_length) {
+ll pieces(vll& ropes, ld try_length) {
     ll count_pieces = 0;
     foreach (rope, ropes) {
         count_pieces += (ll)rope / try_length;
@@ -60,25 +60,26 @@ ll pieces(vll& ropes, double try_length) {
     return count_pieces;
 }
 
-double binary_search(vll& ropes, ll k_pieces, double max_n) {
-    double l = 1, r = max_n;
-    double m;
+ld binary_search(vll& ropes, ll k_pieces, double max_n) {
+    ld l = 1, r = max_n;
+    ld m, resp;
 
     /**
      * Faça um loop ate 100 para nao ter que pensar muito sobre o erro absoluto
      * ou relativo
      */
     rep(i, 100) {
-        m = (l + r) / 2.0;
+        m = (ld)(l + (ld)r) / (ld)2.0;
 
         if (k_pieces <= pieces(ropes, m)) {
             l = m;
+            resp = m;
         } else {
             r = m;
         }
     }
 
-    return (l + r) / 2.0;
+    return resp;
 }
 
 int main(int argc, char** argv) {
@@ -88,6 +89,9 @@ int main(int argc, char** argv) {
 
     vll ropes(n);
     rep(i, n) read(ropes[i]);
+
+    cout << fixed;
+    cout.precision(20);
 
     log(binary_search(ropes, k, MAX_N));
 
