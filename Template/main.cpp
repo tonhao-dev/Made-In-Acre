@@ -30,7 +30,6 @@ using namespace std;
 #define f first
 #define s second
 #define MOD 1e9 + 7
-#define log(x) cout << x << endl
 
 typedef long long ll;
 typedef pair<ll, ll> pll;
@@ -54,7 +53,6 @@ int main(int argc, char** argv) {
     read(test_cases);
 
     rep(test_case, test_cases) {
-        
     }
 
     return 0;
