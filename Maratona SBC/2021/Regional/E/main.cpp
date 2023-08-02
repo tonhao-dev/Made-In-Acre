@@ -1,8 +1,8 @@
 /**
- * Escalator
- * codeforces | 103388
- * https://codeforces.com/gym/103388/problem/E
- * [Assuntos]
+ * Tornado
+ * beecrowd | 1266
+ * https://www.beecrowd.com.br/judge/pt/problems/view/1266
+ * Ad hoc
  */
 
 #include <bits/stdc++.h>
@@ -13,7 +13,9 @@ using namespace std;
 #define ESQ2DIR 0
 #define DIR2ESQ 1
 
+#define SPEED cin.tie(0)->sync_with_stdio(0);
 #define db(x) cout << #x << ": " << x << endl
+#define db_pair(x) cout << #x << ": " << x.f << ", " << x.s << endl
 #define cv(vector)        \
     for (auto x : vector) \
         cout << x << " "; \
@@ -39,56 +41,73 @@ typedef pair<ll, ll> pll;
 typedef vector<ll> vll;
 
 int main(int argc, char **argv) {
-    cin.tie(0)->sync_with_stdio(0);
-    ll N;
-    cin >> N;
+    SPEED;
 
-    ll agora, direcao_escada;
-    cin >> agora >> direcao_escada;
-    priority_queue<ll, vector<ll>, greater<ll>> esq, dir;
-
-    FOR(i, 1, N) {
-        ll tempo, direcao;
-        cin >> tempo >> direcao;
-
-        if (direcao == ESQ2DIR)
-            esq.push(tempo);
-        else
-            dir.push(tempo);
+    ll n;
+    cin >> n;
+    vector<pll> pessoas(n);
+    rep(i, n) {
+        cin >> pessoas[i].f >> pessoas[i].s;
     }
 
-    agora += 10;
-    while (esq.size() > 0 || dir.size() > 0) {
-        if (direcao_escada == ESQ2DIR) {
-            if (agora > esq.top()) {
-                agora = esq.top() + 10;
-                esq.pop();
-            } else {
-                agora = max(agora, dir.top()) + 10;
-                dir.pop();
-                direcao_escada = DIR2ESQ;
-            }
-        } else {
-            if (agora > dir.top()) {
-                agora = dir.top() + 10;
-                dir.pop();
-            } else {
-                agora = max(agora, esq.top()) + 10;
-                esq.pop();
-                direcao_escada = ESQ2DIR;
-            }
+    ll i = 0;
+    pll escada, espera = make_pair(-1, -1);
+    bool escada_vazia = true;
+    rep(tempo, 100000) {
+        if (i == sz(pessoas)) break;
+
+        if (tempo == pessoas[i].f && escada_vazia == true) {
+            db(tempo);
+            db_pair(pessoas[i]);
+            db(i);
+            escada = pessoas[i];
+            i++;
+            escada_vazia = false;
+            continue;
         }
 
-        if (esq.size() == 0 && dir.size() > 0 && direcao_escada == ESQ2DIR) {
-            agora = max(agora, dir.top()) + 10;
-            dir.pop();
-        } else if (dir.size() == 0 && esq.size() > 0 && direcao_escada == DIR2ESQ) {
-            agora = max(agora, esq.top()) + 10;
-            esq.pop();
+        if (tempo == pessoas[i].f && escada_vazia == false && escada.s == pessoas[i].s) {
+            db(tempo);
+            db_pair(pessoas[i]);
+            db(i);
+            db_pair(espera);
+            db_pair(escada);
+            escada = pessoas[i];
+            i++;
+            continue;
+        }
+
+        if (tempo == pessoas[i].f && escada_vazia == false && escada.s != pessoas[i].s) {
+            db(tempo);
+            db_pair(pessoas[i]);
+            db(i);
+            db_pair(espera);
+            db_pair(escada);
+            espera = pessoas[i];
+            i++;
+            continue;
+        }
+
+        if (tempo == escada.f + 10) {
+            db(tempo);
+            db_pair(pessoas[i]);
+            db(i);
+            db_pair(espera);
+            db_pair(escada);
+            if (espera.f != -1) {
+                escada = make_pair(tempo, espera.s);
+                espera = make_pair(-1, -1);
+            } else {
+                escada_vazia = true;
+            }
         }
     }
 
-    cout << agora << endl;
+    if (espera.f != -1) {
+        cout << escada.f + 20 << endl;
+    } else {
+        cout << escada.f + 10 << endl;
+    }
 
     return 0;
 }

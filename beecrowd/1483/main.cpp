@@ -1,15 +1,15 @@
 /**
- * [Nome da questão]
- * beecrowd | [Número]
- * [Link]
- * [Assuntos]
+ * https://www.beecrowd.com.br/judge/pt/problems/view/1483
+ * Ad hoc
  */
 
 #include <bits/stdc++.h>
 
 using namespace std;
 
+#define SPEED cin.tie(0)->sync_with_stdio(0);
 #define db(x) cout << #x << ": " << x << endl
+#define db_pair(x) cout << #x << ": " << x.f << ", " << x.s << endl
 #define cv(vector)        \
     for (auto x : vector) \
         cout << x << " "; \
