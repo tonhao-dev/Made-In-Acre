@@ -1,6 +1,6 @@
 /**
- * https://codeforces.com/edu/course/2/lesson/6/1/practice/contest/283911/problem/A
- * busca binária, binary search
+ * [Link]
+ * [Assuntos]
  */
 
 #include <bits/stdc++.h>
@@ -10,16 +10,16 @@ using namespace std;
 #define SPEED cin.tie(0)->sync_with_stdio(0);
 #define db(x) cout << #x << ": " << x << endl
 #define db_pair(x) cout << #x << ": " << x.f << ", " << x.s << endl
-#define cv(vector)        \
-    for (auto x : vector) \
-        cout << x << " "; \
+#define print_vector(vector) \
+    for (auto x : vector)    \
+        cout << x << " ";    \
     cout << endl
-#define cm(map)                             \
+#define print_map(map)                      \
     for (auto e : map)                      \
         cout << e.first << " " << e.second; \
     cout << endl
 #define FOR(i, a, b) for (ll i = a; i < (b); ++i)
-#define foreach(a, b) for (auto &(a) : (b))
+#define foreach(a, b) for (auto&(a) : (b))
 #define rep(i, n) FOR(i, 0, n)
 #define Rep(i, a, b) for (ll i = a; i >= (b); i--)
 #define all(x) begin(x), end(x)
@@ -31,51 +31,59 @@ using namespace std;
 #define s second
 #define MOD 1e9 + 7
 #define log(x) cout << x << endl
-#define in(x) cin >> x
 
 typedef long long ll;
 typedef pair<ll, ll> pll;
 typedef vector<ll> vll;
 
-string busca_binaria(vll& vector, ll search) {
-    string resp = "NO";
-
-    ll esquerda = 0, direita = vector.size();
-    ll meio;
-
-    while(esquerda < direita) {
-        meio = (esquerda + direita) / 2;
-
-        if(vector[meio] == search) {
-            resp = "YES";
-            break;
-        }
-
-        if(vector[meio] > search) {
-            direita = meio;
-            continue;
-        }
-
-        if(vector[meio] < search) {
-            esquerda = meio + 1;
-            continue;
-        }
-    }
-
-    return resp;
+template <typename T>
+void read(T& arg) {
+    std::cin >> arg;
 }
 
-int main(int argc, char **argv) {
+template <typename T, typename... Args>
+void read(T& first, Args&... args) {
+    std::cin >> first;
+    read(args...);
+}
+
+int binarySearch(vector<ll> &vector, ll n) {
+    ll esq = 0, dir = vector.size();
+
+    while(esq < dir) {
+        ll meio = (esq + dir) / 2;
+
+        if(vector[meio] > n){
+            dir = meio;
+        } else if(vector[meio] < n) {
+            esq = meio + 1;
+        } else {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
+int main(int argc, char** argv) {
     SPEED;
-    ll n, k;
-    cin >> n >> k;
-    vll values(n);
-    rep(i, n) in(values[i]);
-    rep(i, k) {
-        ll search;
-        in(search);
-        log(busca_binaria(values, search));
+
+    ll tamanho, buscas, number;
+    read(tamanho, buscas);
+
+    vector<ll> n(tamanho);
+
+    rep(i, tamanho) {
+        read(n[i]);
     }
 
+    rep(i, buscas) {
+        read(number);
+        if(binarySearch(n, number)) {
+            log("YES");
+        } else {
+            log("NO");
+        }
+    }
     return 0;
 }
