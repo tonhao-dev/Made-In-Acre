@@ -31,7 +31,6 @@ using namespace std;
 #define s second
 #define MOD 1e9 + 7
 #define log(x) cout << x << endl
-#define read(x) cin >> x
 
 typedef long long ll;
 typedef pair<ll, ll> pll;
