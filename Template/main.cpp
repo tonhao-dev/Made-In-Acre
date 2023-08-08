@@ -10,10 +10,12 @@ using namespace std;
 #define SPEED cin.tie(0)->sync_with_stdio(0);
 #define db(x) cout << #x << ": " << x << endl
 #define db_pair(x) cout << #x << ": " << x.f << ", " << x.s << endl
-#define print_vector(vector) \
-    for (auto x : vector)    \
-        cout << x << " ";    \
-    cout << endl
+#define printv(vector)                             \
+    {                                              \
+        cout << #vector << " = " << ;              \
+        for (auto& it : vector) cout << it << " "; \
+        cout << endl;                              \
+    }
 #define print_map(map)                      \
     for (auto e : map)                      \
         cout << e.first << " " << e.second; \
