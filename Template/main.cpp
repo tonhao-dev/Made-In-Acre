@@ -12,7 +12,7 @@ using namespace std;
 #define db_pair(x) cout << #x << ": " << x.f << ", " << x.s << endl
 #define printv(vector)                             \
     {                                              \
-        cout << #vector << " = " << ;              \
+        cout << #vector << " = ";                  \
         for (auto& it : vector) cout << it << " "; \
         cout << endl;                              \
     }
