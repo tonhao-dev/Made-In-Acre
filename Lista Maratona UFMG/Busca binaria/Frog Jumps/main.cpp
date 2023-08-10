@@ -1,6 +1,6 @@
 /**
- * [Link]
- * [Assuntos]
+ * https://codeforces.com/contest/1324/problem/C
+ * Ad hoc
  */
 
 #include <bits/stdc++.h>
@@ -13,15 +13,15 @@ using namespace std;
 #define printv(vector)                             \
     {                                              \
         cout << #vector << " = ";                  \
-        for (auto& it : vector) cout << it << " "; \
+        for (auto &it : vector) cout << it << " "; \
         cout << endl;                              \
     }
-#define print_map(map)                      \
+#define cm(map)                             \
     for (auto e : map)                      \
         cout << e.first << " " << e.second; \
     cout << endl
 #define FOR(i, a, b) for (ll i = a; i < (b); ++i)
-#define foreach(a, b) for (auto&(a) : (b))
+#define foreach(a, b) for (auto &(a) : (b))
 #define rep(i, n) FOR(i, 0, n)
 #define Rep(i, a, b) for (ll i = a; i >= (b); i--)
 #define all(x) begin(x), end(x)
@@ -33,30 +33,38 @@ using namespace std;
 #define s second
 #define MOD 1e9 + 7
 #define log(x) cout << x << endl
+#define read(x) cin >> x
 
 typedef long long ll;
 typedef pair<ll, ll> pll;
 typedef vector<ll> vll;
 
-template <typename T>
-
-void read(T& arg) {
-    std::cin >> arg;
-}
-
-template <typename T, typename... Args>
-void read(T& first, Args&... args) {
-    std::cin >> first;
-    read(args...);
-}
-
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
     SPEED;
+    ll tests;
+    cin >> tests;
+    cin.ignore();
 
-    ll test_cases;
-    read(test_cases);
+    rep(test, tests) {
+        string s;
+        getline(cin, s);
 
-    rep(test_case, test_cases) {
+        vll pos_direitas;
+
+        pos_direitas.push_back(0);
+        rep(i, sz(s)) {
+            if (s[i] == 'R') {
+                pos_direitas.push_back(i + 1);
+            }
+        }
+        pos_direitas.push_back(sz(s) + 1);
+
+        ll resp = LLONG_MIN;
+        rep(i, sz(pos_direitas) - 1) {
+            resp = max(resp, abs(pos_direitas[i] - pos_direitas[i + 1]));
+        }
+
+        log(resp);
     }
 
     return 0;

@@ -10,12 +10,10 @@ using namespace std;
 #define SPEED cin.tie(0)->sync_with_stdio(0);
 #define db(x) cout << #x << ": " << x << endl
 #define db_pair(x) cout << #x << ": " << x.f << ", " << x.s << endl
-#define printv(vector)                             \
-    {                                              \
-        cout << #vector << " = ";                  \
-        for (auto& it : vector) cout << it << " "; \
-        cout << endl;                              \
-    }
+#define print_vector(vector) \
+    for (auto x : vector)    \
+        cout << x << " ";    \
+    cout << endl
 #define print_map(map)                      \
     for (auto e : map)                      \
         cout << e.first << " " << e.second; \
@@ -39,7 +37,6 @@ typedef pair<ll, ll> pll;
 typedef vector<ll> vll;
 
 template <typename T>
-
 void read(T& arg) {
     std::cin >> arg;
 }
@@ -50,14 +47,43 @@ void read(T& first, Args&... args) {
     read(args...);
 }
 
+int binarySearch(vector<ll> &vector, ll n) {
+    ll esq = 0, dir = vector.size();
+
+    while(esq < dir) {
+        ll meio = (esq + dir) / 2;
+
+        if(vector[meio] > n){
+            dir = meio;
+        } else if(vector[meio] < n) {
+            esq = meio + 1;
+        } else {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
 int main(int argc, char** argv) {
     SPEED;
 
-    ll test_cases;
-    read(test_cases);
+    ll tamanho, buscas, number;
+    read(tamanho, buscas);
 
-    rep(test_case, test_cases) {
+    vector<ll> n(tamanho);
+
+    rep(i, tamanho) {
+        read(n[i]);
     }
 
+    rep(i, buscas) {
+        read(number);
+        if(binarySearch(n, number)) {
+            log("YES");
+        } else {
+            log("NO");
+        }
+    }
     return 0;
 }

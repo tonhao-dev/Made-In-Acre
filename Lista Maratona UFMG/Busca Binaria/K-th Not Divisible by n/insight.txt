@@ -1,0 +1,4 @@
+or example, if n=3 and k=7 then all numbers that are not divisible by 3 are: 1,2,4,5,7,8,10,11,13… the 7th number is 10
+3, 6, 9, 11
+11-3 = 8
+

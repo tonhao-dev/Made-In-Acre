@@ -1,6 +1,6 @@
 /**
- * [Link]
- * [Assuntos]
+ * https://codeforces.com/edu/course/2/lesson/6/1/practice/contest/283911/problem/D
+ * busca binaria, ordenacao
  */
 
 #include <bits/stdc++.h>
@@ -12,16 +12,16 @@ using namespace std;
 #define db_pair(x) cout << #x << ": " << x.f << ", " << x.s << endl
 #define printv(vector)                             \
     {                                              \
-        cout << #vector << " = ";                  \
-        for (auto& it : vector) cout << it << " "; \
+        cout << #vector << " = " << ;              \
+        for (auto &it : vector) cout << it << " "; \
         cout << endl;                              \
     }
-#define print_map(map)                      \
+#define cm(map)                             \
     for (auto e : map)                      \
         cout << e.first << " " << e.second; \
     cout << endl
 #define FOR(i, a, b) for (ll i = a; i < (b); ++i)
-#define foreach(a, b) for (auto&(a) : (b))
+#define foreach(a, b) for (auto &(a) : (b))
 #define rep(i, n) FOR(i, 0, n)
 #define Rep(i, a, b) for (ll i = a; i >= (b); i--)
 #define all(x) begin(x), end(x)
@@ -39,25 +39,40 @@ typedef pair<ll, ll> pll;
 typedef vector<ll> vll;
 
 template <typename T>
-
-void read(T& arg) {
-    std::cin >> arg;
+void read(T &arg) {
+    cin >> arg;
 }
 
 template <typename T, typename... Args>
-void read(T& first, Args&... args) {
-    std::cin >> first;
+void read(T &first, Args &...args) {
+    cin >> first;
     read(args...);
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
     SPEED;
+    ll n;
+    read(n);
 
-    ll test_cases;
-    read(test_cases);
+    vll a(n);
+    rep(i, n) read(a[i]);
 
-    rep(test_case, test_cases) {
+    sort(all(a));
+
+    ll q;
+    read(q);
+    rep(i, q) {
+        ll l, r;
+        read(l, r);
+
+        auto it_l = lower_bound(all(a), l);
+        auto it_r = upper_bound(all(a), r);
+
+        if (it_l == a.end() && l < a[0]) it_l = a.begin();
+
+        cout << it_r - it_l << " ";
     }
+    log("");
 
     return 0;
 }
