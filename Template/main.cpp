@@ -53,6 +53,10 @@ void read(T& first, Args&... args) {
 int main(int argc, char** argv) {
     SPEED;
 
+    /**
+     * Não esqueça de adicionar o link da questão e o assunto S2
+     */
+
     ll test_cases;
     read(test_cases);
 
