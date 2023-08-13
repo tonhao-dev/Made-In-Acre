@@ -1,3 +1,4 @@
+// Busca binaria, binary search
 #include <bits/stdc++.h>
 
 #define speed                     \
@@ -34,11 +35,9 @@ typedef vector<vll> vvll;
 ull N, K;
 vector<pair<ull, ull>> pessoas(1e5 + 1);
 
-bool consegue(ull tempo)
-{
+bool consegue(ull tempo) {
     ull total_views = 0;
-    for (ull i = 0; i < N; i++)
-    {
+    for (ull i = 0; i < N; i++) {
         if (pessoas[i].f > tempo)
             continue;
         total_views++;
@@ -50,8 +49,7 @@ bool consegue(ull tempo)
     return total_views >= K;
 }
 
-int main()
-{
+int main() {
     speed;
     cin >> N >> K;
 
@@ -59,17 +57,13 @@ int main()
         cin >> pessoas[i].f >> pessoas[i].s;
 
     ull l = 0, r = 2 * 1e18, ans;
-    while (l < r)
-    {
+    while (l < r) {
         ull mid = (l + r) / 2;
 
-        if (consegue(mid))
-        {
+        if (consegue(mid)) {
             ans = mid;
             r = mid;
-        }
-        else
-        {
+        } else {
             l = mid + 1;
         }
     }
