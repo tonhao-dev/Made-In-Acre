@@ -1,3 +1,5 @@
+// https://www.beecrowd.com.br/judge/pt/problems/view/3351
+// busca binária
 #include <bits/stdc++.h>
 
 #define speed                     \
