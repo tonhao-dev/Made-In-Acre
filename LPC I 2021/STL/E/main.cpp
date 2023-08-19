@@ -1,6 +1,6 @@
 /**
- * https://vjudge.net/contest/431956#problem/C
- * Ad hoc
+ * https://vjudge.net/contest/433311#problem/E
+ * pilha, stack
  */
 
 #include <bits/stdc++.h>
@@ -29,6 +29,8 @@ using namespace std;
 #define endl "\n"
 #define f first
 #define s second
+#define MOD 1e9 + 7
+#define log(x) cout << x << endl
 
 typedef long long ll;
 typedef pair<ll, ll> pll;
@@ -36,20 +38,21 @@ typedef vector<ll> vll;
 
 int main(int argc, char **argv) {
     SPEED;
+    ll cases, numero, n;
+    cin >> cases;
+    stack<ll> pilha;
 
-    ll testes;
-    cin >> testes;
-    rep(teste, testes) {
-        ll soma, diferenca;
-        cin >> soma >> diferenca;
-
-        ll x = (soma + diferenca) / 2;
-        ll y = abs(soma - x);
-
-        if(x + y != soma || abs(x - y) != diferenca) {
-            cout << "impossible" << endl;
-        } else {
-            cout << x << " " << y << endl;
+    rep(i, cases) {
+        cin >> numero;
+        if (numero == 1) {
+            cin >> n;
+            pilha.push(n);
+        } else if (numero == 2 && pilha.size() > 0) {
+            pilha.pop();
+        } else if (numero == 3 && pilha.size() > 0) {
+            log(pilha.top());
+        } else if (numero == 3 && pilha.size() == 0) {
+            log("Empty!");
         }
     }
 

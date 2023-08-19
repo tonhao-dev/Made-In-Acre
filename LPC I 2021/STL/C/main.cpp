@@ -1,6 +1,6 @@
 /**
- * [Link]
- * [Assuntos]
+ * https://vjudge.net/contest/433311#problem/C
+ * pilha, notação polonesa, matematica, string, math
  */
 
 #include <bits/stdc++.h>
@@ -29,31 +29,63 @@ using namespace std;
 #define endl "\n"
 #define f first
 #define s second
-#define MOD 1e9+7
+#define MOD 1e9 + 7
 #define log(x) cout << x << endl
 
 typedef long long ll;
 typedef pair<ll, ll> pll;
 typedef vector<ll> vll;
 
+void mostra_fila(queue<char> &fila) {
+    while (!fila.empty()) {
+        cout << fila.front();
+        fila.pop();
+    }
+}
+
+void mostra_pilha(stack<char> &pilha) {
+    while (pilha.top() != '(') {
+        cout << pilha.top();
+        pilha.pop();
+    }
+    pilha.pop();
+}
+
 int main(int argc, char **argv) {
     SPEED;
-    ll cases, numero, n;
-    cin >> cases;
-    stack<ll> pilha;
+    ll n;
+    cin >> n;
 
-    rep(i, cases) {
-        cin >> numero;
-        if(numero == 1) {
-            cin >> n;
-            pilha.push(n);
-        } else if(numero == 2 && pilha.size() > 0) {
-            pilha.pop();
-        } else if(numero == 3 && pilha.size() > 0) {
-            log(pilha.top());
-        } else if(numero == 3 && pilha.size() == 0) {
-            log("Empty!");
+    cin.ignore();
+    rep(i, n) {
+        string exp;
+        getline(cin, exp);
+
+        stack<char> p;
+        queue<char> q;
+
+        rep(k, exp.size()) {
+            if (exp[k] == '(') {
+                p.push(exp[k]);
+                continue;
+            }
+
+            if (exp[k] == ')') {
+                mostra_fila(q);
+                mostra_pilha(p);
+
+                continue;
+            }
+
+            if (isalpha(exp[k])) {
+                q.push(exp[k]);
+                continue;
+            }
+
+            p.push(exp[k]);
         }
+
+        log("");
     }
 
     return 0;

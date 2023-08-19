@@ -1,6 +1,6 @@
 /**
- * [Link]
- * [Assuntos]
+ * https://vjudge.net/contest/433311#problem/F
+ * Ad hoc, pilha, stack
  */
 
 #include <bits/stdc++.h>
@@ -29,7 +29,7 @@ using namespace std;
 #define endl "\n"
 #define f first
 #define s second
-#define MOD 1e9+7
+#define MOD 1e9 + 7
 #define log(x) cout << x << endl
 
 typedef long long ll;
@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
     ll n;
 
     while (cin >> n) {
-        if(n == 0) break;
+        if (n == 0) break;
 
         ll number;
         ll caminhao_da_vez = 1;
@@ -51,13 +51,13 @@ int main(int argc, char **argv) {
         rep(i, n) {
             cin >> number;
 
-            if(number != caminhao_da_vez) {
-                if(pilha.empty()) {
+            if (number != caminhao_da_vez) {
+                if (pilha.empty()) {
                     pilha.push(number);
                     continue;
                 }
 
-                while(!pilha.empty() && pilha.top() == caminhao_da_vez) {
+                while (!pilha.empty() && pilha.top() == caminhao_da_vez) {
                     pilha.pop();
                     caminhao_da_vez++;
                 }
@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
                 // Faltou um else para essa condição na hora da prova
                 // Não pensamos que depois de tirar os valores da pilha
                 // podia ser que o valor lido fosse o caminhao da vez
-                if(number != caminhao_da_vez) {
+                if (number != caminhao_da_vez) {
                     pilha.push(number);
                 } else {
                     caminhao_da_vez++;
@@ -75,12 +75,12 @@ int main(int argc, char **argv) {
             }
         }
 
-         while(!pilha.empty() && pilha.top() == caminhao_da_vez) {
+        while (!pilha.empty() && pilha.top() == caminhao_da_vez) {
             pilha.pop();
             caminhao_da_vez++;
         }
 
-        if(pilha.empty()) {
+        if (pilha.empty()) {
             log("yes");
         } else {
             log("no");

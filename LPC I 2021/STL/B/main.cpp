@@ -1,6 +1,6 @@
 /**
- * [Link]
- * [Assuntos]
+ * https://vjudge.net/contest/433311#problem/B
+ * string, pilha, stack
  */
 
 #include <bits/stdc++.h>
@@ -29,7 +29,7 @@ using namespace std;
 #define endl "\n"
 #define f first
 #define s second
-#define MOD 1e9+7
+#define MOD 1e9 + 7
 #define log(x) cout << x << endl
 
 typedef long long ll;
@@ -38,13 +38,30 @@ typedef vector<ll> vll;
 
 int main(int argc, char **argv) {
     SPEED;
-    ll n; cin >> n;
-    vll numeros(n);
-    rep(i, n) cin >> numeros[i];
+    stack<char> p;
+    string texto;
+    getline(cin, texto);
+    rep(i, texto.size()) {
+        if (p.empty()) {
+            p.push(texto[i]);
+            continue;
+        } else if (p.top() == texto[i]) {
+            p.pop();
+        } else {
+            p.push(texto[i]);
+        }
+    }
 
-    sort(numeros.begin(), numeros.end());
+    string resp;
+    while (!p.empty()) {
+        resp += p.top();
+        p.pop();
+    }
 
-    log(numeros[numeros.size() % 2 == 0 ? numeros.size() / 2 - 1 : numeros.size() / 2]);
+    Rep(i, resp.size() - 1, 0) {
+        cout << resp[i];
+    }
+    log("");
 
     return 0;
 }

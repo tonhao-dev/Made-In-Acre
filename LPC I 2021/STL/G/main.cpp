@@ -1,6 +1,6 @@
 /**
- * [Link]
- * [Assuntos]
+ * https://vjudge.net/contest/433311#problem/G
+ * ad hoc, string, list
  */
 
 #include <bits/stdc++.h>
@@ -29,7 +29,7 @@ using namespace std;
 #define endl "\n"
 #define f first
 #define s second
-#define MOD 1e9+7
+#define MOD 1e9 + 7
 #define log(x) cout << x << endl
 
 typedef long long ll;
@@ -38,7 +38,8 @@ typedef vector<ll> vll;
 
 int main(int argc, char **argv) {
     SPEED;
-    ll commands; cin >> commands;
+    ll commands;
+    cin >> commands;
     list<ll> nums;
 
     cin.ignore();
@@ -47,14 +48,15 @@ int main(int argc, char **argv) {
         string command;
         cin >> command;
 
-        if(command == "toFront") {
-            ll value; cin >> value;
+        if (command == "toFront") {
+            ll value;
+            cin >> value;
             isReversed ? nums.push_back(value) : nums.push_front(value);
             continue;
         }
 
-        if(command == "front") {
-            if(nums.size() == 0) {
+        if (command == "front") {
+            if (nums.size() == 0) {
                 log("No job for Ada?");
                 continue;
             }
@@ -70,8 +72,8 @@ int main(int argc, char **argv) {
             continue;
         }
 
-        if(command == "back") {
-            if(nums.size() == 0) {
+        if (command == "back") {
+            if (nums.size() == 0) {
                 log("No job for Ada?");
                 continue;
             }
@@ -87,13 +89,14 @@ int main(int argc, char **argv) {
             continue;
         }
 
-        if(command == "reverse") {
+        if (command == "reverse") {
             isReversed = !isReversed;
             continue;
         }
 
-        if(command == "push_back") {
-            ll value; cin >> value;
+        if (command == "push_back") {
+            ll value;
+            cin >> value;
             isReversed ? nums.push_front(value) : nums.push_back(value);
             continue;
         }

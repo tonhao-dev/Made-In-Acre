@@ -1,6 +1,6 @@
 /**
- * https://vjudge.net/contest/431956#problem/A
- * Ad hoc
+ * https://vjudge.net/contest/433311#problem/A
+ * sort, vector
  */
 
 #include <bits/stdc++.h>
@@ -29,6 +29,8 @@ using namespace std;
 #define endl "\n"
 #define f first
 #define s second
+#define MOD 1e9 + 7
+#define log(x) cout << x << endl
 
 typedef long long ll;
 typedef pair<ll, ll> pll;
@@ -36,25 +38,14 @@ typedef vector<ll> vll;
 
 int main(int argc, char **argv) {
     SPEED;
+    ll n;
+    cin >> n;
+    vll numeros(n);
+    rep(i, n) cin >> numeros[i];
 
-    ll testes;
-    cin >> testes;
+    sort(numeros.begin(), numeros.end());
 
-    rep(teste, testes) {
-        map<ll, vector<string>, greater<ll>> urls;
-
-        rep(i, 10) {
-            string url; ll rank;
-            cin >> url >> rank;
-
-            urls[rank].pb(url);
-        }
-
-        cout << "Case #" << teste + 1 << ":" << endl;
-        for(auto url : urls.begin()->second) {
-            cout << url << endl;
-        }
-    }
+    log(numeros[numeros.size() % 2 == 0 ? numeros.size() / 2 - 1 : numeros.size() / 2]);
 
     return 0;
 }
