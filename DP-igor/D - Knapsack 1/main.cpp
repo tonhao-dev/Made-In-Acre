@@ -51,27 +51,34 @@ void read(T& first, Args&... args) {
 }
 
 vector<pll> wv;
-unordered_map<ll, ll> memo;
+ll N, W;
+vector<vector<ll>> memo(100000, vector<ll>(100, -1));
 
-ll maxW(ll w) {
-    if(w <= 0) return 0;
-    if(memo.count(w)) return memo[w];
+ll maxW(ll weight, ll index) {
+    db(weight);
+    db(index);
+    if(weight == 0) return 0;
+    if(weight < 0 || index == N) return LLONG_MIN;
+    if(memo[weight][index] != -1) return memo[weight][index];
 
-    for(auto item : wv) {
-        if(item.f > w) continue;
-        memo[w] = max(memo[w], item.s + maxW(w - item.f));
-    }
-
-    return memo[w];
+    ll naoPegaAtual = maxW(weight, index+1);
+    ll pegarAtual = wv[index].s + maxW(weight - wv[index].f, index + 1);
+    return memo[weight][index] = max(naoPegaAtual, pegarAtual);
 }
 
 int main(int argc, char** argv) {
     SPEED;
 
-    ll N, W;
     read(N, W);
     wv.assign(N, {0, 0});
+
+    rep(i, 100000) {
+        rep(j, 100) {
+            memo[i][j] = -1;
+        }
+    }
+
     rep(i, N) read(wv[i].f, wv[i].s);
-    log(maxW(W));
+    log(maxW(W, 0));
     return 0;
 }
