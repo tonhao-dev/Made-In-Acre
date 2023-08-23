@@ -52,16 +52,14 @@ void read(T& first, Args&... args) {
 
 vector<pll> wv;
 ll N, W;
-vector<vector<ll>> memo(100000, vector<ll>(100, -1));
+vector<vector<ll>> memo(100010, vector<ll>(110, LLONG_MIN));
 
 ll maxW(ll weight, ll index) {
-    db(weight);
-    db(index);
-    if(weight == 0) return 0;
-    if(weight < 0 || index == N) return LLONG_MIN;
-    if(memo[weight][index] != -1) return memo[weight][index];
+    if(weight < 0) return LLONG_MIN;
+    if(weight == 0 || index == N) return 0;
+    if(memo[weight][index] != LLONG_MIN) return memo[weight][index];
 
-    ll naoPegaAtual = maxW(weight, index+1);
+    ll naoPegaAtual = maxW(weight, index + 1);
     ll pegarAtual = wv[index].s + maxW(weight - wv[index].f, index + 1);
     return memo[weight][index] = max(naoPegaAtual, pegarAtual);
 }
@@ -71,12 +69,6 @@ int main(int argc, char** argv) {
 
     read(N, W);
     wv.assign(N, {0, 0});
-
-    rep(i, 100000) {
-        rep(j, 100) {
-            memo[i][j] = -1;
-        }
-    }
 
     rep(i, N) read(wv[i].f, wv[i].s);
     log(maxW(W, 0));
