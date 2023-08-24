@@ -1,4 +1,5 @@
 /**
+ * M - Monarquia em Vertigem
  * https://codeforces.com/gym/103388/problem/M
  * Grafos, DFS, Busca em profundidade
  */
