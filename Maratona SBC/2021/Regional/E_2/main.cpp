@@ -1,8 +1,6 @@
 /**
- * [Nome da questão]
- * beecrowd | [Número]
- * [Link]
- * [Assuntos]
+ * E - Escada Rolante
+ * Ad hoc
  */
 
 #include <bits/stdc++.h>
