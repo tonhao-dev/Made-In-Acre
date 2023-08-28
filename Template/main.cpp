@@ -8,7 +8,9 @@
 using namespace std;
 
 #define SPEED cin.tie(0)->sync_with_stdio(0);
-#define db(x) cout << #x << ": " << x << endl
+#define DEBUG false
+#define db(x) \
+    if (DEBUG) cout << #x << ": " << x << endl
 #define db_pair(x) cout << #x << ": " << x.f << ", " << x.s << endl
 #define printv(vector)                             \
     {                                              \
