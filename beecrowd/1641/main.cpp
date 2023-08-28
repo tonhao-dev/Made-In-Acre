@@ -1,3 +1,8 @@
+/**
+ * Restaurante e Pizzaria do Alfredo - https://www.beecrowd.com.br/judge/pt/problems/view/1641
+ * Matemática
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;
