@@ -71,3 +71,8 @@ Settings (JSON)
 - [UNESP LPC](https://github.com/pedropaiola/unesp-progcomp)
 - [beecrowd](https://www.beecrowd.com.br/judge/pt)
 - [codeforces](https://codeforces.com/)
+
+
+## Material
+1. [Merge Markdown](https://github.com/knennigtri/merge-markdown)
+2. [md-to-pdf](https://github.com/simonhaenisch/md-to-pdf)

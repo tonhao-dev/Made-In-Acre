@@ -1,3 +1,8 @@
+/**
+ * Figurinhas - https://www.beecrowd.com.br/judge/pt/problems/view/1028
+ * Matemática, MDC
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;
