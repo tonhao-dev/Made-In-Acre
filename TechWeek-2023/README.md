@@ -14,7 +14,7 @@
     -   K - Emreh, Liug E As Strings (BEE 3083)
     -   L - Traveling Salesman (BEE 3201)
     -   [M - Mega Inversões (BEE 3248)](https://github.com/tonhao-dev/Made-In-Acre/blob/main/beecrowd/3248/main.cpp)
-    -   N - Ancestralidade (BEE 3347)
+    -   [N - Ancestralidade (BEE 3347)](https://github.com/tonhao-dev/Made-In-Acre/blob/main/beecrowd/3347/main.cpp)
 
 ---
 
