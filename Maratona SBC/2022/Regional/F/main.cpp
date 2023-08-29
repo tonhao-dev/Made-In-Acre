@@ -1,6 +1,6 @@
 /**
- * https://codeforces.com/gym/103960/problem/F
- * Map, string, max
+ * F - Força Multidimensional
+ * String, STL
  */
 
 #include <bits/stdc++.h>

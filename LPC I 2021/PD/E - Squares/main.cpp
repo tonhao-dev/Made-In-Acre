@@ -1,6 +1,6 @@
 /**
- * [Link]
- * [Assuntos]
+ * https://vjudge.net/contest/438388#problem/E
+ * PD, DP, programacao, programação dinamica
  */
 
 #include <bits/stdc++.h>
@@ -50,27 +50,35 @@ void read(T& first, Args&... args) {
     read(args...);
 }
 
-ll memo[10001];
+vll memo;
 
-void dp() {
-    memo[0] = 0;
-    for(ll i = 1; i<=10000; i++) {
-        memo[i] = i;
-        for(ll j=1; j*j <= i; j++) {
-            memo[i] = min(memo[i], memo[i-j*j] + 1);
-        }
+ll count_terms(ll number) {
+    if (number == 0) return 0;
+
+    if (memo[number] != LLONG_MAX) return memo[number];
+
+    for (ll i = 1; i * i <= number; ++i) {
+        memo[number] = min(memo[number], 1 + count_terms(number - i * i));
     }
+
+    return memo[number];
 }
 
 int main(int argc, char** argv) {
     SPEED;
-    dp();
-    ll test_cases, number;
+
+    ll test_cases;
     read(test_cases);
 
+    vll numbers(test_cases);
     rep(test_case, test_cases) {
-        read(number);
-        log(memo[number]);
+        read(numbers[test_case]);
+    }
+
+    memo.resize(1e4 + 10, LLONG_MAX);
+
+    rep(i, test_cases) {
+        log(count_terms(numbers[i]));
     }
 
     return 0;

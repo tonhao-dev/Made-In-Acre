@@ -1,0 +1,1 @@
+# Estratégias para a competição
