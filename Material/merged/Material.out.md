@@ -22,6 +22,95 @@ pdf_options:
       </div>
     </section>
 ---
+# Sumário
+
+<!-- toc -->
+
+- [Estratégias para a competição](#estrategias-para-a-competicao)
+  * [Início da prova](#inicio-da-prova)
+  * [Durante a prova](#durante-a-prova)
+  * [Discussão de problemas](#discussao-de-problemas)
+  * [Testando](#testando)
+  * [Submissão](#submissao)
+  * [Wrong Answer](#wrong-answer)
+- [Limites](#limites)
+    + [Big O](#big-o)
+    + [Tipos de dados](#tipos-de-dados)
+- [STL](#stl)
+- [Funções úteis do C++](#funcoes-uteis-do-c)
+    + [GCD (Greatest common divisor):](#gcd-greatest-common-divisor)
+    + [LCM (Least Common Multiple):](#lcm-least-common-multiple)
+    + [Conversão de tipos](#conversao-de-tipos)
+    + [Produto dos i-th fatoriais](#produto-dos-i-th-fatoriais)
+    + [Josephus](#josephus)
+    + [Números Primos](#numeros-primos)
+      - [Verificar se N é primo](#verificar-se-n-e-primo)
+    + [Sieve of Eratosthenes](#sieve-of-eratosthenes)
+    + [Binomial Coefficient](#binomial-coefficient)
+    + [Conversão de bases numéricas](#conversao-de-bases-numericas)
+      - [Qualquer base -> decimal](#qualquer-base---decimal)
+      - [Decimal -> Qualquer base](#decimal---qualquer-base)
+    + [Partição de um número](#particao-de-um-numero)
+- [Força Bruta e Backtracking](#forca-bruta-e-backtracking)
+- [Busca Binária](#busca-binaria)
+  * [Funções](#funcoes)
+  * [Método da bissetriz](#metodo-da-bissetriz)
+  * [Busca binária na resposta](#busca-binaria-na-resposta)
+- [Guloso](#guloso)
+- [Strings](#strings)
+- [Matemática](#matematica)
+- [Formulas Gerais](#formulas-gerais)
+  * [Progressão Aritmética](#progressao-aritmetica)
+  * [Progressão Geométrica](#progressao-geometrica)
+  * [Número de áreas em um plano divididas por retas e suas intersecções](#numero-de-areas-em-um-plano-divididas-por-retas-e-suas-interseccoes)
+  * [Números Triangulares](#numeros-triangulares)
+  * [Múltiplos positivos de k num intervalo](#multiplos-positivos-de-k-num-intervalo)
+  * [Número par ou ímpar de divisores](#numero-par-ou-impar-de-divisores)
+  * [Número de quadrados perfeitos de A a B](#numero-de-quadrados-perfeitos-de-a-a-b)
+  * [Quadrados e retângulos em um Grid de N lados com K dimensões](#quadrados-e-retangulos-em-um-grid-de-n-lados-com-k-dimensoes)
+- [Geometria 2D](#geometria-2d)
+  * [Formulas matemáticas de figuras em 2D.](#formulas-matematicas-de-figuras-em-2d)
+- [Figuras](#figuras)
+  * [Quadrado](#quadrado)
+  * [Triângulo](#triangulo)
+  * [Círculo](#circulo)
+  * [Inscrito e circunscrito](#inscrito-e-circunscrito)
+  * [Fórmulas](#formulas)
+    + [Triângulo:](#triangulo)
+    + [Quadrado:](#quadrado)
+    + [Hexágono Regular:](#hexagono-regular)
+    + [Pentágono Regular:](#pentagono-regular)
+- [Geometria 3D](#geometria-3d)
+  * [Cubo](#cubo)
+  * [Cilindro](#cilindro)
+  * [Prisma](#prisma)
+  * [Pirâmide](#piramide)
+  * [Cone](#cone)
+  * [Paralelepípedo](#paralelepipedo)
+  * [Esfera](#esfera)
+- [Programação dinâmica](#programacao-dinamica)
+    + [Problema do Troco](#problema-do-troco)
+      - [Bottom-Up](#bottom-up)
+    + [Top-Down](#top-down)
+    + [Cortando canos](#cortando-canos)
+    + [Problema da Mochila](#problema-da-mochila)
+      - [Bottom-Up](#bottom-up-1)
+      - [Top-Down](#top-down-1)
+    + [Com tracking de itens](#com-tracking-de-itens)
+    + [Com repetição de itens](#com-repeticao-de-itens)
+    + [Com repetição e tracking dos itens](#com-repeticao-e-tracking-dos-itens)
+    + [Problema da mochila fracionado](#problema-da-mochila-fracionado)
+    + [LCS](#lcs)
+    + [Bottom-Up](#bottom-up-2)
+      - [Top-Dowm](#top-dowm)
+    + [LIS](#lis)
+
+<!-- tocstop -->
+
+<div style="page-break-after: always; visibility: hidden">
+\pagebreak
+</div>
+
 
 # Estratégias para a competição
 
@@ -1672,3 +1761,4 @@ lis(arr, n); // 5
 <div style="page-break-after: always; visibility: hidden">
 \pagebreak
 </div>
+

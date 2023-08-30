@@ -78,16 +78,19 @@ Settings (JSON)
 
 1. [Merge Markdown](https://github.com/knennigtri/merge-markdown)
 2. [md-to-pdf](https://github.com/simonhaenisch/md-to-pdf)
-3. [md-index-generator](https://github.com/darkmavis1980/markdown-index-generator)
+3. [markdown-toc](https://github.com/jonschlinkert/markdown-toc)
 
 Merge Markdown
 
+    cd Material
     merge-markdown -m .\ -o material
+
+Markdown Table Of Content
+
+    markdown-toc -i .\merged\Material.out.md
 
 Markdown to PDF
 
     md-to-pdf .\merged\Material.out.md
 
-Markdown Index Generator
 
-    md-index-generator .\merged\Material.out.md
