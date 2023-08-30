@@ -5,6 +5,7 @@ Given an integer array of coins[ ] of size N representing different types of den
 
 #### Bottom-Up
 Time complexity : O(N*sum)
+
 Auxiliary Space : O(sum)
 
 ```cpp
@@ -349,4 +350,99 @@ Item arr[] = { { 60, 10 }, { 100, 20 }, { 120, 30 } };
 int N = sizeof(arr) / sizeof(arr[0]);
 
 cout << fractionalKnapsack(W, arr, N); // 240
+```
+
+### LCS
+
+Given two strings, S1 and S2, the task is to find the length of the Longest Common Subsequence, i.e. longest subsequence present in both of the strings.
+
+A longest common subsequence (LCS) is defined as the longest subsequence which is common in all given input sequences.
+
+### Bottom-Up
+
+Time Complexity: O(m * n) which remains the same.
+
+Auxiliary Space: O(m) because the algorithm uses two arrays of size m.
+
+```cpp
+int longestCommonSubsequence(string& text1, string& text2)
+{
+    int n = text1.size();
+    int m = text2.size();
+
+    // initializing 2 vectors of size m
+    vector<int> prev(m + 1, 0), cur(m + 1, 0);
+
+    for (int idx2 = 0; idx2 < m + 1; idx2++)
+        cur[idx2] = 0;
+
+    for (int idx1 = 1; idx1 < n + 1; idx1++) {
+        for (int idx2 = 1; idx2 < m + 1; idx2++) {
+            // if matching
+            if (text1[idx1 - 1] == text2[idx2 - 1])
+                cur[idx2] = 1 + prev[idx2 - 1];
+
+            // not matching
+            else
+                cur[idx2]
+                    = 0 + max(cur[idx2 - 1], prev[idx2]);
+        }
+        prev = cur;
+    }
+
+    return cur[m];
+}
+longestCommonSubsequence(S1, S2);
+```
+
+#### Top-Dowm
+
+Time Complexity: O(m * n) where m and n are the string lengths.
+
+Auxiliary Space: O(m * n) Here the recursive stack space is ignored.
+
+```cpp
+int lcs(string& X, string& Y, int m, int n, vector<vector<int>>& dp) {
+    if (m == 0 || n == 0)
+        return 0;
+    if (X[m - 1] == Y[n - 1])
+        return dp[m][n] = 1 + lcs(X, Y, m - 1, n - 1, dp);
+
+    if (dp[m][n] != -1) {
+        return dp[m][n];
+    }
+    return dp[m][n] = max(lcs(X, Y, m, n - 1, dp),
+                          lcs(X, Y, m - 1, n, dp));
+}
+
+vector<vector<int>> dp(s1.size() + 1, vector<int>(s2.size() + 1, -1));
+ll resp = lcs(s1, s2, s1.size(), s2.size(), dp);
+```
+
+### LIS
+
+Longest Increasing Subsequence
+```cpp
+int lis(int arr[], int n)
+{
+    int lis[n];
+
+    lis[0] = 1;
+
+    // Compute optimized LIS values in
+    // bottom up manner
+    for (int i = 1; i < n; i++) {
+        lis[i] = 1;
+        for (int j = 0; j < i; j++)
+            if (arr[i] > arr[j] && lis[i] < lis[j] + 1)
+                lis[i] = lis[j] + 1;
+    }
+
+    // Return maximum value in lis[]
+    return *max_element(lis, lis + n);
+}
+
+int arr[] = { 10, 22, 9, 33, 21, 50, 41, 60 };
+int n = sizeof(arr) / sizeof(arr[0]);
+lis(arr, n); // 5
 ```
