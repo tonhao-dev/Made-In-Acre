@@ -1,0 +1,245 @@
+# Geometria 2D
+
+## Formulas matemáticas de figuras em 2D.
+
+![formulas-figuras](https://beduka.com/blog/wp-content/uploads/2021/01/formulas-da-geometria-plana-area-dos-poligos-e-fiuras-planas-triangulo-quadrado-trapezio-losango-e-circulo-retangulo.jpg)
+
+- **Retângulo**:
+
+```
+A (retângulo) = b . h
+```
+
+- **Quadrado:** 
+
+```
+A (quadrado) = l²
+```
+
+- **Trapézios:** podem ser **divididos em triângulos e retângulos**, então basta guardar essas duas fórmulas, calcular e somar. **Porém, existe uma fórmula própria** dos trapézios que envolve a **base maior (B**) e **base menor (b)**:
+
+```
+A (trapézio) = (B + b) h / 2
+```
+
+- **Losango:** também **pode ser dividido em triângulos**, então basta calcular eles e somar. **Porém, existe uma fórmula própria** para losangos com base em sua **diagonal maior (D**) e **diagonal menor (d)**:
+
+```
+ A = D . d / 2
+```
+
+- **Triângulos:** também é dada pela multiplicação de área por altura, mas o valor é dividido na metade **porque o triângulo vai “afunilando”**:
+
+```
+ A (triângulo) = b . h / 2** ou **A (t. equilátero) = √3 . l² / 4)
+```
+
+- **Circunferência**:
+
+```
+A (círculo) = π.r²
+```
+
+# Figuras
+
+## Quadrado
+
+**Área de um Quadrado (A):** A área de um quadrado pode ser calculada multiplicando o comprimento de um dos lados pelo próprio lado:
+```
+A = Lado × Lado = Lado²
+```
+
+
+**Perímetro de um Quadrado (P):** O perímetro de um quadrado é a soma dos comprimentos dos quatro lados:
+
+```
+P = 4 × Lado
+```
+
+**Comprimento da Diagonal (d):** A diagonal de um quadrado divide o quadrado em dois triângulos retângulos congruentes. O comprimento da diagonal pode ser calculado usando o teorema de Pitágoras, onde "Lado" é o comprimento dos lados do quadrado:
+
+```
+d = Lado × √2
+```
+
+**Raio da Circunferência Inscrita (r):** A circunferência inscrita é uma circunferência que toca os quatro lados do quadrado. O raio dessa circunferência pode ser calculado como metade do lado do quadrado:
+
+```
+r = Lado / 2
+```
+
+**Raio da Circunferência Circunscrita (R):** A circunferência circunscrita é uma circunferência que passa pelos quatro vértices do quadrado. O raio dessa circunferência é igual à metade da diagonal do quadrado:
+
+```
+R = (Lado × √2) / 2
+```
+
+**Área do Quadrado em Função da Diagonal (d):** A área do quadrado também pode ser expressa em termos do comprimento da diagonal:
+
+```
+A = (d²) / 2
+```
+
+## Triângulo
+
+Claro! Aqui estão as fórmulas relacionadas ao triângulo formatadas em Markdown para você copiar e colar:
+
+**Área de um Triângulo (A) usando a base e a altura:**
+```
+A = (Base × Altura) / 2
+```
+
+**Área de um Triângulo (A) usando os lados (Fórmula de Heron):**
+Onde "s" é o semiperímetro do triângulo.
+```
+Perímetro (s) = (a + b + c) / 2
+A = √(s × (s - a) × (s - b) × (s - c))
+```
+
+**Teorema de Pitágoras para Triângulos Retângulos:**
+```
+a² + b² = c²
+```
+
+**Lei dos Senos:**
+```
+a / sen(A) = b / sen(B) = c / sen(C)
+```
+
+**Lei dos Cossenos:**
+```
+c² = a² + b² - 2ab × cos(C)
+```
+
+**Altura de um Triângulo:**
+```
+Altura = (2 × Área) / Base
+```
+
+**Mediana de um Triângulo:**
+A mediana de um triângulo é o segmento que liga um vértice ao ponto médio do lado oposto. As medianas de um triângulo se encontram em um ponto chamado centroide.
+
+## Círculo
+Claro! Aqui estão algumas fórmulas relacionadas ao círculo formatadas em Markdown para você copiar e colar:
+
+**Circunferência de um Círculo (C):**
+```
+C = 2πr
+```
+
+**Área de um Círculo (A):**
+```
+A = πr²
+```
+
+**Diâmetro de um Círculo (d):**
+```
+d = 2r
+```
+
+**Relação entre o Diâmetro e a Circunferência:**
+```
+C = πd
+```
+
+**Comprimento da Circunferência de um Setor Circular:**
+Se o ângulo central do setor circular é θ (em radianos) e o raio é r:
+```
+Comprimento = θr
+```
+
+**Área de um Setor Circular:**
+Se o ângulo central do setor circular é θ (em radianos) e o raio é r:
+```
+Área = (θ/2) × r²
+```
+
+**Comprimento do Arco de um Círculo:**
+Se o ângulo central do arco é θ (em radianos) e o raio é r:
+```
+Comprimento do Arco = θr
+```
+
+**Fórmula da Área do Círculo em Função do Diâmetro:**
+```
+A = (π/4) × d²
+```
+
+**Relação entre a Área do Círculo e o Comprimento da Circunferência:**
+```
+A = (C²) / (4π)
+```
+
+**Comprimento da Corda de um Círculo:**
+Se o ângulo central do setor circular é θ (em radianos) e o raio é r, e a corda é igual ao raio, a fórmula para o comprimento da corda é:
+```
+Comprimento da Corda = 2r × sen(θ/2)
+```
+
+Essas são algumas das fórmulas matemáticas básicas relacionadas ao círculo, cada uma descrevendo diferentes propriedades e relações geométricas do círculo.
+
+## Inscrito e circunscrito
+
+ **Círculo Circunscrito:** Um círculo circunscrito é aquele que passa por todos os vértices de uma figura geométrica, geralmente um polígono. No caso de triângulos, por exemplo, um círculo circunscrito passa pelos três vértices do triângulo, tocando cada vértice. A posição do centro do círculo circunscrito é tal que os raios a partir do centro até os vértices do polígono têm o mesmo comprimento, que é o raio da circunferência.
+
+ **Círculo Inscrito:** Um círculo inscrito é aquele que está inteiramente contido dentro de uma figura geométrica, geralmente um polígono. No caso de triângulos, um círculo inscrito está inscrito no interior do triângulo, tangenciando os lados do triângulo em pontos específicos. A posição do centro do círculo inscrito é tal que as linhas que ligam o centro aos pontos de tangência nos lados do polígono são perpendiculares aos lados.
+
+## Fórmulas
+
+### Triângulo:
+
+ **Círculo Circunscrito:**
+   - Raio R do círculo circunscrito:
+     ```
+     R = (a * b * c) / (4 * Área)
+     ```
+   - Verificação: Se a² + b² = c², o triângulo é retângulo e está circunscrito a uma circunferência.
+
+ **Círculo Inscrito:**
+   - Raio r do círculo inscrito:
+     ```
+     r = Área / s
+     ```
+   - Verificação: Se a + b > c, a + c > b e b + c > a, o triângulo tem uma circunferência inscrita.
+
+### Quadrado:
+
+**Círculo Circunscrito:**
+   - Raio R do círculo circunscrito:
+     ```
+     R = lado / 2
+     ```
+**Círculo Inscrito:**
+   - Raio r do círculo inscrito:
+     ```
+     r = lado / 2
+     ```
+
+### Hexágono Regular:
+
+**Círculo Circunscrito:**
+   - Raio R do círculo circunscrito:
+     ```
+     R = lado
+     ```
+ **Círculo Inscrito:**
+   - Raio r do círculo inscrito:
+     ```
+     r = (lado * √3) / 2
+     ```
+
+### Pentágono Regular:
+
+ **Círculo Circunscrito:**
+   - Raio R do círculo circunscrito:
+     ```
+     R = (lado / 2) * √(5 + 2√5)
+	 ```
+
+**Círculo Inscrito:**
+   - Raio r do círculo inscrito:
+     ```
+     r = (lado / 4) * √(5 - 2√5)
+     ```
+
+Lembrando que nas fórmulas acima, 'lado' representa o comprimento do lado do polígono, 'Área' é a área do polígono e 's' é o semiperímetro do triângulo. Além disso, as verificações mencionadas são critérios para a existência de círculos inscritos ou circunscritos com base nas propriedades dos polígonos.
