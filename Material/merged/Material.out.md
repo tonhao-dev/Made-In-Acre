@@ -34,6 +34,453 @@
     - Obs.: **NÃO** faça isso sem que a pessoa pense em uma solução por si só
 6. Use o teste de mesa, ele funciona ;)
 
+<div style="page-break-after: always; visibility: hidden">
+\pagebreak
+</div>
+
+# Limites Big O
+
+<div style="page-break-after: always; visibility: hidden">
+\pagebreak
+</div>
+
+# STL
+
+<div style="page-break-after: always; visibility: hidden">
+\pagebreak
+</div>
+
+# Funções úteis do C++
+
+### GCD (Greatest common divisor):
+Maior divisor comum
+```cpp
+int gcd(int a, int b) {
+    return b == 0 ? a : gcd(b, a % b);
+}
+
+// OR
+
+__gcd(a, b)
+```
+
+### LCM (Least Common Multiple):
+MMC, menor múltiplo comum
+
+```cpp
+// Recursive function to return gcd of a and b
+long long gcd(long long int a, long long int b)
+{
+  if (b == 0)
+    return a;
+  return gcd(b, a % b);
+}
+
+// Function to return LCM of two numbers
+long long lcm(int a, int b)
+{
+    return (a / gcd(a, b)) * b;
+}
+```
+
+### Conversão de tipos
+
+1. stoi: **string** to **int**
+2. stol: **string** to **long**
+3. stoll: **string** to **long long**
+4. stod: **string** to **double**
+5. to_string: **number** to **string**
+
+### Produto dos i-th fatoriais
+
+```cpp
+// To compute (a * b) % MOD
+long long int mulmod(long long int a, long long int b,
+                                    long long int mod)
+{
+    long long int res = 0; // Initialize result
+    a = a % mod;
+    while (b > 0) {
+
+        // If b is odd, add 'a' to result
+        if (b % 2 == 1)
+            res = (res + a) % mod;
+
+        // Multiply 'a' with 2
+        a = (a * 2) % mod;
+
+        // Divide b by 2
+        b /= 2;
+    }
+
+    // Return result
+    return res % mod;
+}
+
+// This function computes factorials and
+// product by using above function i.e.
+// modular multiplication
+long long int findProduct(long long int N)
+{
+    // Initialize product and fact with 1
+    long long int product = 1, fact = 1;
+    long long int MOD = 1e9 + 7;
+    for (int i = 1; i <= N; i++) {
+
+        // ith factorial
+        fact = mulmod(fact, i, MOD);
+
+        // product of first i factorials
+        product = mulmod(product, fact, MOD);
+
+        // If at any iteration, product becomes
+        // divisible by MOD, simply return 0;
+        if (product == 0)
+            return 0;
+    }
+    return product;
+}
+
+N = 5;
+cout << findProduct(N) << endl; // 34560
+```
+
+### Josephus
+
+There are N people standing in a circle waiting to be executed. The counting out begins at some point in the circle and proceeds around the circle in a fixed direction. In each step, a certain number of people are skipped and the next person is executed. The elimination proceeds around the circle (which is becoming smaller and smaller as the executed people are removed), until only the last person remains, who is given freedom.
+
+Given the total number of persons N and a number k which indicates that k-1 persons are skipped and the kth person is killed in a circle. The task is to choose the person in the initial circle that survives.
+
+```cpp
+int Josephus(int N, int k)
+{
+
+    // Initialize variables i and ans with 1 and 0
+    // respectively.
+
+    int i = 1, ans = 0;
+
+    // Run a while loop till i <= N
+
+    while (i <= N) {
+
+        // Update the Value of ans and Increment i by 1
+        ans = (ans + k) % i;
+        i++;
+    }
+
+    // Return required answer
+    return ans + 1;
+}
+
+int N = 14, k = 2;
+cout << Josephus(N, k) << endl; // 14
+```
+
+### Números Primos
+#### Verificar se N é primo
+Time complexity: O(sqrt(N))
+```cpp
+bool is_prime(int n) {
+    // Assumes that n is a positive natural number
+    // We know 1 is not a prime number
+    if (n == 1) {
+        return false;
+    }
+
+    int i = 2;
+    // This will loop from 2 to int(sqrt(x))
+    while (i*i <= n) {
+        // Check if i divides x without leaving a remainder
+        if (n % i == 0) {
+            // This means that n has a factor in between 2 and sqrt(n)
+            // So it is not a prime number
+            return false;
+        }
+        i += 1;
+    }
+    // If we did not find any factor in the above loop,
+    // then n is a prime number
+    return true;
+}
+```
+
+### Sieve of Eratosthenes
+Given a number n, print all primes smaller than or equal to n. It is also given that n is a small number.
+
+```cpp
+#include <bitset>
+#include <iostream>
+using namespace std;
+bitset<500001> Primes;
+void SieveOfEratosthenes(int n)
+{
+    Primes[0] = 1;
+    for (int i = 3; i*i <= n; i += 2) {
+        if (Primes[i / 2] == 0) {
+            for (int j = 3 * i; j <= n; j += 2 * i)
+                Primes[j / 2] = 1;
+        }
+    }
+}
+int main()
+{
+    int n = 100;
+    SieveOfEratosthenes(n);
+    for (int i = 1; i <= n; i++) {
+        if (i == 2)
+            cout << i << ' ';
+        else if (i % 2 == 1 && Primes[i / 2] == 0)
+            cout << i << ' ';
+    }
+    // 2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97
+    return 0;
+}
+```
+
+### Binomial Coefficient
+A binomial coefficient C(n, k) also gives the number of ways, disregarding order, that k objects can be chosen from among n objects more formally, the number of k-element subsets (or k-combinations) of a n-element set.
+
+O coeficiente binomial, também chamado de número binomial, de um número n, na classe k, consiste no número de combinações de n termos, k a k.
+
+```cpp
+int binomialCoeff(int n, int r)
+{
+
+    if (r > n)
+        return 0;
+    long long int m = 1000000007;
+    long long int inv[r + 1] = { 0 };
+    inv[0] = 1;
+    if(r+1>=2)
+    inv[1] = 1;
+
+    // Getting the modular inversion
+    // for all the numbers
+    // from 2 to r with respect to m
+    // here m = 1000000007
+    for (int i = 2; i <= r; i++) {
+        inv[i] = m - (m / i) * inv[m % i] % m;
+    }
+
+    int ans = 1;
+
+    // for 1/(r!) part
+    for (int i = 2; i <= r; i++) {
+        ans = ((ans % m) * (inv[i] % m)) % m;
+    }
+
+    // for (n)*(n-1)*(n-2)*...*(n-r+1) part
+    for (int i = n; i >= (n - r + 1); i--) {
+        ans = ((ans % m) * (i % m)) % m;
+    }
+    return ans;
+}
+int n = 5, r = 2;
+cout << "Value of C(" << n << ", " << r << ") is "
+<< binomialCoeff(n, r) << endl; // Value of C(5, 2) is 10
+
+```
+
+### Conversão de bases numéricas
+#### Qualquer base -> decimal
+```cpp
+string base2 = "1100";
+string base8 = "21";
+string base10 = "25";
+string base16 = "1E";
+
+cout << (stoi(base2, nullptr, 2)) << endl; // 12
+cout << (stoi(base8, nullptr, 8)) << endl; // 17
+cout << (stoi(base10, nullptr, 10)) << endl; // 25
+cout << (stoi(base16, nullptr, 16)) << endl; // 30
+```
+
+#### Decimal -> Qualquer base
+```cpp
+// To return char for a value. For example '2'
+// is returned for 2. 'A' is returned for 10. 'B'
+// for 11
+char reVal(int num)
+{
+    if (num >= 0 && num <= 9)
+        return (char)(num + '0');
+    else
+        return (char)(num - 10 + 'A');
+}
+
+// Function to convert a given decimal number
+// to a base 'base' and
+string fromDeci(string& res, int base, int inputNum)
+{
+    int index = 0; // Initialize index of result
+
+    // Convert input number is given base by repeatedly
+    // dividing it by base and taking remainder
+    while (inputNum > 0) {
+        res.push_back(reVal(inputNum % base));
+        index++;
+        inputNum /= base;
+    }
+
+    // Reverse the result
+    reverse(res.begin(), res.end());
+
+    return res;
+}
+int inputNum = 282, base = 16; string res;
+cout << "Equivalent of " << inputNum << " in base "
+    << base << " is " << fromDeci(res, base, inputNum)
+    << endl; //Equivalent of 282 in base 16 is 11A
+```
+
+### Partição de um número
+Given a positive integer n, generate all possible unique ways to represent n as sum of positive integers.
+
+Time Complexity: O(2^n)
+
+```cpp
+class Solution {
+public:
+    vector<int> temp;
+    void solve(vector<int> a, vector<vector<int> >& v,
+               int idx, int sum, int n)
+    {
+        // first base case if sum=n we can store vector in a
+        // vector
+        if (sum == n) {
+            v.push_back(temp);
+            return;
+        }
+        // if idx < 0 return
+        if (idx < 0) {
+            return;
+        }
+        // not take condition
+        solve(a, v, idx - 1, sum, n);
+        if (sum < n) {
+            temp.push_back(a[idx]);
+            // this is main condition where we can take one
+            // element many times
+            solve(a, v, idx, sum + a[idx], n);
+            temp.pop_back();
+        }
+    }
+    vector<vector<int> > UniquePartitions(int n)
+    {
+        vector<int> a;
+        // vector to store elements from 1 to n
+        for (int i = 1; i <= n; i++) {
+            a.push_back(i);
+        }
+        vector<vector<int> > v;
+        // call solve to get answer
+        solve(a, v, n - 1, 0, n);
+        reverse(v.begin(), v.end());
+        return v;
+    }
+};
+// using
+vector<vector<int> > ans = ob.UniquePartitions(4);
+cout << "for 4\n";
+for (auto i : ans) {
+    for (auto j : i) {
+        cout << j << " ";
+    }
+    cout << "\n";
+}
+```
+
+<div style="page-break-after: always; visibility: hidden">
+\pagebreak
+</div>
+
+# Força Bruta e Backtracking
+
+Backtracking é um refinamento do algoritmo de busca por força bruta, no qual boa parte das soluções podem ser eliminadas sem serem explicitamente examinadas. A ideia central é retroceder quando detectar que a solução candidata é inviável
+
+Exemplo, labirinto:
+
+```cpp
+int T;
+int maze[5][5];
+bool vis[5][5];
+
+map<char, pii> movimento = {
+  {'D', {-1, 0}},
+  {'E', {1, 0}},
+  {'B', {0, 1}},
+  {'C', {0, -1}},
+};
+vector<char> movimentos_possiveis = {'B', 'C', 'D', 'E'};
+bool ganhou = false;
+
+bool deslocamento_possivel(int x, int y, char caminho) {
+  x += movimento[caminho].f;
+  y += movimento[caminho].s;
+
+  if(x >= 0 && x < 5 && y >= 0 && y < 5 && maze[x][y] != 1 && vis[x][y] == 0) return true;
+  return false;
+}
+
+void backtracking(int x, int y) {
+  if(ganhou) return;
+
+  vis[x][y] = true;
+  if(x == 4 && y == 4) {
+    ganhou = true;
+    return;
+  }
+
+  for(auto c : movimentos_possiveis) {
+    if(!deslocamento_possivel(x, y, c)) continue;
+    backtracking(x + movimento[c].f, y + movimento[c].s);
+  }
+}
+
+// ...
+
+backtracking(0, 0);
+```
+
+Dado um tabuleiro de xadrez 𝑛 𝑥 𝑛 e uma posição (𝑥, 𝑦) do tabuleiro, queremos encontrar um passeio de um cavalo que visite cada casa exatamente uma vez.
+
+-   Movimento do cavalo – formato de L:
+    -   dois quadrados horizontalmente e um verticalmente, ou
+    -   dois quadrados verticalmente e um horizontalmente.
+
+```cpp
+int m[MAX][MAX], n;
+vector<pii> movimentos = {{2, -1}, {2, 1}, {-2, 1}, {-2, -1}, {1, 2}, {-1, 2}, {-1, -2}, {1, -2}};
+
+bool posicaoValida(int x, int y){
+  return (x >= 0) && (x < n) && (y >= 0) && (y < n) && !m[x][y];
+}
+
+int passeioCavalo(int x, int y)
+{
+  if (m[x][y] == n * n)
+    return 1;
+  for (auto mov : movimentos)
+  {
+    int x2 = x + mov.first;
+    int y2 = y + mov.second;
+    if (posicaoValida(x2, y2))
+    {
+      m[x2][y2] = m[x][y] + 1;
+      if (passeioCavalo(x2, y2))
+        return 1;
+      m[x2][y2] = 0;
+    }
+  }
+  return 0;
+}
+```
+
+<div style="page-break-after: always; visibility: hidden">
+\pagebreak
+</div>
+
 # Busca Binária
 
 Para aplicar um algoritmo de busca binária preciso de:
@@ -247,93 +694,489 @@ int main()
 }
 ```
 
-# Força Bruta e Backtracking
-
-Backtracking é um refinamento do algoritmo de busca por força bruta, no qual boa parte das soluções podem ser eliminadas sem serem explicitamente examinadas. A ideia central é retroceder quando detectar que a solução candidata é inviável
-
-Exemplo, labirinto:
-
-```cpp
-int T;
-int maze[5][5];
-bool vis[5][5];
-
-map<char, pii> movimento = {
-  {'D', {-1, 0}},
-  {'E', {1, 0}},
-  {'B', {0, 1}},
-  {'C', {0, -1}},
-};
-vector<char> movimentos_possiveis = {'B', 'C', 'D', 'E'};
-bool ganhou = false;
-
-bool deslocamento_possivel(int x, int y, char caminho) {
-  x += movimento[caminho].f;
-  y += movimento[caminho].s;
-
-  if(x >= 0 && x < 5 && y >= 0 && y < 5 && maze[x][y] != 1 && vis[x][y] == 0) return true;
-  return false;
-}
-
-void backtracking(int x, int y) {
-  if(ganhou) return;
-
-  vis[x][y] = true;
-  if(x == 4 && y == 4) {
-    ganhou = true;
-    return;
-  }
-
-  for(auto c : movimentos_possiveis) {
-    if(!deslocamento_possivel(x, y, c)) continue;
-    backtracking(x + movimento[c].f, y + movimento[c].s);
-  }
-}
-
-// ...
-
-backtracking(0, 0);
-```
-
-Dado um tabuleiro de xadrez 𝑛 𝑥 𝑛 e uma posição (𝑥, 𝑦) do tabuleiro, queremos encontrar um passeio de um cavalo que visite cada casa exatamente uma vez.
-
--   Movimento do cavalo – formato de L:
-    -   dois quadrados horizontalmente e um verticalmente, ou
-    -   dois quadrados verticalmente e um horizontalmente.
-
-```cpp
-int m[MAX][MAX], n;
-vector<pii> movimentos = {{2, -1}, {2, 1}, {-2, 1}, {-2, -1}, {1, 2}, {-1, 2}, {-1, -2}, {1, -2}};
-
-bool posicaoValida(int x, int y){
-  return (x >= 0) && (x < n) && (y >= 0) && (y < n) && !m[x][y];
-}
-
-int passeioCavalo(int x, int y)
-{
-  if (m[x][y] == n * n)
-    return 1;
-  for (auto mov : movimentos)
-  {
-    int x2 = x + mov.first;
-    int y2 = y + mov.second;
-    if (posicaoValida(x2, y2))
-    {
-      m[x2][y2] = m[x][y] + 1;
-      if (passeioCavalo(x2, y2))
-        return 1;
-      m[x2][y2] = 0;
-    }
-  }
-  return 0;
-}
-```
+<div style="page-break-after: always; visibility: hidden">
+\pagebreak
+</div>
 
 # Guloso
 
-# Limites Big O
+<div style="page-break-after: always; visibility: hidden">
+\pagebreak
+</div>
+
+# Strings
+
+<div style="page-break-after: always; visibility: hidden">
+\pagebreak
+</div>
 
 # Matemática
+
+Formulas matemáticas, volume, área, perímetro e etc.
+
+# Formulas Gerais
+
+## Progressão Aritmética
+
+Fórmula do Termo Geral: an = a1 + (n − 1) × r
+
+Soma dos termos da PA: Sn = n × (a1 + an) / 2
+
+## Progressão Geométrica
+
+Fórmula do Termo Geral: an = a1 × q^(n−1)
+
+Soma dos termos da PG: Sn = a1 × (q^n - 1) / (q - 1)
+
+## Número de áreas em um plano divididas por retas e suas intersecções
+
+Fórmula: A = N + I + 1
+
+Onde N é o número de retas e I é o número de intersecções. Cada reta horizontal tem uma intersecção com uma reta vertical, então sempre existem pelo menos v × h intersecções, onde v é o número de retas verticais e h horizontais.
+
+## Números Triangulares
+
+Um número triangular é um número natural representado na forma de um triângulo equilátero. O n-ésimo número triangular pode ser visto como o número de pontos de uma forma triangular com lado formado por n pontos, o que equivale à soma dos primeiros n números naturais.
+
+Em geral, o n-ésimo número triangular é dado por: Tn = Σ[k=1 to n] k = 1 + 2 + 3 + ... + (n − 2) + (n − 1) + n = n(n + 1) / 2
+
+A soma dos primeiros n números triangulares é o n-ésimo número tetraédrico, que tem a fórmula: n(n + 1)(n + 2) / 6
+
+Raízes triangulares e teste de identificação (número de linhas triangulares que podem ser formadas com n elementos): n = √(8x + 1 − 1) / 2
+
+## Múltiplos positivos de k num intervalo
+
+O número de múltiplos positivos m(k) de k no intervalo [1,N] é igual a m(k) = N / k.
+
+## Número par ou ímpar de divisores
+
+Números que são quadrados perfeitos têm um número ímpar de divisores, enquanto os outros têm um número par.
+
+
+## Número de quadrados perfeitos de A a B
+
+N = floor(sqrt(B)) - ceil(sqrt(A)) + 1
+
+## Quadrados e retângulos em um Grid de N lados com K dimensões
+
+Quadrados: NK + (N − 1)K + (N − 2)K até 1
+
+Retângulos: (NK(N+1)K) / 2 - Quadrados*
+
+Número de pares que podem ser formados combinando N elementos
+
+P = (n × (n − 1)) / 2
+
+<div style="page-break-after: always; visibility: hidden">
+\pagebreak
+</div>
+
+# Geometria 2D
+
+## Formulas matemáticas de figuras em 2D.
+
+![formulas-figuras](https://beduka.com/blog/wp-content/uploads/2021/01/formulas-da-geometria-plana-area-dos-poligos-e-fiuras-planas-triangulo-quadrado-trapezio-losango-e-circulo-retangulo.jpg)
+
+- **Retângulo**:
+
+```
+A (retângulo) = b . h
+```
+
+- **Quadrado:** 
+
+```
+A (quadrado) = l²
+```
+
+- **Trapézios:** podem ser **divididos em triângulos e retângulos**, então basta guardar essas duas fórmulas, calcular e somar. **Porém, existe uma fórmula própria** dos trapézios que envolve a **base maior (B**) e **base menor (b)**:
+
+```
+A (trapézio) = (B + b) h / 2
+```
+
+- **Losango:** também **pode ser dividido em triângulos**, então basta calcular eles e somar. **Porém, existe uma fórmula própria** para losangos com base em sua **diagonal maior (D**) e **diagonal menor (d)**:
+
+```
+ A = D . d / 2
+```
+
+- **Triângulos:** também é dada pela multiplicação de área por altura, mas o valor é dividido na metade **porque o triângulo vai “afunilando”**:
+
+```
+ A (triângulo) = b . h / 2** ou **A (t. equilátero) = √3 . l² / 4)
+```
+
+- **Circunferência**:
+
+```
+A (círculo) = π.r²
+```
+
+# Figuras
+
+## Quadrado
+
+**Área de um Quadrado (A):** A área de um quadrado pode ser calculada multiplicando o comprimento de um dos lados pelo próprio lado:
+```
+A = Lado × Lado = Lado²
+```
+
+
+**Perímetro de um Quadrado (P):** O perímetro de um quadrado é a soma dos comprimentos dos quatro lados:
+
+```
+P = 4 × Lado
+```
+
+**Comprimento da Diagonal (d):** A diagonal de um quadrado divide o quadrado em dois triângulos retângulos congruentes. O comprimento da diagonal pode ser calculado usando o teorema de Pitágoras, onde "Lado" é o comprimento dos lados do quadrado:
+
+```
+d = Lado × √2
+```
+
+**Raio da Circunferência Inscrita (r):** A circunferência inscrita é uma circunferência que toca os quatro lados do quadrado. O raio dessa circunferência pode ser calculado como metade do lado do quadrado:
+
+```
+r = Lado / 2
+```
+
+**Raio da Circunferência Circunscrita (R):** A circunferência circunscrita é uma circunferência que passa pelos quatro vértices do quadrado. O raio dessa circunferência é igual à metade da diagonal do quadrado:
+
+```
+R = (Lado × √2) / 2
+```
+
+**Área do Quadrado em Função da Diagonal (d):** A área do quadrado também pode ser expressa em termos do comprimento da diagonal:
+
+```
+A = (d²) / 2
+```
+
+## Triângulo
+
+Claro! Aqui estão as fórmulas relacionadas ao triângulo formatadas em Markdown para você copiar e colar:
+
+**Área de um Triângulo (A) usando a base e a altura:**
+```
+A = (Base × Altura) / 2
+```
+
+**Área de um Triângulo (A) usando os lados (Fórmula de Heron):**
+Onde "s" é o semiperímetro do triângulo.
+```
+Perímetro (s) = (a + b + c) / 2
+A = √(s × (s - a) × (s - b) × (s - c))
+```
+
+**Teorema de Pitágoras para Triângulos Retângulos:**
+```
+a² + b² = c²
+```
+
+**Lei dos Senos:**
+```
+a / sen(A) = b / sen(B) = c / sen(C)
+```
+
+**Lei dos Cossenos:**
+```
+c² = a² + b² - 2ab × cos(C)
+```
+
+**Altura de um Triângulo:**
+```
+Altura = (2 × Área) / Base
+```
+
+**Mediana de um Triângulo:**
+A mediana de um triângulo é o segmento que liga um vértice ao ponto médio do lado oposto. As medianas de um triângulo se encontram em um ponto chamado centroide.
+
+## Círculo
+Claro! Aqui estão algumas fórmulas relacionadas ao círculo formatadas em Markdown para você copiar e colar:
+
+**Circunferência de um Círculo (C):**
+```
+C = 2πr
+```
+
+**Área de um Círculo (A):**
+```
+A = πr²
+```
+
+**Diâmetro de um Círculo (d):**
+```
+d = 2r
+```
+
+**Relação entre o Diâmetro e a Circunferência:**
+```
+C = πd
+```
+
+**Comprimento da Circunferência de um Setor Circular:**
+Se o ângulo central do setor circular é θ (em radianos) e o raio é r:
+```
+Comprimento = θr
+```
+
+**Área de um Setor Circular:**
+Se o ângulo central do setor circular é θ (em radianos) e o raio é r:
+```
+Área = (θ/2) × r²
+```
+
+**Comprimento do Arco de um Círculo:**
+Se o ângulo central do arco é θ (em radianos) e o raio é r:
+```
+Comprimento do Arco = θr
+```
+
+**Fórmula da Área do Círculo em Função do Diâmetro:**
+```
+A = (π/4) × d²
+```
+
+**Relação entre a Área do Círculo e o Comprimento da Circunferência:**
+```
+A = (C²) / (4π)
+```
+
+**Comprimento da Corda de um Círculo:**
+Se o ângulo central do setor circular é θ (em radianos) e o raio é r, e a corda é igual ao raio, a fórmula para o comprimento da corda é:
+```
+Comprimento da Corda = 2r × sen(θ/2)
+```
+
+Essas são algumas das fórmulas matemáticas básicas relacionadas ao círculo, cada uma descrevendo diferentes propriedades e relações geométricas do círculo.
+
+## Inscrito e circunscrito
+
+ **Círculo Circunscrito:** Um círculo circunscrito é aquele que passa por todos os vértices de uma figura geométrica, geralmente um polígono. No caso de triângulos, por exemplo, um círculo circunscrito passa pelos três vértices do triângulo, tocando cada vértice. A posição do centro do círculo circunscrito é tal que os raios a partir do centro até os vértices do polígono têm o mesmo comprimento, que é o raio da circunferência.
+
+ **Círculo Inscrito:** Um círculo inscrito é aquele que está inteiramente contido dentro de uma figura geométrica, geralmente um polígono. No caso de triângulos, um círculo inscrito está inscrito no interior do triângulo, tangenciando os lados do triângulo em pontos específicos. A posição do centro do círculo inscrito é tal que as linhas que ligam o centro aos pontos de tangência nos lados do polígono são perpendiculares aos lados.
+
+## Fórmulas
+
+### Triângulo:
+
+ **Círculo Circunscrito:**
+   - Raio R do círculo circunscrito:
+     ```
+     R = (a * b * c) / (4 * Área)
+     ```
+   - Verificação: Se a² + b² = c², o triângulo é retângulo e está circunscrito a uma circunferência.
+
+ **Círculo Inscrito:**
+   - Raio r do círculo inscrito:
+     ```
+     r = Área / s
+     ```
+   - Verificação: Se a + b > c, a + c > b e b + c > a, o triângulo tem uma circunferência inscrita.
+
+### Quadrado:
+
+**Círculo Circunscrito:**
+   - Raio R do círculo circunscrito:
+     ```
+     R = lado / 2
+     ```
+**Círculo Inscrito:**
+   - Raio r do círculo inscrito:
+     ```
+     r = lado / 2
+     ```
+
+### Hexágono Regular:
+
+**Círculo Circunscrito:**
+   - Raio R do círculo circunscrito:
+     ```
+     R = lado
+     ```
+ **Círculo Inscrito:**
+   - Raio r do círculo inscrito:
+     ```
+     r = (lado * √3) / 2
+     ```
+
+### Pentágono Regular:
+
+ **Círculo Circunscrito:**
+   - Raio R do círculo circunscrito:
+     ```
+     R = (lado / 2) * √(5 + 2√5)
+	 ```
+
+**Círculo Inscrito:**
+   - Raio r do círculo inscrito:
+     ```
+     r = (lado / 4) * √(5 - 2√5)
+     ```
+
+Lembrando que nas fórmulas acima, 'lado' representa o comprimento do lado do polígono, 'Área' é a área do polígono e 's' é o semiperímetro do triângulo. Além disso, as verificações mencionadas são critérios para a existência de círculos inscritos ou circunscritos com base nas propriedades dos polígonos.
+
+<div style="page-break-after: always; visibility: hidden">
+\pagebreak
+</div>
+
+# Geometria 3D
+
+## Cubo
+
+**Área da superfície do cubo:**
+A área total da superfície de um cubo é dada por:
+```
+Área = 6 * (lado)^2
+```
+
+**Volume do cubo:**
+O volume de um cubo é calculado através da fórmula:
+```
+Volume = (lado)^3
+```
+
+**Diagonal do cubo:**
+A diagonal de um cubo pode ser encontrada usando o teorema de Pitágoras em três dimensões:
+```
+Diagonal = √(3) * lado
+```
+
+## Cilindro
+
+**Área da superfície do cilindro:**
+A área total da superfície de um cilindro é a soma da área lateral e das áreas das bases:
+```
+Área = 2 * π * raio * altura + 2 * π * (raio)^2
+```
+
+**Volume do cilindro:**
+O volume de um cilindro é dado por:
+```
+Volume = π * (raio)^2 * altura
+```
+
+**Diagonal do cilindro:**
+A diagonal de um cilindro retangular pode ser calculada usando o teorema de Pitágoras:
+```
+Diagonal = √(altura^2 + (2 * raio)^2)
+```
+
+
+## Prisma
+
+
+**Área da superfície do prisma:**
+A área total da superfície de um prisma é a soma da área lateral e das áreas das bases:
+```
+Área = 2 * (área da base) + (perímetro da base) * altura
+```
+
+**Volume do prisma:**
+O volume de um prisma é dado por:
+```
+Volume = (área da base) * altura
+```
+
+**Diagonal do prisma:**
+A diagonal de um prisma retangular pode ser calculada usando o teorema de Pitágoras:
+```
+Diagonal = √(altura^2 + diagonal da base^2)
+```
+
+
+## Pirâmide
+
+**Área da superfície da pirâmide:**
+A área total da superfície de uma pirâmide é a soma da área da base e da área lateral:
+```
+Área = (área da base) + (1/2) * (perímetro da base) * apótema + (área lateral)
+```
+
+**Volume da pirâmide:**
+O volume de uma pirâmide é dado por:
+```
+Volume = (1/3) * (área da base) * altura
+```
+
+**Relação entre altura da pirâmide e altura da pirâmide truncada:**
+Se uma pirâmide é truncada paralelamente à base para formar outra pirâmide, a relação entre as alturas é proporcional à relação das áreas das bases:
+```
+Altura_truncada = (área da base truncada) / (área da base original) * Altura_original
+```
+
+A "apótema" de uma figura geométrica é a distância entre o centro da figura e o ponto médio de um dos lados. Em muitos casos, é usada para representar a distância do centro até o ponto médio de um lado de um polígono regular, como um triângulo, quadrado, pentágono, hexágono, etc.
+
+## Cone
+
+
+**Área da superfície do cone:**
+A área total da superfície de um cone é a soma da área lateral e da área da base:
+```
+Área = π * raio * geratriz + π * (raio)^2
+```
+onde a "geratriz" é o comprimento da linha reta que liga o vértice do cone até um ponto qualquer na circunferência da base.
+
+**Volume do cone:**
+O volume de um cone é dado por:
+```
+Volume = (1/3) * π * (raio)^2 * altura
+```
+
+**Relação entre cones semelhantes:**
+Se você tem dois cones com alturas proporcionais, a razão dos volumes é igual ao cubo da razão dos raios:
+```
+Volume_cone1 / Volume_cone2 = (raio1 / raio2)^3
+```
+
+
+## Paralelepípedo
+
+
+**Área da superfície do paralelepípedo:**
+A área total da superfície de um paralelepípedo é a soma das áreas de suas faces:
+```
+Área = 2 * (comprimento * largura + comprimento * altura + largura * altura)
+```
+
+**Volume do paralelepípedo:**
+O volume de um paralelepípedo é dado por:
+```
+Volume = comprimento * largura * altura
+```
+
+**Diagonais do paralelepípedo:**
+As diagonais de um paralelepípedo podem ser calculadas usando o teorema de Pitágoras:
+```
+Diagonal1 = √(comprimento^2 + largura^2 + altura^2)
+Diagonal2 = √(comprimento^2 + largura^2 + altura^2)
+Diagonal3 = √(comprimento^2 + largura^2 + altura^2)
+```
+
+## Esfera
+
+**Área da superfície da esfera:**
+A área total da superfície de uma esfera é dada por:
+```
+Área = 4 * π * (raio)^2
+```
+
+**Volume da esfera:**
+O volume de uma esfera é calculado através da fórmula:
+```
+Volume = (4/3) * π * (raio)^3
+```
+
+**Diâmetro da esfera:**
+O diâmetro de uma esfera é duas vezes o raio:
+```
+Diâmetro = 2 * raio
+```
+
+<div style="page-break-after: always; visibility: hidden">
+\pagebreak
+</div>
 
 # Programação dinâmica
 
@@ -784,347 +1627,6 @@ int n = sizeof(arr) / sizeof(arr[0]);
 lis(arr, n); // 5
 ```
 
-# STL
-
-# Strings
-
-# Funções úteis do C++
-
-### GCD (Greatest common divisor):
-Maior divisor comum
-```cpp
-int gcd(int a, int b) {
-    return b == 0 ? a : gcd(b, a % b);
-}
-
-// OR
-
-__gcd(a, b)
-```
-
-### LCM (Least Common Multiple):
-MMC, menor múltiplo comum
-
-```cpp
-// Recursive function to return gcd of a and b
-long long gcd(long long int a, long long int b)
-{
-  if (b == 0)
-    return a;
-  return gcd(b, a % b);
-}
-
-// Function to return LCM of two numbers
-long long lcm(int a, int b)
-{
-    return (a / gcd(a, b)) * b;
-}
-```
-
-### Conversão de tipos
-
-1. stoi: **string** to **int**
-2. stol: **string** to **long**
-3. stoll: **string** to **long long**
-4. stod: **string** to **double**
-5. to_string: **number** to **string**
-
-### Produto dos i-th fatoriais
-
-```cpp
-// To compute (a * b) % MOD
-long long int mulmod(long long int a, long long int b,
-                                    long long int mod)
-{
-    long long int res = 0; // Initialize result
-    a = a % mod;
-    while (b > 0) {
-
-        // If b is odd, add 'a' to result
-        if (b % 2 == 1)
-            res = (res + a) % mod;
-
-        // Multiply 'a' with 2
-        a = (a * 2) % mod;
-
-        // Divide b by 2
-        b /= 2;
-    }
-
-    // Return result
-    return res % mod;
-}
-
-// This function computes factorials and
-// product by using above function i.e.
-// modular multiplication
-long long int findProduct(long long int N)
-{
-    // Initialize product and fact with 1
-    long long int product = 1, fact = 1;
-    long long int MOD = 1e9 + 7;
-    for (int i = 1; i <= N; i++) {
-
-        // ith factorial
-        fact = mulmod(fact, i, MOD);
-
-        // product of first i factorials
-        product = mulmod(product, fact, MOD);
-
-        // If at any iteration, product becomes
-        // divisible by MOD, simply return 0;
-        if (product == 0)
-            return 0;
-    }
-    return product;
-}
-
-N = 5;
-cout << findProduct(N) << endl; // 34560
-```
-
-### Josephus
-
-There are N people standing in a circle waiting to be executed. The counting out begins at some point in the circle and proceeds around the circle in a fixed direction. In each step, a certain number of people are skipped and the next person is executed. The elimination proceeds around the circle (which is becoming smaller and smaller as the executed people are removed), until only the last person remains, who is given freedom.
-
-Given the total number of persons N and a number k which indicates that k-1 persons are skipped and the kth person is killed in a circle. The task is to choose the person in the initial circle that survives.
-
-```cpp
-int Josephus(int N, int k)
-{
-
-    // Initialize variables i and ans with 1 and 0
-    // respectively.
-
-    int i = 1, ans = 0;
-
-    // Run a while loop till i <= N
-
-    while (i <= N) {
-
-        // Update the Value of ans and Increment i by 1
-        ans = (ans + k) % i;
-        i++;
-    }
-
-    // Return required answer
-    return ans + 1;
-}
-
-int N = 14, k = 2;
-cout << Josephus(N, k) << endl; // 14
-```
-
-### Números Primos
-#### Verificar se N é primo
-Time complexity: O(sqrt(N))
-```cpp
-bool is_prime(int n) {
-    // Assumes that n is a positive natural number
-    // We know 1 is not a prime number
-    if (n == 1) {
-        return false;
-    }
-
-    int i = 2;
-    // This will loop from 2 to int(sqrt(x))
-    while (i*i <= n) {
-        // Check if i divides x without leaving a remainder
-        if (n % i == 0) {
-            // This means that n has a factor in between 2 and sqrt(n)
-            // So it is not a prime number
-            return false;
-        }
-        i += 1;
-    }
-    // If we did not find any factor in the above loop,
-    // then n is a prime number
-    return true;
-}
-```
-
-### Sieve of Eratosthenes
-Given a number n, print all primes smaller than or equal to n. It is also given that n is a small number.
-
-```cpp
-#include <bitset>
-#include <iostream>
-using namespace std;
-bitset<500001> Primes;
-void SieveOfEratosthenes(int n)
-{
-    Primes[0] = 1;
-    for (int i = 3; i*i <= n; i += 2) {
-        if (Primes[i / 2] == 0) {
-            for (int j = 3 * i; j <= n; j += 2 * i)
-                Primes[j / 2] = 1;
-        }
-    }
-}
-int main()
-{
-    int n = 100;
-    SieveOfEratosthenes(n);
-    for (int i = 1; i <= n; i++) {
-        if (i == 2)
-            cout << i << ' ';
-        else if (i % 2 == 1 && Primes[i / 2] == 0)
-            cout << i << ' ';
-    }
-    // 2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97
-    return 0;
-}
-```
-
-### Binomial Coefficient
-A binomial coefficient C(n, k) also gives the number of ways, disregarding order, that k objects can be chosen from among n objects more formally, the number of k-element subsets (or k-combinations) of a n-element set.
-
-O coeficiente binomial, também chamado de número binomial, de um número n, na classe k, consiste no número de combinações de n termos, k a k.
-
-```cpp
-int binomialCoeff(int n, int r)
-{
-
-    if (r > n)
-        return 0;
-    long long int m = 1000000007;
-    long long int inv[r + 1] = { 0 };
-    inv[0] = 1;
-    if(r+1>=2)
-    inv[1] = 1;
-
-    // Getting the modular inversion
-    // for all the numbers
-    // from 2 to r with respect to m
-    // here m = 1000000007
-    for (int i = 2; i <= r; i++) {
-        inv[i] = m - (m / i) * inv[m % i] % m;
-    }
-
-    int ans = 1;
-
-    // for 1/(r!) part
-    for (int i = 2; i <= r; i++) {
-        ans = ((ans % m) * (inv[i] % m)) % m;
-    }
-
-    // for (n)*(n-1)*(n-2)*...*(n-r+1) part
-    for (int i = n; i >= (n - r + 1); i--) {
-        ans = ((ans % m) * (i % m)) % m;
-    }
-    return ans;
-}
-int n = 5, r = 2;
-cout << "Value of C(" << n << ", " << r << ") is "
-<< binomialCoeff(n, r) << endl; // Value of C(5, 2) is 10
-
-```
-
-### Conversão de bases numéricas
-#### Qualquer base -> decimal
-```cpp
-string base2 = "1100";
-string base8 = "21";
-string base10 = "25";
-string base16 = "1E";
-
-cout << (stoi(base2, nullptr, 2)) << endl; // 12
-cout << (stoi(base8, nullptr, 8)) << endl; // 17
-cout << (stoi(base10, nullptr, 10)) << endl; // 25
-cout << (stoi(base16, nullptr, 16)) << endl; // 30
-```
-
-#### Decimal -> Qualquer base
-```cpp
-// To return char for a value. For example '2'
-// is returned for 2. 'A' is returned for 10. 'B'
-// for 11
-char reVal(int num)
-{
-    if (num >= 0 && num <= 9)
-        return (char)(num + '0');
-    else
-        return (char)(num - 10 + 'A');
-}
-
-// Function to convert a given decimal number
-// to a base 'base' and
-string fromDeci(string& res, int base, int inputNum)
-{
-    int index = 0; // Initialize index of result
-
-    // Convert input number is given base by repeatedly
-    // dividing it by base and taking remainder
-    while (inputNum > 0) {
-        res.push_back(reVal(inputNum % base));
-        index++;
-        inputNum /= base;
-    }
-
-    // Reverse the result
-    reverse(res.begin(), res.end());
-
-    return res;
-}
-int inputNum = 282, base = 16; string res;
-cout << "Equivalent of " << inputNum << " in base "
-    << base << " is " << fromDeci(res, base, inputNum)
-    << endl; //Equivalent of 282 in base 16 is 11A
-```
-
-### Partição de um número
-Given a positive integer n, generate all possible unique ways to represent n as sum of positive integers.
-
-Time Complexity: O(2^n)
-
-```cpp
-class Solution {
-public:
-    vector<int> temp;
-    void solve(vector<int> a, vector<vector<int> >& v,
-               int idx, int sum, int n)
-    {
-        // first base case if sum=n we can store vector in a
-        // vector
-        if (sum == n) {
-            v.push_back(temp);
-            return;
-        }
-        // if idx < 0 return
-        if (idx < 0) {
-            return;
-        }
-        // not take condition
-        solve(a, v, idx - 1, sum, n);
-        if (sum < n) {
-            temp.push_back(a[idx]);
-            // this is main condition where we can take one
-            // element many times
-            solve(a, v, idx, sum + a[idx], n);
-            temp.pop_back();
-        }
-    }
-    vector<vector<int> > UniquePartitions(int n)
-    {
-        vector<int> a;
-        // vector to store elements from 1 to n
-        for (int i = 1; i <= n; i++) {
-            a.push_back(i);
-        }
-        vector<vector<int> > v;
-        // call solve to get answer
-        solve(a, v, n - 1, 0, n);
-        reverse(v.begin(), v.end());
-        return v;
-    }
-};
-// using
-vector<vector<int> > ans = ob.UniquePartitions(4);
-cout << "for 4\n";
-for (auto i : ans) {
-    for (auto j : i) {
-        cout << j << " ";
-    }
-    cout << "\n";
-}
-```
+<div style="page-break-after: always; visibility: hidden">
+\pagebreak
+</div>
