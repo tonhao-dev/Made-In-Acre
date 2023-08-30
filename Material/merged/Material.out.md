@@ -1,3 +1,28 @@
+---
+pdf_options:
+  format: a4
+  margin: 20mm 10mm
+  printBackground: false
+  headerTemplate: |-
+    <style>
+      section {
+        margin: 0 20px 0 auto;
+        font-family: system-ui;
+        font-size: 9px;
+      }
+    </style>
+    <section>
+      <p>Made In Acre</p>
+    </section>
+  footerTemplate: |-
+    <section>
+      <div>
+        Página <span class="pageNumber"></span>
+        de <span class="totalPages"></span>
+      </div>
+    </section>
+---
+
 # Estratégias para a competição
 
 ## Início da prova
