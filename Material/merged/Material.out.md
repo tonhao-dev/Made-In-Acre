@@ -63,7 +63,24 @@ pdf_options:
 \pagebreak
 </div>
 
-# Limites Big O
+# Limites
+
+### Big O
+| N <=      | O(máx) |
+| ----------- | ----------- |
+| 11      | O(n!)       |
+| 22   | O(2<sup>n</sup> * n)        |
+| 100   | O(n<sup>4</sup>)        |
+| 400   | O(n<sup>3</sup>)        |
+| 2000   | O(n<sup>2</sup> * log<sub>2</sub>(n))        |
+| 10<sup>4</sup>   | O(n<sup>2</sup>)        |
+| 10<sup>5</sup>   | O(n * log<sub>2</sub><sup>2</sup>(n))        |
+| 10<sup>6</sup>   | O(n * log<sub>2</sub>(n))        |
+| 10<sup>8</sup>   | O(n)        |
+| 10<sup>18</sup>   | O(log<sub>2</sub>(n)), O(1)        |
+
+### Tipos de dados
+<img src="https://www.cs.mtsu.edu/~xyang/images/IntegerDataType.png" width="600">
 
 <div style="page-break-after: always; visibility: hidden">
 \pagebreak
