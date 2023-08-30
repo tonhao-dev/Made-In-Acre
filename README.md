@@ -76,3 +76,11 @@ Settings (JSON)
 ## Material
 1. [Merge Markdown](https://github.com/knennigtri/merge-markdown)
 2. [md-to-pdf](https://github.com/simonhaenisch/md-to-pdf)
+
+Merge Markdown
+
+    merge-markdown -m .\ -o material
+
+Markdown to PDF
+
+    md-to-pdf .\merged\Material.out.md
