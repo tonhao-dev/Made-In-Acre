@@ -131,3 +131,22 @@ Diagonal2 = √(comprimento^2 + largura^2 + altura^2)
 Diagonal3 = √(comprimento^2 + largura^2 + altura^2)
 ```
 
+## Esfera
+
+**Área da superfície da esfera:**
+A área total da superfície de uma esfera é dada por:
+```
+Área = 4 * π * (raio)^2
+```
+
+**Volume da esfera:**
+O volume de uma esfera é calculado através da fórmula:
+```
+Volume = (4/3) * π * (raio)^3
+```
+
+**Diâmetro da esfera:**
+O diâmetro de uma esfera é duas vezes o raio:
+```
+Diâmetro = 2 * raio
+```

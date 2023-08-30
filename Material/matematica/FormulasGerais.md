@@ -1,0 +1,52 @@
+# Formulas Gerais
+
+## Progressão Aritmética
+
+Fórmula do Termo Geral: an = a1 + (n − 1) × r
+
+Soma dos termos da PA: Sn = n × (a1 + an) / 2
+
+## Progressão Geométrica
+
+Fórmula do Termo Geral: an = a1 × q^(n−1)
+
+Soma dos termos da PG: Sn = a1 × (q^n - 1) / (q - 1)
+
+## Número de áreas em um plano divididas por retas e suas intersecções
+
+Fórmula: A = N + I + 1
+
+Onde N é o número de retas e I é o número de intersecções. Cada reta horizontal tem uma intersecção com uma reta vertical, então sempre existem pelo menos v × h intersecções, onde v é o número de retas verticais e h horizontais.
+
+## Números Triangulares
+
+Um número triangular é um número natural representado na forma de um triângulo equilátero. O n-ésimo número triangular pode ser visto como o número de pontos de uma forma triangular com lado formado por n pontos, o que equivale à soma dos primeiros n números naturais.
+
+Em geral, o n-ésimo número triangular é dado por: Tn = Σ[k=1 to n] k = 1 + 2 + 3 + ... + (n − 2) + (n − 1) + n = n(n + 1) / 2
+
+A soma dos primeiros n números triangulares é o n-ésimo número tetraédrico, que tem a fórmula: n(n + 1)(n + 2) / 6
+
+Raízes triangulares e teste de identificação (número de linhas triangulares que podem ser formadas com n elementos): n = √(8x + 1 − 1) / 2
+
+## Múltiplos positivos de k num intervalo
+
+O número de múltiplos positivos m(k) de k no intervalo [1,N] é igual a m(k) = N / k.
+
+## Número par ou ímpar de divisores
+
+Números que são quadrados perfeitos têm um número ímpar de divisores, enquanto os outros têm um número par.
+
+
+## Número de quadrados perfeitos de A a B
+
+N = floor(sqrt(B)) - ceil(sqrt(A)) + 1
+
+## Quadrados e retângulos em um Grid de N lados com K dimensões
+
+Quadrados: NK + (N − 1)K + (N − 2)K até 1
+
+Retângulos: (NK(N+1)K) / 2 - Quadrados*
+
+Número de pares que podem ser formados combinando N elementos
+
+P = (n × (n − 1)) / 2
