@@ -12,8 +12,7 @@ using namespace std;
 // maximum of two integers
 int max(int a, int b) { return (a > b) ? a : b; }
 
-class UnboundedKnapsack
-{
+class UnboundedKnapsack {
     //-------------------------------------------------------------------------
     //		Attributes
     //-------------------------------------------------------------------------
@@ -34,20 +33,18 @@ class UnboundedKnapsack
      */
     int maximumCapacity;
 
-public:
+   public:
     //-------------------------------------------------------------------------
     //		Constructor
     //-------------------------------------------------------------------------
-    UnboundedKnapsack()
-    {
+    UnboundedKnapsack() {
         maximumCapacity = -1;
     }
 
     //-------------------------------------------------------------------------
     //		Destructor
     //-------------------------------------------------------------------------
-    ~UnboundedKnapsack()
-    {
+    ~UnboundedKnapsack() {
         delete this;
     }
 
@@ -63,8 +60,7 @@ public:
      * @param		W Maximum weight capacity
      * @return		This object to allow chained calls
      */
-    UnboundedKnapsack *knapsack_unbounded(std::vector<lld> &w, std::vector<lld> &v, lld N, lld W)
-    {
+    UnboundedKnapsack *knapsack_unbounded(std::vector<lld> &w, std::vector<lld> &v, lld N, lld W) {
         // Stores the maximum value which can be reached with a certain capacity
         knapsack.clear();
         knapsack.resize(W + 1);
@@ -75,30 +71,24 @@ public:
         selectedElements.resize(W + 1);
 
         // Initializes maximum value vector with zero
-        for (lld i = 0; i < W + 1; i++)
-        {
+        for (lld i = 0; i < W + 1; i++) {
             knapsack[i] = 0;
         }
 
         // Computes the maximum value that can be reached for each capacity
-        for (lld capacity = 0; capacity < W + 1; capacity++)
-        {
+        for (lld capacity = 0; capacity < W + 1; capacity++) {
             // Goes through all the elements
-            for (lld n = 0; n < N; n++)
-            {
-                if (w[n] <= capacity)
-                {
+            for (lld n = 0; n < N; n++) {
+                if (w[n] <= capacity) {
                     // max(knapsack[capacity], knapsack[capacity - w[n]] + v[n])
-                    if (knapsack[capacity] <= knapsack[capacity - w[n]] + v[n])
-                    {
+                    if (knapsack[capacity] <= knapsack[capacity - w[n]] + v[n]) {
                         knapsack[capacity] = knapsack[capacity - w[n]] + v[n];
 
                         // Stores selected elements
                         selectedElements[capacity].clear();
                         selectedElements[capacity].push_back(n + 1);
 
-                        for (lld elem : selectedElements[capacity - w[n]])
-                        {
+                        for (lld elem : selectedElements[capacity - w[n]]) {
                             selectedElements[capacity].push_back(elem);
                         }
                     }
@@ -106,7 +96,7 @@ public:
             }
         }
 
-        return this;
+        return this->selectedElements;
     }
 
     /**
@@ -117,8 +107,7 @@ public:
      * @return		Maximum possible value with capacity provided
      * @throws		std::invalid_argument If capacity provided is out of bounds
      */
-    int getMaximumValue(int capacity)
-    {
+    int getMaximumValue(int capacity) {
         if (capacity < 0 || capacity >= maximumCapacity)
             throw std::invalid_argument("Capacity out of bounds");
 
@@ -134,8 +123,7 @@ public:
      * @throws		std::invalid_argument If capacity provided is out of bounds
      * @apiNote		Elements are referenced by their index + 1
      */
-    std::vector<int> &getSelectedElements(int capacity)
-    {
+    std::vector<int> &getSelectedElements(int capacity) {
         if (capacity < 0 || capacity >= maximumCapacity)
             throw std::invalid_argument("Capacity out of bounds");
 
@@ -152,12 +140,10 @@ public:
      * provided
      * @apiNote		Elements are referenced by their index + 1
      */
-    std::string selectedElements_toString(int capacity)
-    {
+    std::string selectedElements_toString(int capacity) {
         std::string response = "[";
 
-        for (int element : selectedElements[capacity])
-        {
+        for (int element : selectedElements[capacity]) {
             response.append(std::to_string(element));
             response.append(", ");
         }
@@ -177,9 +163,7 @@ public:
 // maximizamos o valor maximo dado a nossa capacidade
 // Returns the maximum value that
 // can be put in a knapsack of capacity W
-lld knapSack(lld W, lld wt[], lld val[], lld n)
-{
-
+lld knapSack(lld W, lld wt[], lld val[], lld n) {
     // Base Case
     if (n == 0 || W == 0)
         return 0;
@@ -202,13 +186,11 @@ lld knapSack(lld W, lld wt[], lld val[], lld n)
 }
 
 // Driver code
-int main()
-{
+int main() {
     lld instancia = 1;
     lld num_itens, capacidade;
 
-    while (cin >> num_itens >> capacidade)
-    {
+    while (cin >> num_itens >> capacidade) {
         if (num_itens == 0 && capacidade == 0)
             break;
 

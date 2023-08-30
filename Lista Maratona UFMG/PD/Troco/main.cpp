@@ -1,6 +1,7 @@
 /**
- * [Link]
- * [Assuntos]
+ * https://www.beecrowd.com.br/judge/pt/problems/view/2446
+ * Troco
+ * Programação dinâmica, PD, DP
  */
 
 #include <bits/stdc++.h>
@@ -8,9 +9,7 @@
 using namespace std;
 
 #define SPEED cin.tie(0)->sync_with_stdio(0);
-#define DEBUG false
-#define db(x) \
-    if (DEBUG) cout << #x << ": " << x << endl
+#define db(x) cout << #x << ": " << x << endl
 #define db_pair(x) cout << #x << ": " << x.f << ", " << x.s << endl
 #define printv(vector)                             \
     {                                              \
@@ -52,18 +51,31 @@ void read(T& first, Args&... args) {
     read(args...);
 }
 
+char ehPossivel(ll troco, vll& moedas) {
+    vector<bool> memo(1e5 + 10);
+
+    memo[0] = true;
+    foreach (moeda, moedas) {
+        for (ll valor = troco; valor >= moeda; valor--) {
+            memo[valor] = memo[valor] || memo[valor - moeda];
+        }
+    }
+
+    return memo[troco] ? 'S' : 'N';
+}
+
 int main(int argc, char** argv) {
     SPEED;
 
-    /**
-     * Não esqueça de adicionar o link da questão e o assunto S2
-     */
+    ll valor_compra, n_moedas;
+    read(valor_compra, n_moedas);
 
-    ll test_cases;
-    read(test_cases);
-
-    rep(test_case, test_cases) {
+    vll moedas(n_moedas + 1);
+    FOR(i, 1, n_moedas + 1) {
+        read(moedas[i]);
     }
+
+    log(ehPossivel(valor_compra, moedas));
 
     return 0;
 }

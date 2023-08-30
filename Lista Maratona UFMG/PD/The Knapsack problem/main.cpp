@@ -1,6 +1,7 @@
 /**
- * [Link]
- * [Assuntos]
+ * https://codeforces.com/problemset/gymProblem/101064/L
+ * L. The Knapsack problem
+ * PD, programação dinamica, dp
  */
 
 #include <bits/stdc++.h>
@@ -52,18 +53,37 @@ void read(T& first, Args&... args) {
     read(args...);
 }
 
-int main(int argc, char** argv) {
+// Returns the maximum value with knapsack of
+// W capacity
+int unboundedKnapsack(int W, int n,
+                      int val[], int wt[]) {
+    // dp[i] is going to store maximum value
+    // with knapsack capacity i.
+    int dp[W + 10];
+    memset(dp, 0, sizeof(dp));
+
+    // Fill dp[] using above recursive formula
+    for (int i = 0; i <= W; i++)
+        for (int j = 0; j < n; j++)
+            if (wt[j] <= i)
+                dp[i] = max(dp[i], dp[i - wt[j]] + val[j]);
+
+    return dp[W];
+}
+
+int main() {
     SPEED;
+    int num_itens, capacidade;
+    read(num_itens, capacidade);
 
-    /**
-     * Não esqueça de adicionar o link da questão e o assunto S2
-     */
-
-    ll test_cases;
-    read(test_cases);
-
-    rep(test_case, test_cases) {
+    int pesos[num_itens];
+    int valores[num_itens];
+    rep(i, num_itens) {
+        read(pesos[i], valores[i]);
     }
+
+    int n = sizeof(valores) / sizeof(valores[0]);
+    log(unboundedKnapsack(capacidade, n, valores, pesos));
 
     return 0;
 }
