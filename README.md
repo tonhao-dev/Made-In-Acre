@@ -66,6 +66,7 @@ Settings (JSON)
 <hr>
 
 ## Repositórios de problemas
+
 - [cses](https://cses.fi/problemset/)
 - [atcoder](https://atcoder.jp/)
 - [UNESP LPC](https://github.com/pedropaiola/unesp-progcomp)
@@ -74,8 +75,10 @@ Settings (JSON)
 
 
 ## Material
+
 1. [Merge Markdown](https://github.com/knennigtri/merge-markdown)
 2. [md-to-pdf](https://github.com/simonhaenisch/md-to-pdf)
+3. [md-index-generator](https://github.com/darkmavis1980/markdown-index-generator)
 
 Merge Markdown
 
@@ -84,3 +87,7 @@ Merge Markdown
 Markdown to PDF
 
     md-to-pdf .\merged\Material.out.md
+
+Markdown Index Generator
+
+    md-index-generator .\merged\Material.out.md
