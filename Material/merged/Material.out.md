@@ -52,13 +52,26 @@ pdf_options:
       - [Qualquer base -> decimal](#qualquer-base---decimal)
       - [Decimal -> Qualquer base](#decimal---qualquer-base)
     + [Partição de um número](#particao-de-um-numero)
-- [Força Bruta e Backtracking](#forca-bruta-e-backtracking)
-- [Busca Binária](#busca-binaria)
-  * [Funções](#funcoes)
-  * [Método da bissetriz](#metodo-da-bissetriz)
-  * [Busca binária na resposta](#busca-binaria-na-resposta)
-- [Guloso](#guloso)
-- [Strings](#strings)
+- [1.5 Dicas Sujas](#15-dicas-sujas)
+- [2 Força Bruta e Backtracking](#2-forca-bruta-e-backtracking)
+  * [2.1 Labirinto](#21-labirinto)
+  * [2.2 Cavalo](#22-cavalo)
+  * [2.3 O Problema das N Rainhas](#23-o-problema-das-n-rainhas)
+- [3. Busca Binária](#3-busca-binaria)
+  * [3.1 Funções](#31-funcoes)
+  * [3.2 Método da bissetriz](#32-metodo-da-bissetriz)
+  * [3.3 Busca binária na resposta](#33-busca-binaria-na-resposta)
+- [4. Guloso](#4-guloso)
+  * [4.1 Dicas](#41-dicas)
+  * [4.2 Propriedade](#42-propriedade)
+  * [4.3 Ordenação](#43-ordenacao)
+  * [Problema dos Pedidos Compatíveis](#problema-dos-pedidos-compativeis)
+- [5. Strings](#5-strings)
+  * [5.1 KMP](#51-kmp)
+  * [5.2 Palíndromo](#52-palindromo)
+  * [5.3 Algoritmo de Manacher](#53-algoritmo-de-manacher)
+  * [5.4 Trie](#54-trie)
+  * [5.5 Aho Corasick](#55-aho-corasick)
 - [Matemática](#matematica)
 - [Formulas Gerais](#formulas-gerais)
   * [Progressão Aritmética](#progressao-aritmetica)
@@ -198,6 +211,7 @@ using namespace std;
 typedef long long ll;
 typedef pair<ll, ll> pll;
 typedef vector<ll> vll;
+typedef vector<int> vi;
 
 template <typename T>
 
@@ -231,21 +245,41 @@ int main(int argc, char** argv) {
 # Limites
 
 ### Big O
-| N <=      | O(máx) |
-| ----------- | ----------- |
-| 11      | O(n!)       |
-| 22   | O(2<sup>n</sup> * n)        |
-| 100   | O(n<sup>4</sup>)        |
-| 400   | O(n<sup>3</sup>)        |
-| 2000   | O(n<sup>2</sup> * log<sub>2</sub>(n))        |
-| 10<sup>4</sup>   | O(n<sup>2</sup>)        |
-| 10<sup>5</sup>   | O(n * log<sub>2</sub><sup>2</sup>(n))        |
-| 10<sup>6</sup>   | O(n * log<sub>2</sub>(n))        |
-| 10<sup>8</sup>   | O(n)        |
-| 10<sup>18</sup>   | O(log<sub>2</sub>(n)), O(1)        |
+
+| N <=            | O(máx)                                 |
+| --------------- | -------------------------------------- |
+| 11              | O(n!)                                  |
+| 22              | O(2<sup>n</sup> \* n)                  |
+| 100             | O(n<sup>4</sup>)                       |
+| 400             | O(n<sup>3</sup>)                       |
+| 2000            | O(n<sup>2</sup> \* log<sub>2</sub>(n)) |
+| 10<sup>4</sup>  | O(n<sup>2</sup>)                       |
+| 10<sup>5</sup>  | O(n \* log<sub>2</sub><sup>2</sup>(n)) |
+| 10<sup>6</sup>  | O(n \* log<sub>2</sub>(n))             |
+| 10<sup>8</sup>  | O(n)                                   |
+| 10<sup>18</sup> | O(log<sub>2</sub>(n)), O(1)            |
 
 ### Tipos de dados
+
 <img src="https://www.cs.mtsu.edu/~xyang/images/IntegerDataType.png" width="600">
+
+| Tipo               | Formato | Bits | Mínimo     | Máximo     | Precisão Decimal |
+| ------------------ | ------- | ---- | ---------- | ---------- | ---------------- |
+| char               | `%c`    | 8    | 0          | 255        | 2                |
+| signed char        | `%hhd`  | 8    | -128       | 127        | 2                |
+| unsigned char      | `%hhu`  | 8    | 0          | 255        | 2                |
+| short              | `%hd`   | 16   | -32,768    | 32,767     | 4                |
+| unsigned short     | `%hu`   | 16   | 0          | 65,535     | 4                |
+| int                | `%d`    | 32   | -2 × 10^9  | 2 × 10^9   | 9                |
+| unsigned int       | `%u`    | 32   | 0          | 4 × 10^9   | 9                |
+| long long          | `%lld`  | 64   | -9 × 10^18 | 9 × 10^18  | 18               |
+| unsigned long long | `%llu`  | 64   | 0          | 18 × 10^18 | 19               |
+
+| Tipo        | Formato | Bits | Expoente | Precisão Decimal |
+| ----------- | ------- | ---- | -------- | ---------------- |
+| float       | `%f`    | 32   | 38       | 6                |
+| double      | `%lf`   | 64   | 308      | 15               |
+| long double | `%Lf`   | 80   | 19.728   | 18               |
 
 <div style="page-break-after: always; visibility: hidden">
 \pagebreak
@@ -260,7 +294,9 @@ int main(int argc, char** argv) {
 # Funções úteis do C++
 
 ### GCD (Greatest common divisor):
+
 Maior divisor comum
+
 ```cpp
 int gcd(int a, int b) {
     return b == 0 ? a : gcd(b, a % b);
@@ -272,6 +308,7 @@ __gcd(a, b)
 ```
 
 ### LCM (Least Common Multiple):
+
 MMC, menor múltiplo comum
 
 ```cpp
@@ -384,9 +421,31 @@ int N = 14, k = 2;
 cout << Josephus(N, k) << endl; // 14
 ```
 
+Por recursão:
+
+```cpp
+// Recursive function to implement the Josephus problem
+int josephus(int n, int k)
+{
+    if (n == 1)
+        return 1;
+    else
+        // The position returned by josephus(n - 1, k)
+        // is adjusted because the recursive call
+        // josephus(n - 1, k) considers the
+        // original position k % n + 1 as position 1
+        return (josephus(n - 1, k) + k - 1) % n + 1;
+}
+```
+
+**Time Complexity:** O(N)
+
 ### Números Primos
+
 #### Verificar se N é primo
+
 Time complexity: O(sqrt(N))
+
 ```cpp
 bool is_prime(int n) {
     // Assumes that n is a positive natural number
@@ -413,6 +472,7 @@ bool is_prime(int n) {
 ```
 
 ### Sieve of Eratosthenes
+
 Given a number n, print all primes smaller than or equal to n. It is also given that n is a small number.
 
 ```cpp
@@ -446,6 +506,7 @@ int main()
 ```
 
 ### Binomial Coefficient
+
 A binomial coefficient C(n, k) also gives the number of ways, disregarding order, that k objects can be chosen from among n objects more formally, the number of k-element subsets (or k-combinations) of a n-element set.
 
 O coeficiente binomial, também chamado de número binomial, de um número n, na classe k, consiste no número de combinações de n termos, k a k.
@@ -490,7 +551,9 @@ cout << "Value of C(" << n << ", " << r << ") is "
 ```
 
 ### Conversão de bases numéricas
+
 #### Qualquer base -> decimal
+
 ```cpp
 string base2 = "1100";
 string base8 = "21";
@@ -504,6 +567,7 @@ cout << (stoi(base16, nullptr, 16)) << endl; // 30
 ```
 
 #### Decimal -> Qualquer base
+
 ```cpp
 // To return char for a value. For example '2'
 // is returned for 2. 'A' is returned for 10. 'B'
@@ -542,6 +606,7 @@ cout << "Equivalent of " << inputNum << " in base "
 ```
 
 ### Partição de um número
+
 Given a positive integer n, generate all possible unique ways to represent n as sum of positive integers.
 
 Time Complexity: O(2^n)
@@ -602,11 +667,25 @@ for (auto i : ans) {
 \pagebreak
 </div>
 
-# Força Bruta e Backtracking
+# 1.5 Dicas Sujas
 
-Backtracking é um refinamento do algoritmo de busca por força bruta, no qual boa parte das soluções podem ser eliminadas sem serem explicitamente examinadas. A ideia central é retroceder quando detectar que a solução candidata é inviável
+-   **Método Steve Halim**: As possíveis saídas do problema cabem no código do problema? Deixe um algoritmo _naive_ brutando o problema na máquina por alguns minutos e escreva as respostas direto no código para submeter. Exemplo: problema cuja entrada é um único número da ordem de 10^5. Verificar o tamanho máximo de caracteres de uma submissão.
+-   **Fatoriais até 10^9**: Deixe um programa na sua máquina brutando os fatoriais até 10^9. A cada 10^3 ou 10^6, imprima. Cole a saída no código e use os valores pré-calculados pra calcular um fatorial com 10^3 ou 10^6 operações.
+-   **Problemas com constantes**: Se algum valor útil de algum problema for constante (independe da entrada), mas você não sabe, _brute_ ele na sua máquina e cole no código.
+-   **Debug com _assert_**: Pode colocar _assert_ em código para submeter. Tente usar isso pra transformar um WA em um RTE. É uma forma válida de debug. Usar isso somente no desespero (fica gastando submissões)
 
-Exemplo, labirinto:
+# 2 Força Bruta e Backtracking
+
+Tentativa e erro: decompor o processo em um número finito de subtarefas parciais que devem ser exploradas exaustivamente.
+
+-   O processo de tentativa gradualmente constrói e percorre uma árvore de subtarefas.
+-   Algoritmos tentativa e erro não seguem uma regra fixa de computação:
+    -   Passos em direção à solução final são tentados e registrados.
+    -   Caso esses passos tomados não levem à solução final, eles podem ser retirados e apagados do registro.
+
+## 2.1 Labirinto
+
+Dado um labirinto 5x5 definir se é possível chegar até o final do labirinto começando da posição 0,0:
 
 ```cpp
 int T;
@@ -650,6 +729,8 @@ void backtracking(int x, int y) {
 backtracking(0, 0);
 ```
 
+## 2.2 Cavalo
+
 Dado um tabuleiro de xadrez 𝑛 𝑥 𝑛 e uma posição (𝑥, 𝑦) do tabuleiro, queremos encontrar um passeio de um cavalo que visite cada casa exatamente uma vez.
 
 -   Movimento do cavalo – formato de L:
@@ -658,7 +739,10 @@ Dado um tabuleiro de xadrez 𝑛 𝑥 𝑛 e uma posição (𝑥, 𝑦) do tabul
 
 ```cpp
 int m[MAX][MAX], n;
-vector<pii> movimentos = {{2, -1}, {2, 1}, {-2, 1}, {-2, -1}, {1, 2}, {-1, 2}, {-1, -2}, {1, -2}};
+vector<pii> movimentos = {
+	{2, -1}, {2, 1}, {-2, 1}, {-2, -1},
+	{1, 2}, {-1, 2}, {-1, -2}, {1, -2}
+};
 
 bool posicaoValida(int x, int y){
   return (x >= 0) && (x < n) && (y >= 0) && (y < n) && !m[x][y];
@@ -682,18 +766,130 @@ int passeioCavalo(int x, int y)
   }
   return 0;
 }
+
+```
+
+## 2.3 O Problema das N Rainhas
+
+A Rainha N é o problema de colocar N rainhas de xadrez em um tabuleiro de xadrez N×N de modo que duas rainhas não se ataquem.
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+#define N 4
+
+// ld is an array where its indices indicate row-col+N-1
+// (N-1) is for shifting the difference to store negative
+// indices
+int ld[30] = { 0 };
+
+// rd is an array where its indices indicate row+col
+// and used to check whether a queen can be placed on
+// right diagonal or not
+int rd[30] = { 0 };
+
+// Column array where its indices indicates column and
+// used to check whether a queen can be placed in that
+// row or not*/
+int cl[30] = { 0 };
+
+// A utility function to print solution
+void printSolution(int board[N][N])
+{
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++)
+            cout << " " << board[i][j] << " ";
+        cout << endl;
+    }
+}
+
+// A recursive utility function to solve N
+// Queen problem
+bool solveNQUtil(int board[N][N], int col)
+{
+    // Base case: If all queens are placed
+    // then return true
+    if (col >= N)
+        return true;
+
+    // Consider this column and try placing
+    // this queen in all rows one by one
+    for (int i = 0; i < N; i++) {
+
+        // Check if the queen can be placed on
+        // board[i][col]
+
+        // To check if a queen can be placed on
+        // board[row][col].We just need to check
+        // ld[row-col+n-1] and rd[row+coln] where
+        // ld and rd are for left and right
+        // diagonal respectively
+        if ((ld[i - col + N - 1] != 1 && rd[i + col] != 1)
+            && cl[i] != 1) {
+
+            // Place this queen in board[i][col]
+            board[i][col] = 1;
+            ld[i - col + N - 1] = rd[i + col] = cl[i] = 1;
+
+            // Recur to place rest of the queens
+            if (solveNQUtil(board, col + 1))
+                return true;
+
+            // If placing queen in board[i][col]
+            // doesn't lead to a solution, then
+            // remove queen from board[i][col]
+            board[i][col] = 0; // BACKTRACK
+            ld[i - col + N - 1] = rd[i + col] = cl[i] = 0;
+        }
+    }
+
+    // If the queen cannot be placed in any row in
+    // this column col  then return false
+    return false;
+}
+
+// This function solves the N Queen problem using
+// Backtracking. It mainly uses solveNQUtil() to
+// solve the problem. It returns false if queens
+// cannot be placed, otherwise, return true and
+// prints placement of queens in the form of 1s.
+// Please note that there may be more than one
+// solutions, this function prints one  of the
+// feasible solutions.
+bool solveNQ()
+{
+    int board[N][N] = { { 0, 0, 0, 0 },
+                        { 0, 0, 0, 0 },
+                        { 0, 0, 0, 0 },
+                        { 0, 0, 0, 0 } };
+
+    if (solveNQUtil(board, 0) == false) {
+        cout << "Solution does not exist";
+        return false;
+    }
+
+    printSolution(board);
+    return true;
+}
+
+// Driver program to test above function
+int main()
+{
+    solveNQ();
+    return 0;
+}
 ```
 
 <div style="page-break-after: always; visibility: hidden">
 \pagebreak
 </div>
 
-# Busca Binária
+# 3. Busca Binária
 
 Para aplicar um algoritmo de busca binária preciso de:
 
 -   Uma estrutura de dados ordenada.
--   Acessar qualquer elemento dessa estrutura com a compl exidade contante.
+-   Acessar qualquer elemento dessa estrutura com a complexidade contante.
 
 ```cpp
 #include <bits/stdc++.h>
@@ -723,7 +919,7 @@ int binarySearch(int arr[], int l, int r, int x)
 }
 ```
 
-## Funções
+## 3.1 Funções
 
 -   **binary_search(first, last, val)**
     -   Retorna um booleano indicando se existe o elemento
@@ -734,7 +930,7 @@ int binarySearch(int arr[], int l, int r, int x)
     -   Retorna iterator para o **primeiro** valor **superior** a **val**
     -   Ou retorna last, caso não encontre **val**
 
-## Método da bissetriz
+## 3.2 Método da bissetriz
 
 Exemplo de cálculo de raiz quadrada:
 
@@ -858,7 +1054,7 @@ int main()
 }
 ```
 
-## Busca binária na resposta
+## 3.3 Busca binária na resposta
 
 ```cpp
 vll pipocas;
@@ -905,13 +1101,416 @@ int main()
 \pagebreak
 </div>
 
-# Guloso
+# 4. Guloso
+
+-   Aplicado a problemas de **otimização**.
+-   Independente do que possa acontecer mais tarde, nunca **reconsidera** a decisão.
+-   Não necessita avaliar alternativas, ou usar procedimentos sofisticados para desfazer decisões tomadas previamente.
+
+## 4.1 Dicas
+
+-   Quando funciona corretamente, a primeira solução encontrada é sempre ótima.
+-   A função de seleção é geralmente relacionada com a função objetivo.
+-   Se o objetivo é:
+    -   Maximizar ⇒ provavelmente escolherá o candidato restante que proporcione o maior ganho individual.
+    -   Minimizar ⇒ então será escolhido o candidato restante de menor custo.
+-   O algoritmo **nunca** muda de ideia:
+    -   Um candidato escolhido e adicionado à solução passa a fazer parte dessa solução **permanentemente**.
+    -   Um candidato excluído do conjunto solução, não é mais **reconsiderado**
+
+## 4.2 Propriedade
+
+Solução global ótima pode ser obtida a partir de escolhas **locais ótimas**.
+
+-   Estratégia diferente de programação dinâmica (PD).
+-   Uma vez feita a escolha, resolve o problema a partir do “estado” em que se encontra.
+-   Escolha na técnica gulosa depende só do que foi feito e não do que será feito no futuro.
+-   Progride na forma _top-down_:
+    -   Através de iterações vai “transformando” uma instância do problema em
+        uma outra menor.
+-   Estratégia da prova que a escolha gulosa leva a uma **solução global ótima**:
+    -   Examine a solução global ótima.
+    -   Mostre que a solução pode ser modificada de tal forma que uma escolha gulosa pode ser aplicada como primeiro passo.
+    -   Mostre que essa escolha reduz o problema a um similar mas menor.
+    -   Aplique indução para mostrar que uma escolha gulosa pode ser aplicada a cada passo.
+
+## 4.3 Ordenação
+
+Existe uma série de problemas gulosos que são baseados em ordenar os elementos, dependendo de como eles forem representados:
+
+-   Vetor de números: ordenar de forma crescente/decrescente e, sempre que possível, adicionando os valores na resposta.
+-   Vetor de palavras: ordenar lexicograficamente
+-   Vetor de pares: ordenar pela diferença (_second-first_), ordenar pelo primeiro/segundo
+    elemento, ordenar por alguma fórmula _f_ (_x_, _y_).
+-   Aquilo que importa é deixar o seu vetor propício às suas escolhas gulosas funcionarem.
+
+## Problema dos Pedidos Compatíveis
+
+Este problema deve escolher o maior número de pedidos com tempo de inicio e final, afim de ter o maior número de pedidos.
+
+```cpp
+bool cmp(pair<int, int> a, pair<int, int> b)
+{
+  return a.second < b.second;
+}
+
+int main()
+{
+  int qtd;
+  cin >> qtd;
+
+  vector<pair<int, int>> orders(qtd, {0, 0});
+
+  for (int i = 0; i < qtd; i++)
+  {
+    pair<int, int> order;
+    cin >> order.first;
+    cin >> order.second;
+    orders[i] = order;
+  }
+
+  sort(orders.begin(), orders.end(), cmp);
+
+  int ans = 0;
+  int fim = -1;
+  for (int i = 0; i < qtd; i++)
+  {
+    if (orders[i].first > fim)
+    {
+      fim = orders[i].second;
+      ans++;
+    }
+  }
+
+  cout << ans << endl;
+
+  return 0;
+}
+```
 
 <div style="page-break-after: always; visibility: hidden">
 \pagebreak
 </div>
 
-# Strings
+# 5. Strings
+
+## 5.1 KMP
+
+Retorna os índices das ocorrências de **_S_** em **_T._**
+
+```cpp
+template<typename T> vector<int> pi(T s) {
+	vector<int> p(s.size());
+	for (int i = 1, j = 0; i < s.size(); i++) {
+		while (j and s[j] != s[i]) j = p[j-1];
+		if (s[j] == s[i]) j++;
+		p[i] = j;
+	}
+	return p;
+}
+
+template<typename T> vector<int> matching(T& s, T& t) {
+	vector<int> p = pi(s), match;
+	for (int i = 0, j = 0; i < t.size(); i++) {
+		while (j and s[j] != t[i]) j = p[j-1];
+		if (s[j] == t[i]) j++;
+		if (j == s.size()) match.push_back(i-j+1), j = p[j-1];
+	}
+	return match;
+}
+
+struct KMPaut : vector<vector<int>> {
+	KMPaut(){}
+	KMPaut (string& s) : vector<vector<int>>(26, vector<int>(s.size()+1)) {
+		vector<int> p = pi(s);
+		auto& aut = *this;
+		aut[s[0]-'a'][0] = 1;
+		for (char c = 0; c < 26; c++)
+			for (int i = 1; i <= s.size(); i++)
+				aut[c][i] = s[i]-'a' == c ? i+1 : aut[c][p[i-1]];
+	}
+};
+```
+
+Complexidades:
+
+> pi - _O(n)_
+> match - _O(n + m)_
+> construir o autômato - O(|sigma|\*n)
+> n = |padrão| e m = |texto|
+
+## 5.2 Palíndromo
+
+Palíndromo é uma sequência de caracteres que ao ser invertida mantém-se idêntica.
+
+```cpp
+bool isPalindrome(string S)
+{
+    // Iterate over the range [0, N/2]
+    for (int i = 0; i < S.length() / 2; i++)
+    {
+
+        // If S[i] is not equal to
+        // the S[N-i-1]
+        if (S[i] != S[S.length() - i - 1])
+        {
+            return false;
+        }
+
+    return true;
+}
+```
+
+Complexidade:
+
+> _O(n)_
+
+## 5.3 Algoritmo de Manacher
+
+Determina qual a maior substring palindrômica e também quantas substrings são palíndromos.
+
+```cpp
+// manacher recebe um vetor de T e retorna o vetor com tamanho dos palindromos
+template<typename T> vector<int> manacher(const T& s) {
+	int l = 0, r = -1, n = s.size();
+	vector<int> d1(n), d2(n);
+	for (int i = 0; i < n; i++) {
+		int k = i > r ? 1 : min(d1[l+r-i], r-i);
+		while (i+k < n && i-k >= 0 && s[i+k] == s[i-k]) k++;
+		d1[i] = k--;
+		if (i+k > r) l = i-k, r = i+k;
+	}
+	l = 0, r = -1;
+	for (int i = 0; i < n; i++) {
+		int k = i > r ? 0 : min(d2[l+r-i+1], r-i+1); k++;
+		while (i+k <= n && i-k >= 0 && s[i+k-1] == s[i-k]) k++;
+		d2[i] = --k;
+		if (i+k-1 > r) l = i-k, r = i+k-1;
+	}
+	vector<int> ret(2*n-1);
+	for (int i = 0; i < n; i++) ret[2*i] = 2*d1[i]-1;
+	for (int i = 0; i < n-1; i++) ret[2*i+1] = 2*d2[i+1];
+	return ret;
+}
+
+// verifica se a string s[i..j] eh palindromo
+template<typename T> struct palindrome {
+	vector<int> man;
+
+	palindrome(const T& s) : man(manacher(s)) {}
+	bool query(int i, int j) {
+		return man[i+j] >= j-i+1;
+	}
+};
+
+// tamanho do maior palindromo que termina em cada posicao
+template<typename T> vector<int> pal_end(const T& s) {
+	vector<int> ret(s.size());
+	palindrome<T> p(s);
+	ret[0] = 1;
+	for (int i = 1; i < s.size(); i++) {
+		ret[i] = min(ret[i-1]+2, i+1);
+		while (!p.query(i-ret[i]+1, i)) ret[i]--;
+	}
+	return ret;
+}
+```
+
+Complexidades:
+
+> manacher - _O(n)_
+> palindrome - _<O(n), O(1)>_
+> pal*end - \_O(n)*
+
+## 5.4 Trie
+
+Um trie (derivado de recuperação) é uma estrutura de dados em árvore multidirecional usada para armazenar strings em um alfabeto. É usado para armazenar uma grande quantidade de strings. A correspondência de padrões pode ser feita de forma eficiente usando tentativas.
+
+```cpp
+struct trie {
+	vector<vector<int>> to;
+	vector<int> end, pref;
+	int sigma; char norm;
+	trie(int sigma_=26, char norm_='a') : sigma(sigma_), norm(norm_) {
+		to = {vector<int>(sigma)};
+		end = {0}, pref = {0};
+	}
+	void insert(string s) {
+		int x = 0;
+		for(auto c : s) {
+			int &nxt = to[x][c-norm];
+			if(!nxt) {
+				nxt = to.size();
+				to.push_back(vector<int>(sigma));
+				end.push_back(0), pref.push_back(0);
+			}
+			x = nxt, pref[x]++;
+		}
+		end[x]++;
+	}
+	void erase(string s) {
+		int x = 0;
+		for(char c : s) {
+			int &nxt = to[x][c-norm];
+			x = nxt, pref[x]--;
+			if(!pref[x]) nxt = 0;
+		}
+		end[x]--;
+	}
+
+	// retorna a posicao, 0 se nao achar
+	int find(string s) {
+		int x = 0;
+		for(auto c : s) {
+			x = to[x][c-norm];
+			if(!x) return 0;
+		}
+		return x;
+	}
+	// numero de strings que possuem s como prefixo
+	int count_pref(string s) {
+		return pref[find(s)];
+	}
+};
+
+int main()
+{
+  trie t(26);
+  t.insert("opa");
+  t.insert("opa2");
+  t.insert("opa3s");
+
+  cout << t.count_pref("opa") << endl; // 3
+
+  return 0;
+}
+```
+
+Complexidades:
+
+> T.insert(s) - O(|s|\*Σ)
+> T.erase(s) - O(|s|)
+> T.find(s) - O(|s|)
+> T.count_pref(s) - O(|s|)
+
+## 5.5 Aho Corasick
+
+O numero de ocorrências de alguma _string_ do conjunto como **_substring_** de **_s_** e em tempo linear.
+
+```cpp
+namespace aho
+{
+  int go(int v, char ch);
+  const int K = 26; // tamanho do alfabeto
+  struct trie
+  {
+    char me;            // char correspondente ao no atual
+    int go[K];          // proximo vertice que eu devo ir estando em um estado (v, c)
+    int down[K];        // proximo vertice da trie
+    int is_leaf = 0;    // se o vertice atual da trie eh uma folha (fim de uma ou mais strings)
+    int parent = -1;    // no ancestral do no atual
+    int link = -1;      // link de sufixo do no atual (outro no com o maior matching de sufixo)
+    int exit_link = -1; // folha mais proxima que pode ser alcancada a partir de v usando links de sufixo
+    trie(int p = -1, char ch = '$') : parent(p), me(ch)
+    {
+      fill(begin(go), end(go), -1);
+      fill(begin(down), end(down), -1);
+    }
+  };
+  vector<trie> ac;
+  void init() // criar a raiz da trie
+  {
+    ac.resize(1);
+  }
+  void add_string(string s) // adicionar string na trie
+  {
+    int v = 0;
+    for (auto const &ch : s)
+    {
+      int c = ch - 'a';
+      if (ac[v].down[c] == -1)
+      {
+        ac[v].down[c] = ac.size();
+        ac.emplace_back(v, ch);
+      }
+      v = ac[v].down[c];
+    }
+    ac[v].is_leaf++;
+  }
+  int get_link(int v) // pegar o suffix link saindo de v
+  {
+    if (ac[v].link == -1)
+      ac[v].link = (!v || !ac[v].parent) ? 0 : go(get_link(ac[v].parent), ac[v].me);
+    return ac[v].link;
+  }
+  int go(int v, char ch) // proximo estado saindo do estado(v, ch)
+  {
+    int c = ch - 'a';
+    if (ac[v].go[c] == -1)
+    {
+      if (ac[v].down[c] != -1)
+        ac[v].go[c] = ac[v].down[c];
+      else
+        ac[v].go[c] = (!v) ? 0 : go(get_link(v), ch);
+    }
+    return ac[v].go[c];
+  }
+  int get_exit_link(int v) // suffix link mais proximo de v que seja uma folha
+  {
+    if (ac[v].exit_link == -1)
+    {
+      int curr = get_link(v);
+      if (!v || !curr)
+        ac[v].exit_link = 0;
+      else if (ac[curr].is_leaf)
+        ac[v].exit_link = curr;
+      else
+        ac[v].exit_link = get_exit_link(curr);
+    }
+    return ac[v].exit_link;
+  }
+  int query(string s) // query O(n + ans)
+  {
+    int ans = 0, curr = 0, at;
+    for (auto const &i : s)
+    {
+      curr = go(curr, i);
+      ans += ac[curr].is_leaf;
+      at = get_exit_link(curr);
+      while (at)
+      {
+        ans += ac[at].is_leaf;
+        at = get_exit_link(at);
+      }
+    }
+    return ans;
+  }
+}
+```
+
+**Utilização:**
+
+```cpp
+int main()
+{
+  int n, q;
+  cin >> n >> q;
+  aho::init();
+  for (int i = 0; i < n; i++)
+  {
+    string s;
+    cin >> s;
+    aho::add_string(s);
+  }
+  while (q--)
+  {
+    string t;
+    cin >> t;
+    cout << aho::query(t) << endl;
+  }
+  return 0;
+}
+```
 
 <div style="page-break-after: always; visibility: hidden">
 \pagebreak
