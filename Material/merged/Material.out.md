@@ -38,6 +38,17 @@ pdf_options:
     + [Big O](#big-o)
     + [Tipos de dados](#tipos-de-dados)
 - [STL](#stl)
+- [Sorting](#sorting)
+- [Stack](#stack)
+  * [The Polish Notation](#the-polish-notation)
+  * [Balanced Brackets](#balanced-brackets)
+- [Queue](#queue)
+  * [Street Parede](#street-parede)
+- [Priority Queue](#priority-queue)
+  * [Telemarketing](#telemarketing)
+- [Set](#set)
+  * [Multi Set](#multi-set)
+  * [Iterator](#iterator)
 - [Funções úteis do C++](#funcoes-uteis-do-c)
     + [GCD (Greatest common divisor):](#gcd-greatest-common-divisor)
     + [LCM (Least Common Multiple):](#lcm-least-common-multiple)
@@ -286,6 +297,555 @@ int main(int argc, char** argv) {
 </div>
 
 # STL
+
+# Sorting
+
+**Selection Sort:**
+
+```cpp
+void selectionSort(int arr[], int n) {
+    for (int i = 0; i < n - 1; ++i) {
+        int minIndex = i;
+        for (int j = i + 1; j < n; ++j) {
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
+            }
+        }
+        std::swap(arr[i], arr[minIndex]);
+    }
+}
+
+```
+
+**Insertion Sort:**
+
+```cpp
+void insertionSort(int arr[], int n) {
+    for (int i = 1; i < n; ++i) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            --j;
+        }
+        arr[j + 1] = key;
+    }
+}
+```
+
+**Merge Sort:**
+
+```cpp
+void merge(int arr[], int left, int middle, int right) {
+    // Merge two sub-arrays into a temporary array and then copy back
+    // to the original array
+    // ...
+}
+
+void mergeSort(int arr[], int left, int right) {
+    if (left < right) {
+        int middle = left + (right - left) / 2;
+        mergeSort(arr, left, middle);
+        mergeSort(arr, middle + 1, right);
+        merge(arr, left, middle, right);
+    }
+}
+```
+
+**Quick Sort:**
+
+```cpp
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    for (int j = low; j <= high - 1; ++j) {
+        if (arr[j] < pivot) {
+            ++i;
+            std::swap(arr[i], arr[j]);
+        }
+    }
+    std::swap(arr[i + 1], arr[high]);
+    return i + 1;
+}
+
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+```
+
+**Counting Sort:**
+
+```cpp
+void countingSort(int arr[], int n, int range) {
+    std::vector<int> count(range + 1, 0); // Create a count array with size 'range + 1'
+
+    // Count the occurrences of each element
+    for (int i = 0; i < n; ++i) {
+        ++count[arr[i]];
+    }
+
+    // Update the count array to store the cumulative count
+    for (int i = 1; i <= range; ++i) {
+        count[i] += count[i - 1];
+    }
+
+    // Build the sorted output array using the count array
+    std::vector<int> output(n);
+    for (int i = n - 1; i >= 0; --i) {
+        output[count[arr[i]] - 1] = arr[i];
+        --count[arr[i]];
+    }
+
+    // Copy the sorted array back to the input array
+    for (int i = 0; i < n; ++i) {
+        arr[i] = output[i];
+    }
+}
+```
+
+# Stack
+
+Uma pilha é uma estrutura de dados que oferece duas operações em tempo O(1): adicionar um elemento ao topo e remover um elemento do topo. É possível acessar apenas o elemento do topo de uma pilha.
+O código a seguir mostra como uma pilha pode ser utilizada:
+
+```cpp
+stack<int> s;
+s.push(3);
+s.push(2);
+s.push(5);
+cout << s.top(); // 5
+s.pop();
+cout << s.top(); // 2
+```
+
+## The Polish Notation
+
+```cpp
+int evaluateRPN(const string& expression) {
+    stack<int> operands;
+
+    istringstream iss(expression);
+    string token;
+
+    while (iss >> token) {
+        if (isdigit(token[0]) || (token.size() > 1 && isdigit(token[1]))) {
+            // Token is an operand (number)
+            operands.push(stoi(token));
+        } else {
+            // Token is an operator
+            int operand2 = operands.top();
+            operands.pop();
+            int operand1 = operands.top();
+            operands.pop();
+
+            switch (token[0]) {
+                case '+':
+                    operands.push(operand1 + operand2);
+                    break;
+                case '-':
+                    operands.push(operand1 - operand2);
+                    break;
+                case '*':
+                    operands.push(operand1 * operand2);
+                    break;
+                case '/':
+                    operands.push(operand1 / operand2);
+                    break;
+                default:
+                    cerr << "Invalid operator: " << token << endl;
+                    return -1;
+            }
+        }
+    }
+
+    return operands.top();
+}
+```
+
+## Balanced Brackets
+
+```cpp
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int main(){
+    int n, i;
+    string s;
+    cin >> n;
+    while(n--){
+        cin >> s;
+        stack<char> p;
+        for(i = 0; i < s.size(); i++)
+        {
+            if ((s[i] == '(') || (s[i] == '[') || (s[i] == '{'))
+                p.push(s[i]);
+            else if (p.empty())
+                break;
+            else if ((s[i] == ')' && p.top() == '(') ||
+                     (s[i] == ']' && p.top() == '[') ||
+                     (s[i] == '}' && p.top() == '{'))
+                p.pop();
+            else
+                break;
+        }
+        if ((i == s.size()) && p.empty())
+            cout << "YES" << endl;
+        else
+            cout << "NO" << endl;
+    }
+}
+```
+
+# Queue
+
+Uma fila também oferece duas operações em tempo O(1): adicionar um elemento ao final da fila e remover o primeiro elemento da fila. É possível acessar apenas o primeiro e o último elemento de uma fila.
+O código a seguir mostra como uma fila pode ser utilizada.
+
+```cpp
+queue<int> q;
+q.push(3);
+q.push(2);
+q.push(5);
+cout << q.front(); // 3
+q.pop();
+cout << q.front(); // 2
+```
+
+## Street Parede
+
+```cpp
+/*
+Problema: Street Parade
+Categorias:
+	data structure > queue
+    data structure > stack
+Dificuldade: facil
+Descricao:
+Dica:
+Autor: Paiola
+*/
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    int n, i, x;
+    while(1)
+    {
+        cin >> n;
+        if (n == 0)
+            break;
+
+        queue<int> fila;
+        stack<int> pilhaMenores, pilhaMaiores;
+        for(i = 0; i < n; i++)
+        {
+            cin >> x;
+            fila.push(x);
+        }
+
+        pilhaMenores.push(0);
+        while(!fila.empty())
+        {
+            if (fila.front() == (pilhaMenores.top() + 1))
+            {
+                pilhaMenores.push(fila.front());
+                fila.pop();
+            }
+            else
+            {
+                if (pilhaMaiores.empty())
+                {
+                    pilhaMaiores.push(fila.front());
+                    fila.pop();
+                }
+                else
+                {
+                    while(!pilhaMaiores.empty() && (pilhaMaiores.top() == (pilhaMenores.top() + 1)))
+                    {
+                        pilhaMenores.push(pilhaMaiores.top());
+                        pilhaMaiores.pop();
+                    }
+
+                    if (fila.front() == (pilhaMenores.top() + 1))
+                    {
+                        pilhaMenores.push(fila.front());
+                        fila.pop();
+                    }
+                    else
+                    {
+                        pilhaMaiores.push(fila.front());
+                        fila.pop();
+                    }
+                }
+            }
+        }
+        while(!pilhaMaiores.empty() && (pilhaMaiores.top() == (pilhaMenores.top() + 1)))
+        {
+            pilhaMenores.push(pilhaMaiores.top());
+            pilhaMaiores.pop();
+        }
+        cout << ((fila.empty() && pilhaMaiores.empty()) ? "yes" : "no") << endl;
+    }
+}
+```
+
+# Priority Queue
+
+Uma fila de prioridade mantém um conjunto de elementos. As operações suportadas são a inserção e, dependendo do tipo de fila, a recuperação e a remoção do elemento mínimo ou máximo. A inserção e a remoção levam O(logn) tempo, e a recuperação leva O(1) tempo.
+Embora um conjunto ordenado suporte eficientemente todas as operações de uma fila de prioridade, o benefício de usar uma fila de prioridade é que ela tem fatores constantes menores. Uma fila de prioridade geralmente é implementada usando uma estrutura de heap que é muito mais simples do que uma árvore binária balanceada usada em um conjunto ordenado.
+Por padrão, os elementos em uma fila de prioridade C++ são ordenados em ordem decrescente, e é possível encontrar e remover o maior elemento na fila. O código a seguir ilustra isso:
+
+```cpp
+priority_queue<int> q;
+q.push(3);
+q.push(5);
+q.push(7);
+q.push(2);
+cout << q.top() << "\n"; // 7
+q.pop();
+cout << q.top() << "\n"; // 5
+q.pop();
+q.push(6);
+cout << q.top() << "\n"; // 6
+q.pop();
+```
+
+Se quisermos criar uma fila de prioridade que suporte encontrar e remover o
+elemento menor, podemos fazer isso da seguinte maneira:
+
+```cpp
+priority_queue<int,vector<int>,greater<int>> q;
+```
+
+## Telemarketing
+
+O problema do telemarketing, envolve a atribuição eficiente de tarefas a um grupo de trabalhadores, onde cada tarefa tem um horário de início e fim, e cada trabalhador está disponível apenas durante um intervalo específico de tempo. O objetivo é maximizar o número de tarefas que são atribuídas sem sobrepor os intervalos de disponibilidade dos trabalhadores. Isso requer uma abordagem que combine tarefas e trabalhadores de forma a otimizar a utilização do tempo e realizar o maior número de tarefas possível.
+
+```cpp
+#include <cstdio>
+#include <queue>
+
+#define MAXN 1010
+#define MAXL 1000100
+
+using namespace std;
+
+int n, l, t, qtd[MAXN];
+
+struct atendente{ // declaro a struct atendente
+
+	int id, livre; // ela terá dois inteiros como membros
+
+	// terá um construtor para atribuir valores aos membros
+	atendente(int id_, int livre_=0){ id=id_; livre=livre_; }
+
+	// terá também um operador >, para compará-la com outro atendente
+
+	// note que a priority_queue ordena do maior para o menor
+	// logo este operador deve retornar true se a struct vem antes na ordenação
+	bool operator >(const atendente x) const{
+
+		// se eles ficarem livres em momentos diferentes
+		if(livre!=x.livre) return livre<x.livre; // ele retorna o que fica livre antes
+		return id<x.id; // caso contrário, retorna o de menor id
+	}
+
+	// crio também o operador < de maneira análoga ao >
+	bool operator <(const atendente x) const{
+
+		if(livre!=x.livre) return livre>x.livre;
+		return id>x.id;
+	}
+};
+
+priority_queue<atendente> heap; // crio a priority_queue de atendente de nome "heap"
+
+int main(){
+
+	scanf("%d %d", &n, &l); // leio os valores de n e l
+
+	for(int i=1; i<=n; i++) heap.push(atendente(i)); // insiro os atendentes na fila de prioridade
+
+	int tempo=0; // inicializo tempo com o valor 0
+
+	for(int i=1; i<=l; i++){ // para cada ligação
+
+		scanf("%d", &t); // leio sua duração
+
+		atendente davez=heap.top(); // e vejo qual o atendente que irá atendê-la (o primeiro de heap)
+
+		heap.pop(); // tiro ele do topo
+		qtd[davez.id]++; // e aumento a quantidade de ligações por ele atendidas
+
+		if(davez.livre>tempo) tempo=davez.livre; // se a ligação teve que esperar, atualizo o tempo
+
+		davez.livre+=t; // salvo que o atendente davez só ficará livre novamente em t minutos
+		heap.push(davez); // e o reinsiro na fila de prioridade
+	}
+
+	// depois, para cada um dos atendentes, imprimo sua identificação e a quantidade de ligações atendidas
+	for(int i=1; i<=n; i++) printf("%d %d\n", i, qtd[i]);
+
+	return 0;
+}
+```
+
+# Set
+
+Um conjunto é uma estrutura de dados que mantém uma coleção de elementos. As operações básicas dos conjuntos são inserção de elementos, busca e remoção.
+A biblioteca padrão de C++ contém duas implementações de conjuntos: A estrutura `set` é baseada em uma árvore binária balanceada e suas operações funcionam em tempo O(logn). A estrutura `unordered_set` usa hashing, e suas operações funcionam em tempo O(1) em média.
+A escolha de qual implementação de conjunto usar frequentemente é uma questão de preferência. A vantagem da estrutura `set` é que ela mantém a ordem dos elementos e fornece funções que não estão disponíveis no `unordered_set`. Por outro lado, o `unordered_set` pode ser mais eficiente.
+O código a seguir cria um conjunto que contém inteiros e demonstra algumas das operações. A função `insert` adiciona um elemento ao conjunto, a função `count` retorna o número de ocorrências de um elemento no conjunto e a função `erase` remove um elemento do conjunto.
+
+```cpp
+set<int> s;
+s.insert(3);
+s.insert(2);
+s.insert(5);
+cout << s.count(3) << "\n"; // 1
+cout << s.count(4) << "\n"; // 0
+s.erase(3);
+s.insert(4);
+cout << s.count(3) << "\n"; // 0
+cout << s.count(4) << "\n"; // 1
+```
+
+Um conjunto pode ser usado principalmente como um vetor, mas não é possível acessar os elementos usando a notação `[]`. O código a seguir cria um conjunto, imprime o número de elementos nele e, em seguida, itera por todos os elementos:
+
+```cpp
+set<int> s = {2, 5, 6, 8};
+cout << s.size() << "\\n"; // 4
+for (auto x : s) {
+    cout << x << "\\n";
+}
+
+```
+
+Uma propriedade importante dos conjuntos é que todos os seus elementos são distintos. Portanto, a função `count` sempre retorna 0 (o elemento não está no conjunto) ou 1 (o elemento está no conjunto), e a função `insert` nunca adiciona um elemento ao conjunto se ele já estiver lá. O código a seguir ilustra isso:
+
+```cpp
+set<int> s;
+s.insert(5);
+s.insert(5);
+s.insert(5);
+cout << s.count(5) << "\\n"; // 1
+
+```
+
+Nesse exemplo, mesmo que o valor 5 seja inserido três vezes, o conjunto mantém apenas uma instância do valor, pois todos os elementos em um conjunto são únicos. A função `count` retorna 1 para o valor 5, indicando que ele está presente no conjunto.
+
+## Multi Set
+
+C++ também contém as estruturas `multiset` e `unordered_multiset` que funcionam de forma semelhante a `set` e `unordered_set`, mas podem conter várias instâncias de um elemento. Por exemplo, no código a seguir, todas as três instâncias do número 5 são adicionadas a um `multiset`:
+
+```cpp
+multiset<int> s;
+s.insert(5);
+s.insert(5);
+s.insert(5);
+cout << s.count(5) << "\n"; // 3
+```
+
+A função `erase` remove todas as instâncias de um elemento de um `multiset`:
+
+```cpp
+s.erase(5);
+cout << s.count(5) << "\\n"; // 0
+
+```
+
+Frequentemente, apenas uma instância deve ser removida, o que pode ser feito da seguinte maneira:
+
+```cpp
+s.erase(s.find(5));
+cout << s.count(5) << "\\n"; // 2
+
+```
+
+Nesses exemplos, a função `erase` remove todas as instâncias do elemento 5 do `multiset`. No entanto, se você quiser remover apenas uma instância, pode usar a função `find` para localizar a primeira ocorrência do elemento e, em seguida, passar o resultado para a função `erase`. Isso resultará em duas instâncias restantes do elemento 5 no `multiset`.
+
+## Iterator
+
+Iteradores são frequentemente usados para acessar elementos de um conjunto. O código a seguir cria um iterador `it` que aponta para o menor elemento em um conjunto:
+
+```cpp
+set<int>::iterator it = s.begin();
+
+```
+
+Uma maneira mais curta de escrever o código é a seguinte:
+
+```cpp
+auto it = s.begin();
+
+```
+
+O elemento para o qual um iterador aponta pode ser acessado usando o símbolo `*`. Por exemplo, o código a seguir imprime o primeiro elemento no conjunto:
+
+```cpp
+auto it = s.begin();
+cout << *it << "\\n";
+
+```
+
+Os iteradores podem ser movidos usando os operadores ++ (avanço) e -- (retrocesso), o que significa que o iterador avança para o próximo ou anterior elemento no conjunto. O código a seguir imprime todos os elementos em ordem crescente:
+
+```cpp
+for (auto it = s.begin(); it != s.end(); it++) {
+    cout << *it << "\\n";
+}
+
+```
+
+O seguinte código imprime o maior elemento no conjunto:
+
+```cpp
+auto it = s.end();
+it--;
+cout << *it << "\\n";
+
+```
+
+A função `find(x)` retorna um iterador que aponta para um elemento cujo valor é x. No entanto, se o conjunto não contiver x, o iterador será `end`.
+
+```cpp
+auto it = s.find(x);
+if (it == s.end()) {
+    // x não foi encontrado
+}
+
+```
+
+A função `lower_bound(x)` retorna um iterador para o menor elemento no conjunto cujo valor é pelo menos x, e a função `upper_bound(x)` retorna um iterador para o menor elemento no conjunto cujo valor é maior que x. Em ambas as funções, se tal elemento não existir, o valor de retorno é `end`. Essas funções não são suportadas pela estrutura `unordered_set`, que não mantém a ordem dos elementos.
+
+Por exemplo, o seguinte código encontra o elemento mais próximo de x:
+
+```cpp
+auto it = s.lower_bound(x);
+if (it == s.begin()) {
+    cout << *it << "\\n";
+} else if (it == s.end()) {
+    it--;
+    cout << *it << "\\n";
+} else {
+    int a = *it;
+    it--;
+    int b = *it;
+    if (x - b < a - x) cout << b << "\\n";
+    else cout << a << "\\n";
+}
+
+```
+
+O código pressupõe que o conjunto não está vazio e passa por todos os casos possíveis usando um iterador `it`. Primeiro, o iterador aponta para o menor elemento cujo valor é pelo menos x. Se ele for igual a `begin`, o elemento correspondente está mais próximo de x. Se for igual a `end`, o maior elemento no conjunto está mais próximo de x. Se nenhum dos casos anteriores for verdadeiro, o elemento mais próximo de x é o elemento que corresponde a ele ou o elemento anterior.
 
 <div style="page-break-after: always; visibility: hidden">
 \pagebreak
