@@ -1,0 +1,3 @@
+LEFT
+RIGHT
+TOUCH
