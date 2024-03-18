@@ -1,0 +1,38 @@
+a: -1, 7
+b: 0, 2
+c: 1, -3
+d: -1, 4
+vetor_uv: 1, -5
+vetor_uz: 2, -10
+cross():
+u: 1, -5
+v: 2, -10
+-=-=-=
+det: 0
+orientacaoABC: 0
+vetor_uv: 1, -5
+vetor_uz: 0, -3
+cross():
+u: 1, -5
+v: 0, -3
+-=-=-=
+det: -3
+orientacaoABD: -1
+vetor_uv: -2, 7
+vetor_uz: -2, 10
+cross():
+u: -2, 7
+v: -2, 10
+-=-=-=
+det: -6
+orientacaoCDA: -1
+vetor_uv: -2, 7
+vetor_uz: -1, 5
+cross():
+u: -2, 7
+v: -1, 5
+-=-=-=
+det: -3
+orientacaoCDB: -1
+is_on_segment(a, b, d): 1
+YES

@@ -40,7 +40,7 @@ using namespace std;
 #define y second
 #define a_num f.f
 #define a_den f.s
-#define b s
+#define b_num s
 #define LEFT 1
 #define RIGHT -1
 #define COLINEAR 0
@@ -66,6 +66,11 @@ void read(T& first, Args&... args) {
 }
 
 ll cross(point u, point v) {
+    cout << "cross():\n";
+    db_pair(u);
+    db_pair(v);
+    cout << "-=-=-=" << endl;
+
     return u.x * v.y - v.x * u.y;
 }
 
@@ -101,16 +106,82 @@ double angle_from(point u, point v, point z) {
 //        | x3 y3 1 |
 // esse 1 é o valor do eixo X, eixo Y e
 ll ccw(point u, point v, point z) {
-    ll det = (v.x - u.x) * (z.y - u.y) - (z.x - u.x) * (v.y - u.y);
-    return det;
+    point vetor_uv = {(v.x - u.x), (v.y - u.y)};
+    db_pair(vetor_uv);
+
+    point vetor_uz = {(z.x - u.x), (z.y - u.y)};
+    db_pair(vetor_uz);
+
+    ll crossProduct = cross(vetor_uv, vetor_uz);
+
+    return crossProduct;
 }
 
-ll is_left(point u, point v, point z) {
+ll orientation(point u, point v, point z) {
     ll det = ccw(u, v, z);
+    db(det);
 
     if (det > 0) return LEFT;   // z esta a esquerda da reta que sai de u e chega em v
     if (det < 0) return RIGHT;  // z esta a direita da reta que sai de u e chega em v
     return COLINEAR;            // z e colinear a reta que sai de u e chega em v
+}
+
+// dado 3 pontos colineares, u, v e z, determina se o ponto z
+// esta contido dentro do segmento de reta que sai de u e chega em v
+bool is_on_segment(point u, point v, point z) {
+    if (z.x <= max(u.x, v.x) && z.x >= min(u.x, v.x) && z.y <= max(u.y, v.y) && z.y >= min(u.y, z.y))
+        return true;
+
+    return false;
+}
+
+// dado 2 segmentos de reta a->b, c->d, determina se eles tem intersecao
+bool has_intersection(point a, point b, point c, point d) {
+    db_pair(a);
+    db_pair(b);
+    db_pair(c);
+    db_pair(d);
+
+    // orientacao entre cada reta e um ponto da outra reta
+    ll orientacaoABC = orientation(a, b, c);
+    db(orientacaoABC);
+    ll orientacaoABD = orientation(a, b, d);
+    db(orientacaoABD);
+
+    ll orientacaoCDA = orientation(c, d, a);
+    db(orientacaoCDA);
+    ll orientacaoCDB = orientation(c, d, b);
+    db(orientacaoCDB);
+
+    // caso geral
+    if (orientacaoABC != orientacaoABD && orientacaoCDA != orientacaoCDB) return true;
+
+    // casos especiais, quando um dos pontos e colinear a outra reta
+    // a, b e c sao colineares e o c esta na reta AB
+    if (orientacaoABC == COLINEAR && is_on_segment(a, b, c)) {
+        db(is_on_segment(a, b, c));
+        return true;
+    };
+
+    // a, b e d sao colineares e o d esta na reta AB
+    if (orientacaoABC == COLINEAR && is_on_segment(a, b, d)) {
+        db(is_on_segment(a, b, d));
+        return true;
+    };
+
+    // c, d e a sao colineares e o a esta na reta CD
+    if (orientacaoCDA == COLINEAR && is_on_segment(c, d, a)) {
+        db(is_on_segment(c, d, a));
+        return true;
+    };
+
+    // c, d e b sao colineares e o b esta na reta CD
+    if (orientacaoCDB == COLINEAR && is_on_segment(c, d, b)) {
+        db(is_on_segment(c, d, b));
+        return true;
+    };
+
+    return false;
 }
 
 int main(int argc, char** argv) {
@@ -120,17 +191,14 @@ int main(int argc, char** argv) {
     read(test_cases);
 
     rep(test_case, test_cases) {
-        ll x1, y1, x2, y2, x3, y3;
-        cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
+        ll x1, y1, x2, y2, x3, y3, x4, y4;
+        cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3 >> x4 >> y4;
 
-        ll loc = is_left({x1, y1}, {x2, y2}, {x3, y3});
-
-        if (loc == LEFT)
-            cout << "LEFT" << endl;
-        else if (loc == RIGHT)
-            cout << "RIGHT" << endl;
-        else
-            cout << "TOUCH" << endl;
+        if (has_intersection({x1, y1}, {x2, y2}, {x3, y3}, {x4, y4})) {
+            cout << "YES" << endl;
+        } else {
+            cout << "NO" << endl;
+        }
     }
 
     return 0;
