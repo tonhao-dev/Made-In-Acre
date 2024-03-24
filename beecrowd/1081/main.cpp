@@ -1,6 +1,6 @@
 /**
  * https://judge.beecrowd.com/pt/problems/view/1081
- * Grafo, graph, dfs
+ * Grafo, graph, dfs, grafos disconexos
  */
 
 #include <bits/stdc++.h>
