@@ -8,7 +8,7 @@
 using namespace std;
 
 #define SPEED cin.tie(0)->sync_with_stdio(0);
-#define DEBUG true
+#define DEBUG false
 #define db(x) \
     if (DEBUG) cout << #x << ": " << x << endl
 #define db_pair(x) cout << #x << ": " << x.f << ", " << x.s << endl
@@ -56,13 +56,19 @@ class Graph {
    public:
     ll num_nodes;
     vector<ll> ages;
+    vector<ll> posicoes;
     vector<vector<bool>> matrix;
+    set<ll> visitado;
     ll resp = LLONG_MAX;
 
     Graph(ll quantity_nodes) {
-        ll num_nodes = quantity_nodes + 1;
+        this->num_nodes = quantity_nodes + 1;
 
         this->ages.resize(num_nodes);
+
+        this->posicoes.resize(this->num_nodes);
+        rep(i, sz(posicoes)) posicoes[i] = i;
+
         this->matrix.resize(num_nodes);
         for (auto& row : matrix) {
             row.resize(num_nodes);
@@ -78,20 +84,26 @@ class Graph {
     }
 
     void swap_command(ll a, ll b) {
-        // troca as linhas entre a e b
-        swap(this->matrix[a], this->matrix[b]);
-
-        // troca as colunas entre a e b
-        for (ll i = 1; i < this->matrix.size(); i++) {
-            swap(this->matrix[i][a], this->matrix[i][b]);
-        }
+        // executar com e sem o swap do age e entender o que acontece
+        // swap(this->ages[a], this->ages[b]);
+        swap(this->posicoes[a], this->posicoes[b]);
     }
 
-    void dfs(ll node) {
-        for (ll i = 1; i < this->matrix.size(); i++) {
-            if (this->matrix[i][node] == false) continue;
+    void dfs(ll pos) {
+        if (this->visitado.find(pos) != this->visitado.end()) return;
 
-            this->resp = min(this->resp, this->ages[i]);
+        db(pos);
+        this->visitado.insert(pos);
+        // refazer essa logica
+        for (ll i = 1; i < this->matrix.size(); i++) {
+            if (this->matrix[i][this->posicoes[pos]] == false) continue;
+
+            db(i);
+            db(posicoes[i]);
+            db(posicoes[pos]);
+            db(this->ages[posicoes[i]]);
+
+            this->resp = min(this->resp, this->ages[this->posicoes[i]]);
 
             dfs(i);
         }
@@ -135,12 +147,14 @@ int main(int argc, char** argv) {
             if (id == 'T') {
                 ll a, b;
                 read(a, b);
+
                 grafo.swap_command(a, b);
             } else {
                 ll origin;
-                read(origin);
+                cin >> origin;
 
                 grafo.resp = LLONG_MAX;
+                grafo.visitado.clear();
                 grafo.dfs(origin);
 
                 if (grafo.resp == LLONG_MAX)
