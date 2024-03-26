@@ -1,6 +1,15 @@
 /**
  * https://judge.beecrowd.com/pt/problems/view/1469
  * dfs, busca em profundidade, grafos, digrafos
+ *
+ * Dica para a resolução:
+ * https://maratonapcauece.files.wordpress.com/2014/09/solucoes_regional_2013.pdf
+ *
+ * Quando se é realizado uma troca de vértices no grafo, a estrutura do grafo não muda.
+ * Podemos ter um vetor posicao[i] que diz em que posicao do grafo o vertice i esta
+ * Inicialmente cada posicao[i] vale i, ou seja, o vertice 1 esta na posicao 1,
+ * vertice 2 esta na posicao 2 e assim sucessivamente, e quando fazemos a troca
+ * basta alterar nesse vetor de posicao, sem precisar mexer na matriz ou lista de adjascencia
  */
 
 #include <bits/stdc++.h>
@@ -55,7 +64,7 @@ void read(T& first, Args&... args) {
 class Graph {
    public:
     ll num_nodes;
-    vector<ll> ages;
+    map<ll, ll> ages;
     vector<ll> posicoes;
     vector<vector<bool>> matrix;
     set<ll> visitado;
@@ -63,8 +72,6 @@ class Graph {
 
     Graph(ll quantity_nodes) {
         this->num_nodes = quantity_nodes + 1;
-
-        this->ages.resize(num_nodes);
 
         this->posicoes.resize(this->num_nodes);
         rep(i, sz(posicoes)) posicoes[i] = i;
@@ -86,7 +93,11 @@ class Graph {
     void swap_command(ll a, ll b) {
         // executar com e sem o swap do age e entender o que acontece
         // swap(this->ages[a], this->ages[b]);
+        // printv(posicoes);
+        db(a);
+        db(b);
         swap(this->posicoes[a], this->posicoes[b]);
+        // printv(posicoes);
     }
 
     void dfs(ll pos) {
@@ -96,14 +107,15 @@ class Graph {
         this->visitado.insert(pos);
         // refazer essa logica
         for (ll i = 1; i < this->matrix.size(); i++) {
-            if (this->matrix[i][this->posicoes[pos]] == false) continue;
+            if (this->matrix[this->posicoes[i]][this->posicoes[pos]] == false) continue;
 
             db(i);
             db(posicoes[i]);
             db(posicoes[pos]);
+            db(resp);
             db(this->ages[posicoes[i]]);
 
-            this->resp = min(this->resp, this->ages[this->posicoes[i]]);
+            this->resp = min(this->resp, this->ages[i]);
 
             dfs(i);
         }
