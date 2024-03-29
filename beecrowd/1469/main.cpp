@@ -107,6 +107,7 @@ class Graph {
         this->visitado.insert(pos);
         // refazer essa logica
         for (ll i = 1; i < this->matrix.size(); i++) {
+            // precisei chamar this->posicoes[i]
             if (this->matrix[this->posicoes[i]][this->posicoes[pos]] == false) continue;
 
             db(i);

@@ -1,0 +1,7 @@
+9 6
+Jose_1 marido Maria
+Josias marido Liboria
+Liboria mae Guapo
+Sandra filho Maria
+Paulo filho Jose_2
+Sandra mae Ivanir
