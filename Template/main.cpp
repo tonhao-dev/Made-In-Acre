@@ -34,6 +34,7 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef pair<ll, ll> pll;
+typedef vector<int> vi;
 typedef vector<ll> vll;
 typedef long double ld;
 
