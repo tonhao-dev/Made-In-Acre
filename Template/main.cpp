@@ -8,48 +8,39 @@
 using namespace std;
 
 #define SPEED cin.tie(0)->sync_with_stdio(0);
-#define DEBUG false
+#define DEBUG true
 #define db(x) \
     if (DEBUG) cout << #x << ": " << x << endl
-#define db_pair(x) cout << #x << ": " << x.f << ", " << x.s << endl
-#define printv(vector)                             \
+#define dbpair(x) cout << #x << ": " << x.f << ", " << x.s << endl
+#define dbvector(vector)                           \
     {                                              \
         cout << #vector << " = ";                  \
         for (auto& it : vector) cout << it << " "; \
         cout << endl;                              \
     }
-#define print_map(map)                      \
+#define dbmap(map)                          \
     for (auto e : map)                      \
         cout << e.first << " " << e.second; \
     cout << endl
-#define FOR(i, a, b) for (ll i = a; i < (b); ++i)
-#define foreach(a, b) for (auto&(a) : (b))
-#define rep(i, n) FOR(i, 0, n)
-#define Rep(i, a, b) for (ll i = a; i >= (b); i--)
 #define all(x) begin(x), end(x)
-#define sz(x) (ll)(x).size()
 #define pb push_back
 #define pf push_front
 #define endl "\n"
 #define f first
 #define s second
 #define MOD 1e9 + 7
-#define log(x) cout << x << endl
+#define mp make_pair
 
 typedef long long ll;
+typedef pair<int, int> pii;
 typedef pair<ll, ll> pll;
 typedef vector<ll> vll;
+typedef long double ld;
 
-template <typename T>
+const int INF = 0x3f3f3f3f;
+const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 
-void read(T& arg) {
-    std::cin >> arg;
-}
-
-template <typename T, typename... Args>
-void read(T& first, Args&... args) {
-    std::cin >> first;
-    read(args...);
+void solve() {
 }
 
 int main(int argc, char** argv) {
@@ -59,11 +50,10 @@ int main(int argc, char** argv) {
      * Não esqueça de adicionar o link da questão e o assunto S2
      */
 
-    ll test_cases;
-    read(test_cases);
+    int t;
+    cin >> t;
 
-    rep(test_case, test_cases) {
-    }
+    while (t--) solve();
 
     return 0;
 }
