@@ -11,7 +11,8 @@ using namespace std;
 #define DEBUG true
 #define db(x) \
     if (DEBUG) cout << #x << ": " << x << endl
-#define dbpair(x) cout << #x << ": " << x.f << ", " << x.s << endl
+#define dbpair(x) \
+    if (DEBUG) cout << #x << ": " << x.f << ", " << x.s << endl
 #define dbvector(vector)                           \
     {                                              \
         cout << #vector << " = ";                  \
