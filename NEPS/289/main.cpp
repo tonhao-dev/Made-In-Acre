@@ -47,17 +47,25 @@ void solve() {
     int n, m;
     cin >> n >> m;
 
-    vector<vi> matrix(n + 1, vi(n + 1));
+    vector<vi> lista(n + 1);
 
     for (int query = 0; query < m; query++) {
         int t, a, b;
         cin >> t >> a >> b;
 
         if (t == 1) {
-            matrix[a][b] = 1;
-            matrix[b][a] = 1;
+            lista[a].pb(b);
+            lista[b].pb(a);
         } else {
-            cout << matrix[a][b] << endl;
+            bool achou = false;
+            for (int i = 0; i < lista[a].size(); i++) {
+                if (lista[a][i] == b) {
+                    achou = true;
+                    break;
+                }
+            }
+
+            cout << achou << endl;
         }
     }
 }
