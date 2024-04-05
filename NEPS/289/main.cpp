@@ -1,7 +1,7 @@
 /**
- * [Link]
- * [Título da questão]
- * [Assuntos]
+ * https://neps.academy/br/exercise/289
+ * Tá Ligado?
+ * Grafos
  */
 
 #include <bits/stdc++.h>
@@ -44,19 +44,36 @@ const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 
 void solve() {
+    int n, m;
+    cin >> n >> m;
+
+    vector<vi> lista(n + 1);
+
+    for (int query = 0; query < m; query++) {
+        int t, a, b;
+        cin >> t >> a >> b;
+
+        if (t == 1) {
+            lista[a].pb(b);
+            lista[b].pb(a);
+        } else {
+            bool achou = false;
+            for (int i = 0; i < lista[a].size(); i++) {
+                if (lista[a][i] == b) {
+                    achou = true;
+                    break;
+                }
+            }
+
+            cout << achou << endl;
+        }
+    }
 }
 
 int main(int argc, char** argv) {
     SPEED;
 
-    /**
-     * Não esqueça de adicionar o link da questão e o assunto S2
-     */
-
-    int t;
-    cin >> t;
-
-    while (t--) solve();
+    solve();
 
     return 0;
 }
