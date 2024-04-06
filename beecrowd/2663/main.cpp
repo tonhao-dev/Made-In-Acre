@@ -1,6 +1,9 @@
-#include <algorithm>
-#include <iostream>
-#include <vector>
+/**
+ * 2663 - Fase
+ * Adhoc
+ */
+
+#include <bits/stdc++.h>
 
 using namespace std;
 
