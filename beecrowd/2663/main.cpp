@@ -8,23 +8,29 @@
 using namespace std;
 
 int main() {
-  int n, k;
-  cin >> n >> k;
+    int num_competidores, num_vagas;
 
-  vector<int> pontuacao(1001, 0);
+    cin >> num_competidores;
+    cin >> num_vagas;
 
-  for(int i = 0; i < n; i++) {
-    int ponto; cin >> ponto;
-    pontuacao[ponto]++;
-  }
+    vector<int> pontuacoes(num_competidores);
 
-  int ans = 0;
-  for(int i = 1000; i >= 0; i--) {
-    ans += pontuacao[i];
-    if(ans >= k) break;
-  }
+    for (int i = 0; i < num_competidores; i++) {
+        cin >> pontuacoes[i];
+    }
 
-  cout << ans << endl;
+    sort(pontuacoes.begin(), pontuacoes.end(), greater<int>());  // do maior para o menor
 
-  return 0;
+    int num_classificados = num_vagas - 1;
+    int ultima_pontuacao = pontuacoes[num_vagas - 1];
+    int i = num_vagas - 1;
+
+    while (i < num_competidores && pontuacoes[i] == ultima_pontuacao) {
+        num_classificados++;
+        i++;
+    }
+
+    cout << num_classificados << endl;
+
+    return 0;
 }
