@@ -47,14 +47,11 @@ class Graph {
    public:
     int num_vertices;
     vector<vi> lista;
-    vi pai;
-    vector<bool> visitado;
+    set<int> visitado;
 
     Graph(int n) {
-        num_vertices = n + 1;
+        num_vertices = 100006;
         lista.resize(num_vertices);
-        visitado.resize(num_vertices);
-        pai.resize(num_vertices);
     }
 
     void add_edge(int u, int v) {
@@ -62,24 +59,10 @@ class Graph {
         lista[v].pb(u);
     }
 
-    int connected_components() {
-        int resp = 0;
-
-        for (int i = 1; i < num_vertices; i++) {
-            if (visitado[i]) continue;
-
-            resp++;
-            dfs(i);
-        }
-
-        return resp;
-    }
-
-    bool dfs(int origin) {
+    void dfs(int origin) {
         stack<int> pilha;
-        pai[origin] = -1;
 
-        visitado[origin] = true;
+        visitado.insert(origin);
         pilha.push(origin);
 
         while (!pilha.empty()) {
@@ -87,17 +70,12 @@ class Graph {
             pilha.pop();
 
             for (auto vizinho : lista[atual]) {
-                if (!visitado[vizinho]) {
-                    pilha.push(vizinho);
-                    visitado[vizinho] = true;
-                    pai[vizinho] = atual;
-                } else if (vizinho != pai[atual]) {
-                    return true;
-                }
+                if (visitado.find(vizinho) != visitado.end()) continue;
+
+                pilha.push(vizinho);
+                visitado.insert(vizinho);
             }
         }
-
-        return false;
     }
 };
 
@@ -115,7 +93,9 @@ void solve() {
         grafo.add_edge(u, v);
     }
 
-    cout << (grafo.dfs(1) ? "FHTAGN" : "NO") << endl;
+    grafo.dfs(1);
+
+    cout << ((grafo.visitado.size() == n && n == m) ? "FHTAGN" : "NO") << endl;
 }
 
 int main(int argc, char** argv) {
