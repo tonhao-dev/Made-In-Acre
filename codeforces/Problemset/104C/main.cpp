@@ -95,7 +95,7 @@ void solve() {
 
     grafo.dfs(1);
 
-    cout << ((grafo.visitado.size() == n && n == m) ? "FHTAGN" : "NO") << endl;
+    cout << ((grafo.visitado.size() == n && n == m) ? "FHTAGN!" : "NO") << endl;
 }
 
 int main(int argc, char** argv) {
