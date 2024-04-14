@@ -1,7 +1,7 @@
 /**
- * https://codeforces.com/problemset/problem/104/C
- * Cthulhu
- * Grafos, dfs, detectar ciclo
+ * [Link]
+ * [Título da questão]
+ * [Assuntos]
  */
 
 #include <bits/stdc++.h>
@@ -9,7 +9,7 @@
 using namespace std;
 
 #define SPEED cin.tie(0)->sync_with_stdio(0);
-#define DEBUG true
+#define DEBUG false
 #define db(x) \
     if (DEBUG) cout << #x << ": " << x << endl
 #define dbpair(x) \
@@ -43,65 +43,65 @@ typedef long double ld;
 const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 
-class Graph {
-   public:
-    int num_vertices;
-    vector<vi> lista;
-    set<int> visitado;
+void solve() {
+    ll n, k;
+    cin >> n >> k;
 
-    Graph(int n) {
-        num_vertices = 100006;
-        lista.resize(num_vertices);
-    }
+    vll ships(n);
+    for (auto& ship : ships) cin >> ship;
 
-    void add_edge(int u, int v) {
-        lista[u].pb(v);
-        lista[v].pb(u);
-    }
+    ll resp = 0;
+    ll esq = (ll)ceil(k / 2.0), dir = (ll)floor(k / 2.0);
+    db(esq);
+    db(dir);
+    for (int i = 0; i < n && esq > 0; i++) {
+        db(esq);
+        db(ships[i]);
+        db(resp);
+        if (ships[i] == 0) continue;
 
-    void dfs(int origin) {
-        stack<int> pilha;
-
-        visitado.insert(origin);
-        pilha.push(origin);
-
-        while (!pilha.empty()) {
-            int atual = pilha.top();
-            pilha.pop();
-
-            for (auto vizinho : lista[atual]) {
-                if (visitado.find(vizinho) != visitado.end()) continue;
-
-                pilha.push(vizinho);
-                visitado.insert(vizinho);
-            }
+        if (ships[i] <= esq) {
+            esq -= ships[i];
+            ships[i] = 0;
+            resp++;
+        } else {
+            ships[i] -= esq;
+            esq = 0;
         }
     }
-};
 
-int n, m;
-
-void solve() {
-    cin >> n >> m;
-
-    Graph grafo(n);
-
-    for (int i = 0; i < m; i++) {
-        int u, v;
-        cin >> u >> v;
-
-        grafo.add_edge(u, v);
+    if (resp == n) {
+        cout << resp << endl;
+        return;
     }
 
-    grafo.dfs(1);
+    for (int i = n - 1; i >= 0 && dir > 0; i--) {
+        db(dir);
+        db(ships[i]);
+        db(resp);
 
-    cout << ((grafo.visitado.size() == n && n == m) ? "FHTAGN!" : "NO") << endl;
+        if (ships[i] == 0) continue;
+
+        if (ships[i] <= dir) {
+            dir -= ships[i];
+            ships[i] = 0;
+            resp++;
+        } else {
+            ships[i] -= dir;
+            dir = 0;
+        }
+    }
+
+    cout << resp << endl;
 }
 
 int main(int argc, char** argv) {
     SPEED;
 
-    solve();
+    int t;
+    cin >> t;
+
+    while (t--) solve();
 
     return 0;
 }

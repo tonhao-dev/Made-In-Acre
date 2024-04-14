@@ -1,7 +1,7 @@
 /**
- * https://codeforces.com/problemset/problem/104/C
- * Cthulhu
- * Grafos, dfs, detectar ciclo
+ * [Link]
+ * [Título da questão]
+ * [Assuntos]
  */
 
 #include <bits/stdc++.h>
@@ -9,7 +9,7 @@
 using namespace std;
 
 #define SPEED cin.tie(0)->sync_with_stdio(0);
-#define DEBUG true
+#define DEBUG false
 #define db(x) \
     if (DEBUG) cout << #x << ": " << x << endl
 #define dbpair(x) \
@@ -43,65 +43,43 @@ typedef long double ld;
 const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 
-class Graph {
-   public:
-    int num_vertices;
-    vector<vi> lista;
-    set<int> visitado;
+int n, m, resp = INT_MIN;
+vector<vi> matriz;
 
-    Graph(int n) {
-        num_vertices = 100006;
-        lista.resize(num_vertices);
-    }
+bool ehValido(int i, int j) {
+    return ((i >= 0 && i < n) && (j >= 0 && j < m));
+}
 
-    void add_edge(int u, int v) {
-        lista[u].pb(v);
-        lista[v].pb(u);
-    }
+int dfs(int i, int j, int mdc) {
+    if (!ehValido(i, j)) return 0;
+    if (mdc == 1) return 1;
+    if (i == n - 1 && j == m - 1) return __gcd(mdc, matriz[i][j]);
 
-    void dfs(int origin) {
-        stack<int> pilha;
+    int atual = __gcd(mdc, matriz[i][j]);
 
-        visitado.insert(origin);
-        pilha.push(origin);
-
-        while (!pilha.empty()) {
-            int atual = pilha.top();
-            pilha.pop();
-
-            for (auto vizinho : lista[atual]) {
-                if (visitado.find(vizinho) != visitado.end()) continue;
-
-                pilha.push(vizinho);
-                visitado.insert(vizinho);
-            }
-        }
-    }
-};
-
-int n, m;
+    return max(dfs(i + 1, j, atual), dfs(i, j + 1, atual));
+}
 
 void solve() {
     cin >> n >> m;
 
-    Graph grafo(n);
+    matriz.resize(n);
+    for (int i = 0; i < n; i++) matriz[i].resize(m);
 
-    for (int i = 0; i < m; i++) {
-        int u, v;
-        cin >> u >> v;
-
-        grafo.add_edge(u, v);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) cin >> matriz[i][j];
     }
 
-    grafo.dfs(1);
-
-    cout << ((grafo.visitado.size() == n && n == m) ? "FHTAGN!" : "NO") << endl;
+    cout << dfs(0, 0, matriz[0][0]) << endl;
 }
 
 int main(int argc, char** argv) {
     SPEED;
 
-    solve();
+    int t;
+    cin >> t;
+
+    while (t--) solve();
 
     return 0;
 }

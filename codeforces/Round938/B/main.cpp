@@ -1,7 +1,7 @@
 /**
- * https://codeforces.com/problemset/problem/104/C
- * Cthulhu
- * Grafos, dfs, detectar ciclo
+ * [Link]
+ * [Título da questão]
+ * [Assuntos]
  */
 
 #include <bits/stdc++.h>
@@ -43,65 +43,60 @@ typedef long double ld;
 const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 
-class Graph {
-   public:
-    int num_vertices;
-    vector<vi> lista;
-    set<int> visitado;
+void solve() {
+    int n, c, d, min_value = INF;
 
-    Graph(int n) {
-        num_vertices = 100006;
-        lista.resize(num_vertices);
+    cin >> n >> c >> d;
+
+    vector<vi> square(n + 1, vi(n + 1));
+    map<int, int> valores;
+
+    for (int i = 1; i <= n * n; i++) {
+        int val;
+        cin >> val;
+
+        valores[val]++;
+        min_value = min(min_value, val);
     }
 
-    void add_edge(int u, int v) {
-        lista[u].pb(v);
-        lista[v].pb(u);
+    valores[min_value]--;
+    square[1][1] = min_value;
+
+    // linha
+    for (int i = 2; i <= n; i++) {
+        square[i][1] = square[i - 1][1] + c;
+        valores[square[i][1]]--;
+    }
+    // coluna
+    for (int i = 2; i <= n; i++) {
+        square[1][i] = square[1][i - 1] + d;
+        valores[square[1][i]]--;
     }
 
-    void dfs(int origin) {
-        stack<int> pilha;
-
-        visitado.insert(origin);
-        pilha.push(origin);
-
-        while (!pilha.empty()) {
-            int atual = pilha.top();
-            pilha.pop();
-
-            for (auto vizinho : lista[atual]) {
-                if (visitado.find(vizinho) != visitado.end()) continue;
-
-                pilha.push(vizinho);
-                visitado.insert(vizinho);
-            }
+    for (int i = 2; i <= n; i++) {
+        for (int j = 2; j <= n; j++) {
+            square[i][j] = square[i][j - 1] + d;
+            valores[square[i][j]]--;
         }
     }
-};
 
-int n, m;
-
-void solve() {
-    cin >> n >> m;
-
-    Graph grafo(n);
-
-    for (int i = 0; i < m; i++) {
-        int u, v;
-        cin >> u >> v;
-
-        grafo.add_edge(u, v);
+    for (auto e : valores) {
+        if (e.second != 0) {
+            cout << "NO" << endl;
+            return;
+        }
     }
 
-    grafo.dfs(1);
-
-    cout << ((grafo.visitado.size() == n && n == m) ? "FHTAGN!" : "NO") << endl;
+    cout << "YES" << endl;
 }
 
 int main(int argc, char** argv) {
     SPEED;
 
-    solve();
+    int t;
+    cin >> t;
+
+    while (t--) solve();
 
     return 0;
 }

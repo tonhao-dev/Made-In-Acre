@@ -1,7 +1,7 @@
 /**
- * https://codeforces.com/problemset/problem/104/C
- * Cthulhu
- * Grafos, dfs, detectar ciclo
+ * [Link]
+ * [Título da questão]
+ * [Assuntos]
  */
 
 #include <bits/stdc++.h>
@@ -43,65 +43,45 @@ typedef long double ld;
 const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 
-class Graph {
-   public:
-    int num_vertices;
-    vector<vi> lista;
-    set<int> visitado;
-
-    Graph(int n) {
-        num_vertices = 100006;
-        lista.resize(num_vertices);
-    }
-
-    void add_edge(int u, int v) {
-        lista[u].pb(v);
-        lista[v].pb(u);
-    }
-
-    void dfs(int origin) {
-        stack<int> pilha;
-
-        visitado.insert(origin);
-        pilha.push(origin);
-
-        while (!pilha.empty()) {
-            int atual = pilha.top();
-            pilha.pop();
-
-            for (auto vizinho : lista[atual]) {
-                if (visitado.find(vizinho) != visitado.end()) continue;
-
-                pilha.push(vizinho);
-                visitado.insert(vizinho);
-            }
-        }
-    }
-};
-
-int n, m;
-
 void solve() {
-    cin >> n >> m;
+    int n, m, k;
+    cin >> n >> m >> k;
 
-    Graph grafo(n);
-
-    for (int i = 0; i < m; i++) {
-        int u, v;
-        cin >> u >> v;
-
-        grafo.add_edge(u, v);
+    if (m == 1) {
+        cout << "NO" << endl;
+        return;
     }
 
-    grafo.dfs(1);
+    vector<int> ribbon(n);
+    int color = 1;
+    for (auto& part : ribbon) {
+        part = (color++ % m);
+    }
 
-    cout << ((grafo.visitado.size() == n && n == m) ? "FHTAGN!" : "NO") << endl;
+    vector<int> most_repetitions(100);
+    for (auto part : ribbon) {
+        most_repetitions[part]++;
+    }
+
+    int most_duplicated = INT_MIN;
+    for (auto part : most_repetitions) {
+        most_duplicated = max(most_duplicated, part);
+    }
+
+    if (n - most_duplicated > k) {
+        cout << "YES" << endl;
+    } else {
+        cout << "NO" << endl;
+    }
 }
 
 int main(int argc, char** argv) {
     SPEED;
 
-    solve();
+    int t;
+    cin >> t;
+
+    while (t--) solve();
 
     return 0;
 }
