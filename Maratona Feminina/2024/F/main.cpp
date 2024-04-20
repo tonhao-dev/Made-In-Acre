@@ -50,23 +50,12 @@ int main(int argc, char** argv) {
 
     int ans = 0;
 
-    if(n >= 1) {
-        n--;
-        ans++;
-    }
-
-    if(n >= 2) {
-        n -= 2;
-        ans++;
-    }
-
-    if(n >= 4) {
-        n -= 4;
-        ans++;
-    }
-
-    if(n >= 8) {
-        ans++;
+    vector<int> pont = {8, 4, 2, 1};
+    for(auto p : pont) {
+        if(n >= p) {
+            n -= p;
+            ans++;
+        }
     }
 
     cout << ans << endl;

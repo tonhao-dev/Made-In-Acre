@@ -52,7 +52,8 @@ int main(int argc, char** argv) {
 
     sort(all(coords));
 
-    cout << abs(coords[0].s - coords[1].s) * abs(coords[2].s - coords[3].s) << endl;
+    ll lado = abs(coords[0].s - coords[1].s);
+    cout << lado * lado << endl;
 
     return 0;
 }
