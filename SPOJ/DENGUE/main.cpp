@@ -50,13 +50,11 @@ class Graph {
     int num_vertices;
     vector<vi> lista;
     vector<bool> visitado;
-    vector<bool> hasCat;
+    vector<int> dist;
 
     Graph(int n) {
         num_vertices = n + 1;
-        lista.resize(n + 1);
-        visitado.resize(n + 1);
-        hasCat.resize(n + 1);
+        lista.resize(123);
     }
 
     void add_edge(int u, int v) {
@@ -64,48 +62,60 @@ class Graph {
         lista[v].pb(u);
     }
 
-    void set_cat(int node) {
-        hasCat[node] = true;
-    }
+    pii deep_first_search(int start) {
+        stack<int> pilha;
 
-    int dfs(int origin) {
-        stack<pii> pilha;
+        visitado.assign(num_vertices, false);
+        dist.assign(num_vertices, 0);
 
-        visitado[origin] = true;
-        pilha.push({origin, hasCat[origin]});
+        pilha.push(start);
+        visitado[start] = true;
+        dist[start] = 0;
+
+        int maior_dist = 0;
+        int far_node = 0;
 
         while (!pilha.empty()) {
-            pii atual = pilha.top();
-
+            int atual = pilha.top();
             pilha.pop();
 
-            if (atual.s > m) {
-                continue;
-            }
-
-            if (lista[atual.f].size() == 1 && atual.f != 1) {  // leaf
-                resp += atual.s <= m;
-                continue;
-            }
-
-            for (auto vizinho : lista[atual.f]) {
+            for (auto vizinho : lista[atual]) {
                 if (visitado[vizinho]) continue;
 
+                pilha.push(vizinho);
                 visitado[vizinho] = true;
 
-                if (hasCat[vizinho]) {
-                    pilha.push({vizinho, atual.s + 1});
-                } else {
-                    pilha.push({vizinho, 0});
+                dist[vizinho] = dist[atual] + 1;
+
+                if (dist[vizinho] > maior_dist) {
+                    maior_dist = dist[vizinho];
+                    far_node = vizinho;
                 }
             }
         }
 
-        return resp;
+        return {far_node, maior_dist};
     }
 };
 
-void solve(int n) {
+void solve(int teste, int n) {
+    if (n == 1) {
+        cout << "Teste " << teste << endl;
+        cout << 1 << endl;
+        cout << endl;
+        return;
+    }
+
+    if (n == 2) {
+        int u, v;
+        cin >> u >> v;
+
+        cout << "Teste " << teste << endl;
+        cout << 1 << endl;
+        cout << endl;
+        return;
+    }
+
     Graph grafo(n);
 
     for (int i = 0; i < n - 1; i++) {
@@ -115,14 +125,43 @@ void solve(int n) {
         grafo.add_edge(u, v);
     }
 
-    // continuar
+    pii start = grafo.deep_first_search(1);
+    // dbpair(start);
+
+    vector<int> dist1(n + 1), dist2(n + 1);
+
+    pii far_node_1 = grafo.deep_first_search(start.f);
+    // dbvector(grafo.dist);
+    copy(all(grafo.dist), dist1.begin());
+
+    pii far_node_2 = grafo.deep_first_search(far_node_1.f);
+    // dbvector(grafo.dist);
+
+    copy(all(grafo.dist), dist2.begin());
+
+    // dbpair(far_node_1);
+    // dbvector(dist1);
+
+    // dbpair(far_node_2);
+    // dbvector(dist2);
+
+    for (int i = 0; i < dist1.size(); i++) {
+        if (dist1[i] == dist2[i] && dist1[i] == far_node_2.s / 2) {
+            cout << "Teste " << teste << endl;
+            cout << i << endl;
+            cout << endl;
+            return;
+        }
+    }
 }
 
 int main(int argc, char** argv) {
     SPEED;
 
-    while (cin >> n) {
-        solve(n);
+    int t = 1;
+    while (cin >> n, n) {
+        solve(t, n);
+        t++;
     }
 
     return 0;
