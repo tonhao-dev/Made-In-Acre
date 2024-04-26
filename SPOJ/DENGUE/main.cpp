@@ -146,7 +146,21 @@ void solve(int teste, int n) {
     // dbvector(dist2);
 
     for (int i = 0; i < dist1.size(); i++) {
-        if (dist1[i] == dist2[i] && dist1[i] == far_node_2.s / 2) {
+        if (dist1[i] == far_node_2.s / 2 && dist1[i] == dist2[i]) {
+            cout << "Teste " << teste << endl;
+            cout << i << endl;
+            cout << endl;
+            return;
+        }
+
+        if (dist1[i] == far_node_2.s / 2 + 1 && dist2[i] == far_node_2.s / 2) {
+            cout << "Teste " << teste << endl;
+            cout << i << endl;
+            cout << endl;
+            return;
+        }
+
+        if (dist1[i] == far_node_2.s / 2 && dist2[i] == far_node_2.s / 2 + 1) {
             cout << "Teste " << teste << endl;
             cout << i << endl;
             cout << endl;
