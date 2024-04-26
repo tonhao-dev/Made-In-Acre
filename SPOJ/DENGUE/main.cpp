@@ -126,24 +126,16 @@ void solve(int teste, int n) {
     }
 
     pii start = grafo.deep_first_search(1);
-    // dbpair(start);
 
     vector<int> dist1(n + 1), dist2(n + 1);
 
     pii far_node_1 = grafo.deep_first_search(start.f);
-    // dbvector(grafo.dist);
+
     copy(all(grafo.dist), dist1.begin());
 
     pii far_node_2 = grafo.deep_first_search(far_node_1.f);
-    // dbvector(grafo.dist);
 
     copy(all(grafo.dist), dist2.begin());
-
-    // dbpair(far_node_1);
-    // dbvector(dist1);
-
-    // dbpair(far_node_2);
-    // dbvector(dist2);
 
     for (int i = 0; i < dist1.size(); i++) {
         if (dist1[i] == far_node_2.s / 2 && dist1[i] == dist2[i]) {
