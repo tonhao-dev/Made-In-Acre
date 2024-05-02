@@ -1,0 +1,7 @@
+3
+5
+UUDUD
+5
+UDDUD
+2
+UU
