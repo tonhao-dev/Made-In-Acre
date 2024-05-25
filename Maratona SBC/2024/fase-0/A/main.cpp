@@ -52,25 +52,19 @@ int main(int argc, char** argv) {
     /**
      * Não esqueça de adicionar o link da questão e o assunto S2
      */
+    int um, dois, tres;
+    vector<int> nums(3);
+    cin >> um >> dois >> tres;
 
-    int e, v, resp = 19;
-    float minutes;
-    cin >> e >> v;
+    nums[um] = 1;
+    nums[dois] = 1;
+    nums[tres] = 1;
 
-
-
-    minutes = e/v;
-
-    while(minutes > 60) {
-        minutes-=60;
-        resp++;
-        if(resp > 24) {
-            resp = 0;
+    for(int i=1; i<=3; i++) {
+        if(nums[i] != 1) {
+            cout << i << endl;
         }
     }
 
-    cout << resp << ":" << minutes;
-
     return 0;
 }
-

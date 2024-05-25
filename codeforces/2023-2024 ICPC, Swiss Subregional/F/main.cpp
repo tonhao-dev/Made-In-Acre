@@ -53,24 +53,15 @@ int main(int argc, char** argv) {
      * Não esqueça de adicionar o link da questão e o assunto S2
      */
 
-    int e, v, resp = 19;
-    float minutes;
-    cin >> e >> v;
+    int t;
+    cin >> t;
 
-
-
-    minutes = e/v;
-
-    while(minutes > 60) {
-        minutes-=60;
-        resp++;
-        if(resp > 24) {
-            resp = 0;
-        }
+    if(t >= 2) {
+        cout << "2" << endl;
+    } else {
+        cout << "-1" << endl;
     }
 
-    cout << resp << ":" << minutes;
 
     return 0;
 }
-

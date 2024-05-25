@@ -9,16 +9,19 @@
 using namespace std;
 
 #define SPEED cin.tie(0)->sync_with_stdio(0);
-#define DEBUG true
-#define db(x) \
-    if (DEBUG) cout << #x << ": " << x << endl
+#define DEBUG false
+#define db(x)  \
+    if (DEBUG) \
+    cout << #x << ": " << x << endl
 #define dbpair(x) \
-    if (DEBUG) cout << #x << ": " << x.f << ", " << x.s << endl
-#define dbvector(vector)                           \
-    {                                              \
-        cout << #vector << " = ";                  \
-        for (auto& it : vector) cout << it << " "; \
-        cout << endl;                              \
+    if (DEBUG)    \
+    cout << #x << ": " << x.f << ", " << x.s << endl
+#define dbvector(vector)          \
+    {                             \
+        cout << #vector << " = "; \
+        for (auto &it : vector)   \
+            cout << it << " ";    \
+        cout << endl;             \
     }
 #define dbmap(map)                          \
     for (auto e : map)                      \
@@ -43,10 +46,12 @@ typedef long double ld;
 const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 
-void solve() {
+void solve()
+{
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv)
+{
     SPEED;
 
     /**
@@ -54,23 +59,31 @@ int main(int argc, char** argv) {
      */
 
     int e, v, resp = 19;
-    float minutes;
     cin >> e >> v;
 
+    double tempo = (double)e/v;
+    db(tempo);
+    int tempoMinutos = tempo*60;
+    db(tempoMinutos);
+    int horasRs = tempoMinutos / 60;
+    db(horasRs);
+    int minutosRs = tempoMinutos - (horasRs*60);
+    db(resp);
+    db(horasRs);
+    resp= (resp + horasRs)%24;
+    if(resp < 10) {
+        cout << "0";
+    }
+    cout << resp << ":";
 
-
-    minutes = e/v;
-
-    while(minutes > 60) {
-        minutes-=60;
-        resp++;
-        if(resp > 24) {
-            resp = 0;
-        }
+    if(minutosRs < 10) {
+        cout << "0";
     }
 
-    cout << resp << ":" << minutes;
+    cout << minutosRs << endl;
 
     return 0;
 }
+
+
 
