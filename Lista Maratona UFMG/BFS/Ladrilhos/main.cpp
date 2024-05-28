@@ -1,6 +1,6 @@
 /**
- * https://neps.academy/problem/469
- * Chuva
+ * https://neps.academy/br/exercise/122
+ * Ladrilhos, SBC 2016
  * Grafos, graph, bfs, grid
  */
 
@@ -44,66 +44,71 @@ const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 
 int n, m;
+    set<pii> visited;
 
 const vector<pair<int, int>> moves = {
+    {-1, 0},
     {1, 0},
     {0, 1},
-    {0, -1}
+    {0, -1},
 };
 
 bool ehValid(int x, int y) {
     return (x >= 0 && x < n) && (y >= 0 && y < m);
 }
 
-void solve() {
-    cin >> n >> m;
-
-    pii start;
-    vector<string> grid(n);
-
-    for(int i=0;i<n;i++) {
-        cin >> grid[i];
-
-        for(int j=0;j<m;j++) {
-            if(grid[i][j] == 'o') start = {i, j};
-        }
-    }
-
+int bfs(vector<vi> &grid, int i, int j) {
     queue<pii> fila;
-    fila.push(start);
+    int area = 1;
 
-    pii resp = {-1, -1};
+    fila.push({i, j});
+    visited.insert({i, j});
+
     while(!fila.empty()) {
         pii atual = fila.front();
-        
         fila.pop();
-        grid[atual.f][atual.s] = 'o';
 
         for(int i=0;i<moves.size(); i++ ) {
             int x = atual.f + moves[i].f, y = atual.s + moves[i].s;
 
             if(!ehValid(x, y)) continue;
 
-            if(grid[x][y] != '.') continue;
+            if(grid[x][y] != grid[atual.f][atual.s]) continue;
 
-            if(i == 0) {
-                fila.push({x, y});
-                grid[x][y] = 'o';
-                break;
-            } else {
-                if(!ehValid(atual.f+1, atual.s)) continue;
+            if(visited.find({ x, y}) != visited.end()) continue;
 
-                if(grid[atual.f+1][atual.s] != '#') continue;
-
-                fila.push({x, y});
-                grid[x][y] = 'o';
-            }
+            area++;
+            fila.push({ x, y });
+            visited.insert({ x, y });
         }
     }
 
-    for(auto linha:grid) {
-        cout << linha << endl;
+    return area;
+}
+
+void solve() {
+    cin >> n >> m;
+
+    vector<vi> grid(n, vi(m));
+
+    for(int i=0;i<n;i++) {
+        for(int j=0;j<m;j++) {
+            cin >> grid[i][j];
+        }
     }
+
+    int ans = INF;
+    visited.clear();
+
+    for(int i=0; i<n;i++) {
+        for(int j=0;j<m;j++) {
+            if(visited.find({i, j}) != visited.end()) continue;
+
+            ans = min(ans, bfs(grid, i, j));
+        }
+    }
+
+    cout << ans << endl;
 }
 
 int main(int argc, char** argv) {
