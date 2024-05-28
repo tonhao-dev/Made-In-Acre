@@ -43,20 +43,63 @@ typedef long double ld;
 const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 
+int n, m;
+
+const vector<pair<int, int>> moves = {
+    {-1, 0},
+    {0, 1},
+    {1, 0},
+    {0, -1}
+};
+
+bool ehValid(int x, int y) {
+    return (x >= 0 && x < n) && (y >= 0 && y < m);
+}
+
 void solve() {
+    cin >> n >> m;
+
+    pii start;
+    vector<string> grid(n);
+
+    for(int i=0;i<n;i++) {
+        cin >> grid[i];
+
+        for(int j=0;j<m;j++) {
+            if(grid[i][j] == 'o') start = {i, j};
+        }
+    }
+
+    queue<pii> fila;
+    fila.push(start);
+
+    pii resp = {-1, -1};
+    while(!fila.empty()) {
+        pii atual = fila.front();
+        
+        resp = atual;
+        fila.pop();
+        grid[atual.f][atual.s] = '.';
+
+        for(auto mov : moves) {
+            int x = atual.f + mov.f, y = atual.s + mov.s;
+
+            if(!ehValid(x, y)) continue;
+
+            if(grid[x][y] != 'H') continue;
+
+            fila.push({x, y});
+            grid[x][y] = '.';
+        }
+    }
+
+    cout << resp.f + 1 << " " << resp.s + 1 << endl;
 }
 
 int main(int argc, char** argv) {
     SPEED;
 
-    /**
-     * Não esqueça de adicionar o link da questão e o assunto S2
-     */
-
-    int t;
-    cin >> t;
-
-    while (t--) solve();
+    solve();
 
     return 0;
 }
