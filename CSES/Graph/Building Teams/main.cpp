@@ -64,19 +64,19 @@ class Graph {
         edges[v].pb(u);
     }
 
-    void dfs(int origin) {
+    void bfs(int origin) {
         vi parent(n_vertex, -1);
-        stack<int> pilha;
+        queue<int> fila;
 
         visited[origin] = true;
         parent[origin] = origin;
         color[origin] = 0;
-        pilha.push(origin);
+        fila.push(origin);
 
-        while (!pilha.empty()) {
-            int current = pilha.top();
+        while (!fila.empty()) {
+            int current = fila.front();
 
-            pilha.pop();
+            fila.pop();
 
             for (auto neighbor : edges[current]) {
                 if (visited[neighbor] && neighbor == parent[current])
@@ -87,7 +87,7 @@ class Graph {
                     return;
                 };
 
-                pilha.push(neighbor);
+                fila.push(neighbor);
                 parent[neighbor] = current;
                 visited[neighbor] = true;
                 color[neighbor] = (color[current] + 1) % 2;
@@ -110,7 +110,7 @@ void solve() {
 
     for (int i = 1; i <= n; i++) {
         if (!graph.visited[i])
-            graph.dfs(i);
+            graph.bfs(i);
 
         if (graph.impossible) {
             cout << "IMPOSSIBLE" << endl;
