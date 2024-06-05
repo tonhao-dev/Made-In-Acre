@@ -47,14 +47,12 @@ class Graph {
    public:
     int n_vertex;
     vector<vi> edges;
-    vector<bool> visited;
     vi color;
     bool impossible;
 
     Graph(int n) {
         n_vertex = n + 1;
         edges.resize(n + 1);
-        visited.resize(n + 1);
         color.resize(n + 1);
         impossible = false;
     }
@@ -65,12 +63,9 @@ class Graph {
     }
 
     void bfs(int origin) {
-        vi parent(n_vertex, -1);
         queue<int> fila;
 
-        visited[origin] = true;
-        parent[origin] = origin;
-        color[origin] = 0;
+        color[origin] = 1;
         fila.push(origin);
 
         while (!fila.empty()) {
@@ -79,18 +74,16 @@ class Graph {
             fila.pop();
 
             for (auto neighbor : edges[current]) {
-                if (visited[neighbor] && neighbor == parent[current])
+                if (color[neighbor] != 0 && color[neighbor] != color[current])
                     continue;
 
-                if (visited[neighbor] && color[current] == color[neighbor]) {
+                if (color[neighbor] && color[current] == color[neighbor]) {
                     impossible = true;
                     return;
                 };
 
                 fila.push(neighbor);
-                parent[neighbor] = current;
-                visited[neighbor] = true;
-                color[neighbor] = (color[current] + 1) % 2;
+                color[neighbor] = color[current] * -1;
             }
         }
     }
@@ -109,7 +102,7 @@ void solve() {
     }
 
     for (int i = 1; i <= n; i++) {
-        if (!graph.visited[i])
+        if (graph.color[i] == 0)
             graph.bfs(i);
 
         if (graph.impossible) {
@@ -119,7 +112,7 @@ void solve() {
     }
 
     for (int i = 1; i <= n; i++) {
-        cout << graph.color[i] + 1 << " ";
+        cout << (graph.color[i] == -1) + 1 << " ";
     }
     cout << endl;
 }
