@@ -1,6 +1,6 @@
 ## Repositório
 
-Esse repositório tem por objetivo armazenar os problemas utilizados na fase de preparação da equipe Last Dance, a qual representará o IFAC na maratona de programação da SBC no ano de 2022.
+Esse repositório tem por objetivo armazenar os problemas utilizados na fase de preparação da equipe Made In Acre, nos anos de 2022, 2023 e 2024
 
 <hr>
 
@@ -8,7 +8,7 @@ Esse repositório tem por objetivo armazenar os problemas utilizados na fase de 
 
 1. Crie uma pasta com o numero do problema
 2. Crie o seu programa de resposta
-3. Crie um arquivo chamado stdin, sem extensão
+3. Crie um arquivo chamado stdin.txt
 4. Agora, para executar o seu programa siga os seguintes passos:
 
 ##### C++
@@ -16,15 +16,15 @@ Esse repositório tem por objetivo armazenar os problemas utilizados na fase de 
     $ cd 1242
     $ gcc main.cpp -lstdc++ -o main.o
     $ g++ -std=c++17 -O2 -lm -o ./main ./main.cpp
-    $ (linux/mac) ./main < stdin > stdout
-    $ (windows) type stdin | ./main > stdout
+    $ (linux/mac) ./main < stdin.txt > stdout.txt
+    $ (windows) type stdin.txt | ./main > stdout.txt
 
 
 ##### Python
 
     $ cd 1242
-    $ (linux/mac) python3 main.py < stdin > stdout
-    $ (windows) type stdin | py main.py > stdout
+    $ (linux/mac) python3 main.py < stdin.txt > stdout.txt
+    $ (windows) type stdin.txt | py main.py > stdout.txt
 
 
 ### Pós-Accepted
