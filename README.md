@@ -1,6 +1,6 @@
 ## Repositório
 
-Esse repositório tem por objetivo armazenar os problemas utilizados na fase de preparação da equipe Last Dance, a qual representará o IFAC na maratona de programação da SBC no ano de 2022.
+Esse repositório tem por objetivo armazenar os problemas utilizados na fase de preparação da equipe Made In Acre, nos anos de 2022, 2023 e 2024
 
 <hr>
 
