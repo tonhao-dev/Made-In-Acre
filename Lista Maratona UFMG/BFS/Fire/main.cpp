@@ -9,7 +9,7 @@
 using namespace std;
 
 #define SPEED cin.tie(0)->sync_with_stdio(0);
-#define DEBUG true
+#define DEBUG false
 #define db(x)  \
     if (DEBUG) \
     cout << #x << ": " << x << endl
@@ -43,8 +43,6 @@ typedef vector<int> vi;
 typedef vector<ll> vll;
 typedef long double ld;
 
-const int INF = 0x3f3f3f3f;
-const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 const int MAXN = 1010;
 
 int width, height;
@@ -60,27 +58,58 @@ bool isValidCoord(int i, int j) {
     return (i >= 0 && i < height) && (j >= 0 && j < width);
 }
 
-int people_bfs(queue<pair<int, pii>> &people) {
-    set<pii> visited;
-    visited.insert(people.front().s);
+int bfs(queue<pair<int, pii>> &fire, queue<pair<int, pii>> &people) {
     while (!people.empty()) {
-        auto person = people.front();
-        people.pop();
+        int currentTime = people.front().f;
+        db(currentTime);
 
-        for (auto mov : moves) {
-            int x = person.s.f + mov.f, y = person.s.s + mov.s;
+        while (!people.empty() && currentTime == people.front().f) {
+            auto person = people.front();
+            people.pop();
 
-            if (!isValidCoord(x, y))
-                return person.f + 1;
+            db(grid[person.s.f][person.s.s]);
+            if (grid[person.s.f][person.s.s] != '@') continue;
 
-            if (visited.find({x, y}) != visited.end())
-                continue;
+            for (auto mov : moves) {
+                int x = person.s.f + mov.f, y = person.s.s + mov.s;
 
-            if (grid[x][y] == '#' || grid[x][y] == '*')
-                continue;
+                if (!isValidCoord(x, y))
+                    return person.f + 1;
 
-            people.push({person.f + 1, {x, y}});
-            visited.insert({x, y});
+                if (grid[x][y] != '.')
+                    continue;
+
+                people.push({person.f + 1, {x, y}});
+                grid[x][y] = '@';
+            }
+        }
+
+        // for(int i=0;i<height;i++) {
+        //     for(int j=0;j<width; j++) {
+        //         cout << grid[i][j];
+        //     }
+        //     cout << endl;
+        // }
+        // cout << endl;
+
+        while (!fire.empty() && fire.front().f == currentTime) {
+            auto currentFire = fire.front();
+            fire.pop();
+            for (auto mov : moves) {
+                int x = currentFire.s.f + mov.f, y = currentFire.s.s + mov.s;
+
+                if (!isValidCoord(x, y))
+                    continue;
+
+                if (grid[x][y] == '#')
+                    continue;
+
+                if (grid[x][y] == '*')
+                    continue;
+
+                fire.push({currentFire.f + 1, {x, y}});
+                grid[x][y] = '*';
+            }
         }
     }
 
@@ -139,21 +168,14 @@ void solve() {
         }
     }
 
-    int timeToPersonOut = people_bfs(people);
+    int timeToOut = bfs(fire, people);
 
-    if (timeToPersonOut == -1) {
+    if (timeToOut == -1) {
         cout << "IMPOSSIBLE" << endl;
         return;
     }
 
-    int timeToFireOut = fire_bfs(fire, visited_fire);
-
-    if (timeToFireOut <= timeToPersonOut) {
-        cout << "IMPOSSIBLE" << endl;
-        return;
-    }
-
-    cout << timeToPersonOut << endl;
+    cout << timeToOut << endl;
 }
 
 int main(int argc, char **argv) {
