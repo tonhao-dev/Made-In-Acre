@@ -48,7 +48,6 @@ const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 const int MAXN = 1010;
 
 int width, height;
-int timeToPersonOut, timeToFireOut;
 vector<string> grid(MAXN);
 
 const vector<pii> moves = {
@@ -61,32 +60,67 @@ bool isValidCoord(int i, int j) {
     return (i >= 0 && i < height) && (j >= 0 && j < width);
 }
 
-int bfs(queue<pair<int, pii>> &q) {
-    while (!q.empty()) {
-        auto front = q.front();
-        q.pop();
-
-        if (front.f > timeToPersonOut) continue;
+int people_bfs(queue<pair<int, pii>> &people) {
+    set<pii> visited;
+    visited.insert(people.front().s);
+    while (!people.empty()) {
+        auto person = people.front();
+        people.pop();
 
         for (auto mov : moves) {
-            int x = front.s.f + mov.f, y = front.s.s + mov.s;
+            int x = person.s.f + mov.f, y = person.s.s + mov.s;
 
             if (!isValidCoord(x, y))
-                return front.f + 1;
+                return person.f + 1;
+
+            if (visited.find({x, y}) != visited.end())
+                continue;
 
             if (grid[x][y] == '#' || grid[x][y] == '*')
                 continue;
 
-            q.push({front.f + 1, {x, y}});
+            people.push({person.f + 1, {x, y}});
+            visited.insert({x, y});
         }
     }
 
     return -1;
 }
 
+int fire_bfs(queue<pair<int, pii>> fire, set<pii> &visited_fire) {
+    int ans = INF;
+    while (!fire.empty()) {
+        auto currentFire = fire.front();
+        fire.pop();
+
+        for (auto mov : moves) {
+            int x = currentFire.s.f + mov.f, y = currentFire.s.s + mov.s;
+
+            if (!isValidCoord(x, y)) {
+                ans = min(ans, currentFire.f + 1);
+                continue;
+            }
+
+            if (visited_fire.find({x, y}) != visited_fire.end()) continue;
+
+            if (grid[x][y] == '#')
+                continue;
+
+            if (grid[x][y] == '*')
+                continue;
+
+            fire.push({currentFire.f + 1, {x, y}});
+            visited_fire.insert({x, y});
+        }
+    }
+
+    return ans;
+}
+
 void solve() {
     queue<pair<int, pii>> people;
     queue<pair<int, pii>> fire;
+    set<pii> visited_fire;
 
     cin >> width >> height;
 
@@ -100,19 +134,19 @@ void solve() {
 
             if (grid[i][j] == '*') {
                 fire.push({0, {i, j}});
+                visited_fire.insert({i, j});
             }
         }
     }
 
-    timeToPersonOut = INF;
-    timeToPersonOut = bfs(people);
+    int timeToPersonOut = people_bfs(people);
 
     if (timeToPersonOut == -1) {
         cout << "IMPOSSIBLE" << endl;
         return;
     }
 
-    timeToFireOut = bfs(fire);
+    int timeToFireOut = fire_bfs(fire, visited_fire);
 
     if (timeToFireOut <= timeToPersonOut) {
         cout << "IMPOSSIBLE" << endl;
